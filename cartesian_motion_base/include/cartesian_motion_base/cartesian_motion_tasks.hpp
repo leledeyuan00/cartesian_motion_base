@@ -1,5 +1,5 @@
-#ifndef ROBOT_MOTION_TASKS_HPP__
-#define ROBOT_MOTION_TASKS_HPP__
+#ifndef CARTESIAN_MOTION_TASKS_HPP__
+#define CARTESIAN_MOTION_TASKS_HPP__
 
 // std
 #include <stdlib.h>
@@ -13,10 +13,10 @@
 #include <geometry_msgs/msg/wrench_stamped.hpp>
 #include <std_srvs/srv/set_bool.hpp>
 
-#define TaskPtr std::make_shared<robot_motion_base::RobotMotionTask>
-#define TaskPtrConst std::make_shared<const robot_motion_base::RobotMotionTask>
+#define TaskPtr std::make_shared<cartesian_motion_base::CartMotionTask>
+#define TaskPtrConst std::make_shared<const cartesian_motion_base::CartMotionTask>
 
-namespace robot_motion_base
+namespace cartesian_motion_base
 {
 
 // enum class for task status
@@ -34,7 +34,7 @@ struct ServiceFlags{
 };
 
 // struct for robot motion states
-struct RobotMotionState
+struct CartMotionState
 {
     geometry_msgs::msg::PoseStamped current_pose;
     geometry_msgs::msg::PoseStamped target_pose;
@@ -58,14 +58,14 @@ struct SystemState
  * This class defines the interface for robot motion tasks. Derived classes should implement
  * the execute, cancel, isFinished, isActive, getName, getStatus, and getErrorMessage methods.
  */
-class RobotMotionTask
+class CartMotionTask
 {
     public:
 
     /// @brief Initialize the task with task_name and execute function
     /// @param task_name 
     /// @param execute 
-    RobotMotionTask(std::string task_name, std::function<void()> execute)
+    CartMotionTask(std::string task_name, std::function<void()> execute)
         : task_name_(task_name), execute_(execute){
             init_ = [](){}; // empty init function
         };
@@ -74,7 +74,7 @@ class RobotMotionTask
     /// @param task_name 
     /// @param init 
     /// @param execute 
-    RobotMotionTask(std::string task_name, std::function<void()> init, std::function<void()> execute)
+    CartMotionTask(std::string task_name, std::function<void()> init, std::function<void()> execute)
         : task_name_(task_name), init_(init), execute_(execute){};
 
     void init(){
@@ -107,8 +107,8 @@ private:
 
 
 
-} // namespace robot_motion_base
+} // namespace cartesian_motion_base
 
 
 
-#endif // ROBOT_MOTION_TASKS_HPP__
+#endif // CARTESIAN_MOTION_TASKS_HPP__

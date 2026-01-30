@@ -22,16 +22,16 @@ def launch_setup(context, *args, **kwargs):
                 calibration_file,
             ]
     )
-    garment_grasp = Node(
+    motion_test_node = Node(
         package= runtime_config_package,
-        executable="robot_motion_test",
+        executable="cartesian_motion_test",
         parameters=[
             robot_camera_matrix,
         ],
         output="screen",
     )
 
-    nodes_to_start = [garment_grasp]
+    nodes_to_start = [motion_test_node]
 
     return nodes_to_start
 
@@ -52,7 +52,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "runtime_config_package",
-            default_value="robot_motion_test",
+            default_value="cartesian_motion_test",
             description='Package with the controller\'s configuration in "config" folder. \
         Usually the argument is not set, it enables use of a custom setup.',
         )

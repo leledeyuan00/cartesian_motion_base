@@ -1,5 +1,5 @@
-#ifndef ROBOT_MOTION_TEST_HPP__
-#define ROBOT_MOTION_TEST_HPP__
+#ifndef CARTESIAN_MOTION_TEST_HPP__
+#define CARTESIAN_MOTION_TEST_HPP__
 
 // std
 #include <stdlib.h>
@@ -18,14 +18,14 @@
 #include "tf2_eigen/tf2_eigen.hpp"
 
 // custom
-#include "robot_motion_base/robot_motion_base.hpp"
+#include "cartesian_motion_base/cartesian_motion_base.hpp"
 
-using namespace robot_motion_base;
+using namespace cartesian_motion_base;
 
-class RobotMotionTest : public RobotMotionBase
+class CartMotionTest : public CartMotionBase
 {
 public:
-    RobotMotionTest();
+    CartMotionTest();
 
 private:
     /* function */
@@ -46,4 +46,4 @@ private:
     uint8_t test_task_num3_;
 };
 
-#endif // ROBOT_MOTION_TEST_HPP__
+#endif // CARTESIAN_MOTION_TEST_HPP__

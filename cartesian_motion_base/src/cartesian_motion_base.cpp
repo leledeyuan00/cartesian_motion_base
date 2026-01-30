@@ -1,16 +1,16 @@
-#include "robot_motion_base/robot_motion_base.hpp"
+#include "cartesian_motion_base/cartesian_motion_base.hpp"
 
-namespace robot_motion_base
+namespace cartesian_motion_base
 {
 
-void RobotMotionBase::init()
+void CartMotionBase::init()
 {
     // Initialize the node
     ros_init();
     // Initialize other functions
 }
 
-void RobotMotionBase::ros_init()
+void CartMotionBase::ros_init()
 {
     // clock
     my_clock_ = rclcpp::Clock(RCL_ROS_TIME);
@@ -83,7 +83,7 @@ void RobotMotionBase::ros_init()
 
 /* Predefined Functions */
 
-bool RobotMotionBase::move(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, double duration)
+bool CartMotionBase::move(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, double duration)
 {
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
     if (current_duration >= duration)
@@ -95,7 +95,7 @@ bool RobotMotionBase::move(geometry_msgs::msg::PoseStamped left_target, geometry
     return false;
 }
 
-bool RobotMotionBase::move_wrench(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, 
+bool CartMotionBase::move_wrench(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, 
                             geometry_msgs::msg::WrenchStamped left_wrench, geometry_msgs::msg::WrenchStamped right_wrench, double duration)
 {
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
@@ -110,7 +110,7 @@ bool RobotMotionBase::move_wrench(geometry_msgs::msg::PoseStamped left_target, g
     return false;
 }
 
-bool RobotMotionBase::sleep(double duration)
+bool CartMotionBase::sleep(double duration)
 {
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
     if (current_duration >= duration)
@@ -120,7 +120,7 @@ bool RobotMotionBase::sleep(double duration)
     return false;
 }
 
-bool RobotMotionBase::joint_move(std::vector<double> left_joints, std::vector<double> right_joints, double time)
+bool CartMotionBase::joint_move(std::vector<double> left_joints, std::vector<double> right_joints, double time)
 {
     if (!service_flags_->service_called)
     {
@@ -174,7 +174,7 @@ bool RobotMotionBase::joint_move(std::vector<double> left_joints, std::vector<do
 
 // Execute the task
 
-void RobotMotionBase::task_execute()
+void CartMotionBase::task_execute()
 {
     auto current_task = tasks_vector_[system_state_.task_num];
     system_state_.current_time = my_clock_.now();
@@ -224,19 +224,19 @@ void RobotMotionBase::task_execute()
     }
 }
 
-uint8_t RobotMotionBase::task_pushback(std::shared_ptr<robot_motion_base::RobotMotionTask> task)
+uint8_t CartMotionBase::task_pushback(std::shared_ptr<cartesian_motion_base::CartMotionTask> task)
 {        
     tasks_vector_.push_back(task);
     return tasks_vector_.size() - 1;
 }
 
 // Start the control loop
-void RobotMotionBase::start()
+void CartMotionBase::start()
 {
-    control_loop_thread_ = std::thread(&RobotMotionBase::control_loop, this);
+    control_loop_thread_ = std::thread(&CartMotionBase::control_loop, this);
 }
 
-void RobotMotionBase::control_loop()
+void CartMotionBase::control_loop()
 {
     rclcpp::Rate rate(rate_);
     RCLCPP_INFO(this->get_logger(), "Waiting for initialization");   
@@ -261,4 +261,4 @@ void RobotMotionBase::control_loop()
     }
 }
 
-}  // namespace robot_motion_base
+}  // namespace cartesian_motion_base

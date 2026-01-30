@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 3.8)
-project(robot_motion_test)
+project(cartesian_motion_base)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+set(CARTESIAN_MOTION_BASE cartesian_motion_base)
+set(CARTESIAN_MOTION_BASE_VERSION 0.1.0)
+set(CARTESIAN_MOTION_BASE_DESCRIPTION "Robot motion base library")
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
+
 set(THIS_PACKAGE_INCLUDE_DEPENDS
   rclcpp
   geometry_msgs
@@ -15,28 +20,41 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   tf2_kdl
   orocos_kdl
   Eigen3
-  robot_motion_base
 )
 
 foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
 endforeach()
 
-add_executable(robot_motion_test src/robot_motion_test.cpp)
-ament_target_dependencies(robot_motion_test ${THIS_PACKAGE_INCLUDE_DEPENDS})
-target_include_directories(robot_motion_test PUBLIC
+# Library for motion base
+include_directories(include/cartesian_motion_base)
+set(HEADER_FILES include/cartesian_motion_base/cartesian_motion_base.hpp)
+add_library(${CARTESIAN_MOTION_BASE} SHARED
+  src/cartesian_motion_base.cpp
+  ${HEADER_FILES})
+ament_target_dependencies(${CARTESIAN_MOTION_BASE} ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_include_directories(${CARTESIAN_MOTION_BASE} PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-
-install(TARGETS
-  robot_motion_test
-  DESTINATION lib/${PROJECT_NAME}
+ament_export_targets(export_${CARTESIAN_MOTION_BASE} HAS_LIBRARY_TARGET)
+install(
+  DIRECTORY include/
+  DESTINATION include
 )
 
-install(DIRECTORY launch config
-  DESTINATION share/${PROJECT_NAME}
+INSTALL(
+  TARGETS ${CARTESIAN_MOTION_BASE}
+  EXPORT export_${CARTESIAN_MOTION_BASE}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+  INCLUDES DESTINATION include
 )
+
+# Export
+ament_export_include_directories(include)
+ament_export_libraries(${CARTESIAN_MOTION_BASE})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
