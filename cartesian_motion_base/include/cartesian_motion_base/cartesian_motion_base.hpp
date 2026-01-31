@@ -18,6 +18,8 @@
 
 // custom
 #include "cartesian_motion_base/cartesian_motion_tasks.hpp"
+#include "cartesian_motion_base/cartesian_motion_type.hpp"
+#include "cartesian_controller_msgs/srv/joint_move.hpp"
 
 // eigen
 #include <eigen3/Eigen/Dense>
@@ -29,7 +31,7 @@ namespace cartesian_motion_base
  * @brief Base class for robot motion tasks.
  * @param node_name Name of the node.
  * @param rate Rate of the task execution.
-*/
+ */
 class MotionBase : public rclcpp::Node
 {
 
@@ -57,14 +59,23 @@ protected:
     void init();
     virtual void custom_init(){};
 
+    /**
+     * @brief Interpolation between two poses. Default is linear interpolation for position and slerp for orientation.
+     * @param init_pose Initial pose.
+     * @param target_pose Target pose.
+     * @param duration Duration of the interpolation.
+     * @param current_duration Current time in the interpolation.
+     * @return Interpolated pose.
+     */
     virtual geometry_msgs::msg::PoseStamped intepolation(geometry_msgs::msg::PoseStamped init_pose, geometry_msgs::msg::PoseStamped target_pose,
                         double duration, double current_duration)
     {
+        Eigen::Vector3d p_start = toEigen(init_pose.pose.position);
+        Eigen::Vector3d p_target = toEigen(target_pose.pose.position);
         geometry_msgs::msg::PoseStamped pose;
         pose.header.frame_id = init_pose.header.frame_id;
-        pose.pose.position.x = init_pose.pose.position.x + (target_pose.pose.position.x - init_pose.pose.position.x) * current_duration / duration;
-        pose.pose.position.y = init_pose.pose.position.y + (target_pose.pose.position.y - init_pose.pose.position.y) * current_duration / duration;
-        pose.pose.position.z = init_pose.pose.position.z + (target_pose.pose.position.z - init_pose.pose.position.z) * current_duration / duration;
+        pose.pose.position = toMsgPoint(p_start + (p_target - p_start) * current_duration / duration);
+                            
 
         Eigen::Quaterniond init_q, target_q;
         tf2::fromMsg(init_pose.pose.orientation, init_q);
@@ -76,17 +87,26 @@ protected:
         return pose;
     }
 
+    /**
+     * @brief Interpolation between two wrenches. Default is linear interpolation.
+     * @param init_wrench Initial wrench.
+     * @param target_wrench Target wrench.
+     * @param duration Duration of the interpolation.
+     * @param current_duration Current time in the interpolation.
+     * @return Interpolated wrench.
+     */
     virtual geometry_msgs::msg::WrenchStamped intepolation_wrench(geometry_msgs::msg::WrenchStamped init_wrench, geometry_msgs::msg::WrenchStamped target_wrench,
                             double duration, double current_duration)
     {
+        Eigen::Vector3d f_start = toEigen(init_wrench.wrench.force);
+        Eigen::Vector3d f_target = toEigen(target_wrench.wrench.force);
+        Eigen::Vector3d t_start = toEigen(init_wrench.wrench.torque);
+        Eigen::Vector3d t_target = toEigen(target_wrench.wrench.torque);
+
         geometry_msgs::msg::WrenchStamped wrench;
         wrench.header = init_wrench.header;
-        wrench.wrench.force.x = init_wrench.wrench.force.x + (target_wrench.wrench.force.x - init_wrench.wrench.force.x) * current_duration / duration;
-        wrench.wrench.force.y = init_wrench.wrench.force.y + (target_wrench.wrench.force.y - init_wrench.wrench.force.y) * current_duration / duration;
-        wrench.wrench.force.z = init_wrench.wrench.force.z + (target_wrench.wrench.force.z - init_wrench.wrench.force.z) * current_duration / duration;
-        wrench.wrench.torque.x = init_wrench.wrench.torque.x + (target_wrench.wrench.torque.x - init_wrench.wrench.torque.x) * current_duration / duration;
-        wrench.wrench.torque.y = init_wrench.wrench.torque.y + (target_wrench.wrench.torque.y - init_wrench.wrench.torque.y) * current_duration / duration;
-        wrench.wrench.torque.z = init_wrench.wrench.torque.z + (target_wrench.wrench.torque.z - init_wrench.wrench.torque.z) * current_duration / duration;
+        wrench.wrench.force = toMsgVec(f_start + (f_target - f_start) * current_duration / duration);
+        wrench.wrench.torque = toMsgVec(t_start + (t_target - t_start) * current_duration / duration);
 
         return wrench;
     }
@@ -103,43 +123,46 @@ protected:
     void set_target_pose_r(geometry_msgs::msg::PoseStamped target_pose) {robot_r_.target_pose = target_pose;};
 
     /* FSM tasks */ 
-    /* @brief from start_pose(initialized when this task running) to target_pose
-    *  @param left_target 
-    *  @param right_target 
-    *  @param duration 
-    *  @return finish or not
-    */ 
+    /**
+     * @brief from start_pose(initialized when this task running) to target_pose
+     * @param left_target 
+     * @param right_target 
+     * @param duration 
+     * @return finish or not
+     */ 
     bool move(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, double duration);
 
-    /* @brief from start_pose(initialized when this task running) to target_pose
-    *  @param left_target 
-    *  @param right_target 
-    *  @param duration 
-    *  @return finish or not
-    */
+    /** 
+     * @brief from start_pose(initialized when this task running) to target_pose
+     * @param left_target 
+     * @param right_target 
+     * @param duration 
+     * @return finish or not
+     */
     bool move_wrench(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, 
                             geometry_msgs::msg::WrenchStamped left_wrench, geometry_msgs::msg::WrenchStamped right_wrench, double duration);
 
-    /*
-    * @brief sleep for a while
-    * @param duration
-    * @return finish or not
-    */
+    /**
+     * @brief sleep for a while
+     * @param duration
+     * @return finish or not
+     */
     bool sleep(double duration);
 
-    /* @brief joint move
-    *  @param left_target
-    *  @param right_target
-    *  @return finish or not
-    */
+    /**
+     * @brief joint move
+     * @param left_target
+     * @param right_target
+     * @return finish or not
+     */
     bool joint_move(std::vector<double> left_joints, std::vector<double> right_joints, double time);
 
     
-    /*
-    * @brief Push back the task, the task is derived from GarmentTaskBase
-    * @param task 
-    * @return the task number
-    */
+    /**
+     * @brief Push back the task, the task is derived from GarmentTaskBase
+     * @param task 
+     * @return the task number
+     */
     uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
     virtual void tasks_init() = 0;
     void task_execute();
@@ -208,8 +231,8 @@ private:
     rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub_r_;
 
     // service client
-    rclcpp::Client<std_srvs::srv::SetBool>::SharedPtr joint_move_client_l_; // an example for service client
-    rclcpp::Client<std_srvs::srv::SetBool>::SharedPtr joint_move_client_r_; // please change the serevice type on your case
+    rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedPtr joint_move_client_l_; // an example for service client
+    rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedPtr joint_move_client_r_; // please change the serevice type on your case
 
     // robot state
     MotionState robot_l_;

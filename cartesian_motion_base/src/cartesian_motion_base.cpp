@@ -74,8 +74,8 @@ void MotionBase::ros_init()
         });
     
     // services
-    joint_move_client_l_ = this->create_client<std_srvs::srv::SetBool>("/left_cartesian_compliance_controller/target_joint");
-    joint_move_client_r_ = this->create_client<std_srvs::srv::SetBool>("/right_cartesian_compliance_controller/target_joint");
+    joint_move_client_l_ = this->create_client<cartesian_controller_msgs::srv::JointMove>("/left_cartesian_compliance_controller/target_joint");
+    joint_move_client_r_ = this->create_client<cartesian_controller_msgs::srv::JointMove>("/right_cartesian_compliance_controller/target_joint");
 
     // system flags reset
     service_flags_ .reset(new ServiceFlags());
@@ -126,10 +126,14 @@ bool MotionBase::joint_move(std::vector<double> left_joints, std::vector<double>
     {
         service_flags_->service_called = true;
         service_flags_->model_joint = true;
-        auto left_request = std::make_shared<std_srvs::srv::SetBool::Request>();
-        auto right_request = std::make_shared<std_srvs::srv::SetBool::Request>();
+        auto left_request = std::make_shared<cartesian_controller_msgs::srv::JointMove::Request>();
+        auto right_request = std::make_shared<cartesian_controller_msgs::srv::JointMove::Request>();
+        left_request->cmd.data = left_joints;
+        left_request->duration = time;
+        right_request->cmd.data = right_joints;
+        right_request->duration = time;
         
-        auto result_l = joint_move_client_l_->async_send_request(left_request, [this](const rclcpp::Client<std_srvs::srv::SetBool>::SharedFuture motor_future) {
+        auto result_l = joint_move_client_l_->async_send_request(left_request, [this](const rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedFuture motor_future) {
             auto result = motor_future.get();
             // print result
             RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "Joint left send complete");
@@ -143,7 +147,7 @@ bool MotionBase::joint_move(std::vector<double> left_joints, std::vector<double>
             
         });
 
-        auto result_r = joint_move_client_r_->async_send_request(right_request, [this](const rclcpp::Client<std_srvs::srv::SetBool>::SharedFuture motor_future) {
+        auto result_r = joint_move_client_r_->async_send_request(right_request, [this](const rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedFuture motor_future) {
             auto result = motor_future.get();
             // print result
             RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "Joint right send complete");

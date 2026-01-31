@@ -6,52 +6,13 @@
 #include <sstream>
 #include <thread>
 #include <cstring>
-
-// ros
-#include <rclcpp/rclcpp.hpp>
-#include <geometry_msgs/msg/pose_stamped.hpp>
-#include <geometry_msgs/msg/wrench_stamped.hpp>
-#include <std_srvs/srv/set_bool.hpp>
+#include "cartesian_motion_base/cartesian_motion_type.hpp"
 
 #define TaskPtr std::make_shared<cartesian_motion_base::MotionTask>
 #define TaskPtrConst std::make_shared<const cartesian_motion_base::MotionTask>
 
 namespace cartesian_motion_base
 {
-
-// enum class for task status
-enum class TaskState
-{
-    INIT = 0,
-    EXECUTE,
-    FINISH,
-};
-
-// struct for service flags
-struct ServiceFlags{
-    bool service_called = false;
-    bool model_joint = false; // when moving by the joint, stop the cartesian motion
-};
-
-// struct for robot motion states
-struct MotionState
-{
-    geometry_msgs::msg::PoseStamped current_pose;
-    geometry_msgs::msg::PoseStamped target_pose;
-    geometry_msgs::msg::PoseStamped target_monitor; // for getting the latest command
-    geometry_msgs::msg::PoseStamped start_pose;
-    geometry_msgs::msg::WrenchStamped current_wrench;
-    geometry_msgs::msg::WrenchStamped target_wrench;
-};
-
-// struct for System States Machine
-struct SystemState
-{
-    uint8_t task_num = 0;
-    rclcpp::Time start_time;
-    rclcpp::Time current_time;
-};
-
 /**
  * @brief Abstract base class for robot motion tasks.
  *
