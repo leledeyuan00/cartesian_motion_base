@@ -30,18 +30,18 @@ namespace cartesian_motion_base
  * @param node_name Name of the node.
  * @param rate Rate of the task execution.
 */
-class CartMotionBase : public rclcpp::Node
+class MotionBase : public rclcpp::Node
 {
 
 public:
-    CartMotionBase(const std::string &node_name, uint16_t rate = 125)
+    explicit MotionBase(const std::string &node_name, uint16_t rate = 125)
         : Node(node_name), rate_(rate)
     {
         // Initialize the node
         init();
-        RCLCPP_INFO(this->get_logger(), "CartMotionBase initialized");
+        RCLCPP_INFO(this->get_logger(), "MotionBase initialized");
     }
-    virtual ~CartMotionBase() = default;
+    virtual ~MotionBase() = default;
     void start();
     void active(){
         robot_l_.target_pose = robot_l_.target_monitor;
@@ -93,8 +93,8 @@ protected:
 
 
     // robot state
-    CartMotionState get_robot_state_l() {return robot_l_;};
-    CartMotionState get_robot_state_r() {return robot_r_;};
+    MotionState get_robot_state_l() {return robot_l_;};
+    MotionState get_robot_state_r() {return robot_r_;};
     SystemState get_system_state() {return system_state_;};
 
 
@@ -140,7 +140,7 @@ protected:
     * @param task 
     * @return the task number
     */
-    uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::CartMotionTask> task);
+    uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
     virtual void tasks_init() = 0;
     void task_execute();
 
@@ -177,7 +177,7 @@ protected:
 
     // system state
     // create a vector for TaskWrapper
-    std::vector<std::shared_ptr<cartesian_motion_base::CartMotionTask>> tasks_vector_;
+    std::vector<std::shared_ptr<cartesian_motion_base::MotionTask>> tasks_vector_;
     
     
     bool active_ = true;
@@ -212,11 +212,11 @@ private:
     rclcpp::Client<std_srvs::srv::SetBool>::SharedPtr joint_move_client_r_; // please change the serevice type on your case
 
     // robot state
-    CartMotionState robot_l_;
-    CartMotionState robot_r_;
+    MotionState robot_l_;
+    MotionState robot_r_;
 
 
-}; // class CartMotionBase
+}; // class MotionBase
 
 
 } // namespace cartesian_motion_base

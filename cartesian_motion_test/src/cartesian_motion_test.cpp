@@ -2,15 +2,15 @@
 
 using namespace std::chrono_literals;
 
-CartMotionTest::CartMotionTest() : 
-    CartMotionBase("cartesian_motion_test", 250) // node name, hz
+MotionTest::MotionTest() : 
+    MotionBase("cartesian_motion_test", 250) // node name, hz
 {
     custom_init();
     tasks_init();
 }
 
 // For custom initialization
-void CartMotionTest::custom_init()
+void MotionTest::custom_init()
 {
     // service client
     test_client_ = this->create_client<std_srvs::srv::SetBool>("test_service");
@@ -39,7 +39,7 @@ void CartMotionTest::custom_init()
 }
 
 
-void CartMotionTest::tasks_init()
+void MotionTest::tasks_init()
 {
 
     // A fake service test. Please realize the service in your own node.
@@ -194,7 +194,7 @@ int main(int argc, char const *argv[])
     RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "Garment Motion Test by FSM Node Started");
     rclcpp::init(argc, argv);
     rclcpp::executors::SingleThreadedExecutor executor;
-    auto node = std::make_shared<CartMotionTest>();
+    auto node = std::make_shared<MotionTest>();
 
     node->start();
     executor.add_node(node);

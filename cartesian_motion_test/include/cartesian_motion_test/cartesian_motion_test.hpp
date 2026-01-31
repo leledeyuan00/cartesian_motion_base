@@ -22,10 +22,10 @@
 
 using namespace cartesian_motion_base;
 
-class CartMotionTest : public CartMotionBase
+class MotionTest : public MotionBase
 {
 public:
-    CartMotionTest();
+    MotionTest();
 
 private:
     /* function */
