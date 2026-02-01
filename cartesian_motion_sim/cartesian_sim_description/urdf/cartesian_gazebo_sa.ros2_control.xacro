@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="cartesian_gazebo_ros2_control_sa" params="name">
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+
+      <joint name="shoulder_pan_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="shoulder_lift_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="elbow_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-180)}</param>
+          <param name="max">${radians(180)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="wrist_1_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="wrist_2_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+      <joint name="wrist_3_joint">
+        <command_interface name="position">     
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+
+    </ros2_control>
+
+  </xacro:macro>
+</robot>

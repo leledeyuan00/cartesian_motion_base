@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
+    <!-- robot name parameter -->
+    <xacro:arg name="name" default="ur"/>
+    <!-- import main macro -->
+    <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+    <xacro:include filename="$(find cartesian_sim_description)/urdf/cartesian_gazebo_sa.ros2_control.xacro"/>
+    <xacro:include filename="$(find cartesian_sim_description)/urdf/cartesian_gazebo_da.ros2_control.xacro"/>
+
+    <!-- possible 'ur_type' values: ur3, ur5, ur10, ur3e, ur5e, ur7e, ur10e, ur12e, ur16e, ur8long, ur15, ur18, ur20, ur30 -->
+    <!-- the default value should raise an error in case this was called without defining the type -->
+    <xacro:arg name="sim_gazebo" default="false"/>
+    <xacro:arg name="config_type" default="single_arm"/>
+    <xacro:arg name="ur_type" default="ur5e"/>
+
+    <!-- parameters -->
+    <xacro:arg name="tf_prefix" default="" />
+    <xacro:arg name="joint_limit_params" default="$(find ur_description)/config/$(arg ur_type)/joint_limits.yaml"/>
+    <xacro:arg name="kinematics_params" default="$(find ur_description)/config/$(arg ur_type)/default_kinematics.yaml"/>
+    <xacro:arg name="physical_params" default="$(find ur_description)/config/$(arg ur_type)/physical_parameters.yaml"/>
+    <xacro:arg name="visual_params" default="$(find ur_description)/config/$(arg ur_type)/visual_parameters.yaml"/>
+    <xacro:arg name="transmission_hw_interface" default=""/>
+    <xacro:arg name="safety_limits" default="false"/>
+    <xacro:arg name="safety_pos_margin" default="0.15"/>
+    <xacro:arg name="safety_k_position" default="20"/>
+
+    <xacro:property name="config_type" value="$(arg config_type)"/>
+
+    <!-- create link fixed to the "world" -->
+    <link name="world" />
+    
+    <!-- create robot base link -->
+    <joint name="world_to_base_link" type="fixed">
+        <parent link="world"/>
+        <child link="robot_base_link"/>
+    </joint>
+    <link name="robot_base_link"/>
+
+
+    <xacro:if value="${config_type == 'single_arm'}">
+        <!-- arm -->
+        <xacro:ur_robot
+            name="$(arg name)"
+            tf_prefix=""
+            parent="robot_base_link"
+            joint_limits_parameters_file="$(arg joint_limit_params)"
+            kinematics_parameters_file="$(arg kinematics_params)"
+            physical_parameters_file="$(arg physical_params)"
+            visual_parameters_file="$(arg visual_params)"
+            safety_limits="$(arg safety_limits)"
+            safety_pos_margin="$(arg safety_pos_margin)"
+            safety_k_position="$(arg safety_k_position)"
+            sim_gazebo="$(arg sim_gazebo)"
+            generate_ros2_control_tag="false"
+            >
+            <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
+        </xacro:ur_robot>
+    </xacro:if>
+
+    <xacro:if value="${config_type == 'dual_arm'}">
+        <!-- left arm -->
+        <xacro:ur_robot
+            name="left_$(arg name)"
+            tf_prefix="left_"
+            parent="robot_base_link"
+            joint_limits_parameters_file="$(arg joint_limit_params)"
+            kinematics_parameters_file="$(arg kinematics_params)"
+            physical_parameters_file="$(arg physical_params)"
+            visual_parameters_file="$(arg visual_params)"
+            safety_limits="$(arg safety_limits)"
+            safety_pos_margin="$(arg safety_pos_margin)"
+            safety_k_position="$(arg safety_k_position)"
+            sim_gazebo="$(arg sim_gazebo)"
+            generate_ros2_control_tag="false"
+            >
+            <origin xyz="0 -0.5 0" rpy="0 0 0" />          <!-- position robot in the world -->
+        </xacro:ur_robot>
+
+        <!-- right arm -->
+        <xacro:ur_robot
+            name="right_$(arg name)"
+            tf_prefix="right_"
+            parent="robot_base_link"
+            joint_limits_parameters_file="$(arg joint_limit_params)"
+            kinematics_parameters_file="$(arg kinematics_params)"
+            physical_parameters_file="$(arg physical_params)"
+            visual_parameters_file="$(arg visual_params)"
+            safety_limits="$(arg safety_limits)"
+            safety_pos_margin="$(arg safety_pos_margin)"
+            safety_k_position="$(arg safety_k_position)"
+            sim_gazebo="$(arg sim_gazebo)"
+            generate_ros2_control_tag="false"
+            >
+            <origin xyz="0 0.5 0" rpy="0 0 0" />          <!-- position robot in the world -->
+        </xacro:ur_robot>
+    </xacro:if>
+
+    <!-- Gazebo ROS2 Control Plugin -->
+    <xacro:if value="$(arg sim_gazebo)">
+        <xacro:if value="${config_type == 'single_arm'}">
+            <gazebo>
+                <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+                    <parameters>$(find cartesian_sim_bringup)/config/cartesian_gazebo_controllers_sa.yaml</parameters>
+                </plugin>
+            </gazebo>
+            <xacro:cartesian_gazebo_ros2_control_sa name="cartesian_control"/>
+        </xacro:if>
+        <xacro:if value="${config_type == 'dual_arm'}">
+            <gazebo>
+                <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+                    <parameters>$(find cartesian_sim_bringup)/config/cartesian_gazebo_controllers_da.yaml</parameters>
+                </plugin>
+            </gazebo>
+            <xacro:cartesian_gazebo_ros2_control_da name="cartesian_control"/>
+        </xacro:if>
+    </xacro:if>
+</robot>
