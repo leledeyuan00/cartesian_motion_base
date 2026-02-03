@@ -15,14 +15,15 @@ RUN apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp -y
 # Create workspace and copy source files
 RUN mkdir -p /root/cmb_ws/src
 WORKDIR /root/cmb_ws/src
-COPY . /root/cmb_ws/src/cartesian_motion_sim
+# COPY . /root/cmb_ws/src/cartesian_motion_sim
 
 # Build the workspace
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \ 
-    cd /root/cmb_ws/src/cartesian_motion_sim && \
-    rm COLCON_IGNORE 2>/dev/null || true && \
     cd /root/cmb_ws/src/ && \
     git clone https://github.com/leledeyuan00/cartesian_controllers.git -b garment && \
+    git clone https://github.com/leledeyuan00/cartesian_motion_base.git && \
+    cd /root/cmb_ws/src/cartesian_motion_base/cartesian_motion_sim && \
+    rm COLCON_IGNORE 2>/dev/null || true && \
     cd /root/cmb_ws && \
     colcon build --symlink-install"
 

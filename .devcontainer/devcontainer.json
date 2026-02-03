@@ -1,0 +1,20 @@
+{
+  "name": "Cartesian Motion Base Dev",
+  "dockerComposeFile": "../cartesian_motion_sim/docker-compose.yml",
+  "service": "cartesian_motion_sim",
+  "workspaceFolder": "/root/cmb_ws/src",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",           
+        "twxs.cmake",                   
+        "eamodio.gitlens",
+        "ranch-hand-robotics.rde-pack",
+        "jaehyunshim.vscode-ros2"
+      ]
+    }
+  },
+
+  "remoteUser": "root"
+}
