@@ -44,8 +44,8 @@ void MotionTest::tasks_init()
 
     // A fake service test. Please realize the service in your own node.
     task_pushback(TaskPtr("Go Home", [this](){
-        std::vector<double> left_home_joints = {-0.26677, -0.453412, 2.06686, -0.2983, -0.64860, -1.184497};
-        std::vector<double> right_home_joints = {0.07035, -0.4897, 2.0653009, 0.114585, -0.54722, 1.42553};
+        std::vector<double> left_home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0};
+        std::vector<double> right_home_joints = {3.14, -1.57, -1.57, -1.57, 1.57, 0.0};
 
         if(joint_move(left_home_joints, right_home_joints, 5.0)){
             set_task_finished();
