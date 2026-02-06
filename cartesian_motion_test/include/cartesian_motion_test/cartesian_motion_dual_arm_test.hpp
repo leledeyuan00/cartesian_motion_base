@@ -1,5 +1,5 @@
-#ifndef CARTESIAN_MOTION_TEST_HPP__
-#define CARTESIAN_MOTION_TEST_HPP__
+#ifndef CARTESIAN_MOTION_DUAL_ARM_TEST_HPP__
+#define CARTESIAN_MOTION_DUAL_ARM_TEST_HPP__
 
 // std
 #include <stdlib.h>
@@ -25,10 +25,10 @@ using namespace cartesian_motion_base;
 
 namespace cartesian_motion_test
 {
-class MotionTest : public MotionBase
+class MotionDualArmTest : public MotionBase
 {
 public:
-    MotionTest(const std::string &node_name,
+    MotionDualArmTest(const std::string &node_name,
                std::vector<RobotConfig> robot_configs,
                uint16_t rate) :
         MotionBase(node_name, robot_configs, rate){}; // pass to base class

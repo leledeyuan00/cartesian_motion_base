@@ -30,8 +30,16 @@ target_include_directories(cartesian_motion_test PUBLIC
   $<INSTALL_INTERFACE:include>
 )
 
+add_executable(cartesian_motion_dual_arm_test src/cartesian_motion_dual_arm_test.cpp)
+ament_target_dependencies(cartesian_motion_dual_arm_test ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_include_directories(cartesian_motion_dual_arm_test PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
 install(TARGETS
   cartesian_motion_test
+  cartesian_motion_dual_arm_test
   DESTINATION lib/${PROJECT_NAME}
 )
 

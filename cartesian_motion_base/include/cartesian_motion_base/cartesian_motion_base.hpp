@@ -9,9 +9,6 @@
 
 // ros
 #include <rclcpp/rclcpp.hpp>
-#include <geometry_msgs/msg/pose_stamped.hpp>
-#include <geometry_msgs/msg/wrench_stamped.hpp>
-#include <std_srvs/srv/set_bool.hpp>
 
 #include "kdl/frames.hpp"
 #include <tf2_eigen/tf2_eigen.hpp>
@@ -19,7 +16,6 @@
 // custom
 #include "cartesian_motion_base/cartesian_motion_tasks.hpp"
 #include "cartesian_motion_base/cartesian_motion_type.hpp"
-#include "cartesian_controller_msgs/srv/joint_move.hpp"
 
 // eigen
 #include <eigen3/Eigen/Dense>
@@ -30,26 +26,30 @@ namespace cartesian_motion_base
 /**
  * @brief Base class for robot motion tasks.
  * @param node_name Name of the node.
+ * @param robot_configs Vector of robot configurations.
  * @param rate Rate of the task execution.
  */
 class MotionBase : public rclcpp::Node
 {
 
 public:
-    explicit MotionBase(const std::string &node_name, uint16_t rate = 125)
-        : Node(node_name), rate_(rate)
+    explicit MotionBase(const std::string &node_name, 
+            std::vector<RobotConfig> robot_configs = {RobotConfig()}, 
+            uint16_t rate = 125)
+        : Node(node_name), robot_configs_(robot_configs), rate_(rate)
     {
         // Initialize the node
-        init();
-        RCLCPP_INFO(this->get_logger(), "MotionBase initialized");
+        RCLCPP_INFO(this->get_logger(), "MotionBase initializing...");
     }
     virtual ~MotionBase() = default;
+
+    void on_init();
     void start();
     void active(){
-        robot_l_.target_pose = robot_l_.target_monitor;
-        robot_r_.target_pose = robot_r_.target_monitor;
-        robot_l_.start_pose  = robot_l_.target_monitor;
-        robot_r_.start_pose  = robot_r_.target_monitor;
+        for (auto& [name, handles] : robots_){
+            handles.motion_state.target_pose = handles.motion_state.target_monitor;
+            handles.motion_state.start_pose  = handles.motion_state.target_monitor;
+        }
         active_ = true;
     };
     void deactivate(){active_ = false;};
@@ -57,6 +57,7 @@ public:
 protected:
     /* functions */
     void init();
+    bool robot_init();
     virtual void custom_init(){};
 
     /**
@@ -113,35 +114,99 @@ protected:
 
 
     // robot state
-    MotionState get_robot_state_l() {return robot_l_;};
-    MotionState get_robot_state_r() {return robot_r_;};
+    /**
+     * @brief get current pose for a robot by name
+     * @param robot_name
+     * @return current pose
+     */
+    const geometry_msgs::msg::PoseStamped get_current_pose(std::string name) {
+        return robots_[name].motion_state.current_pose;
+    };
+
+    /**
+     * @brief get current wrench for a robot by name
+     * @param robot_name
+     * @return current wrench
+     */
+    const geometry_msgs::msg::WrenchStamped get_current_wrench(std::string name) {
+        return robots_[name].motion_state.current_wrench;
+    };
+
+    /**
+     * @brief get start pose for a robot by name
+     * @param robot_name
+     * @return start pose
+     */
+    const geometry_msgs::msg::PoseStamped get_start_pose(std::string name) {
+        return robots_[name].motion_state.start_pose;
+    };
+
+    /**
+     * @brief get start wrench for a robot by name
+     * @param robot_name
+     * @return start wrench
+     */
+    const geometry_msgs::msg::WrenchStamped get_start_wrench(std::string name) {
+        return robots_[name].motion_state.start_wrench;
+    };
+
+    /**
+     * @brief get current target monitor pose for a robot by name
+     * @param robot_name
+     * @return target monitor pose
+     */
+    const geometry_msgs::msg::PoseStamped get_target_monitor(std::string name) {
+        return robots_[name].motion_state.target_monitor;
+    };
+
+    /**
+     * @brief get system state
+     * @return system state. 
+     * The system state includes current task number, start time, and current time.
+     */
     SystemState get_system_state() {return system_state_;};
 
 
-    // set robot state
-    void set_target_pose_l(geometry_msgs::msg::PoseStamped target_pose) {robot_l_.target_pose = target_pose;};
-    void set_target_pose_r(geometry_msgs::msg::PoseStamped target_pose) {robot_r_.target_pose = target_pose;};
+    /**
+     * @brief set target pose for a robot by name
+     * @param robot_name
+     * @param target_pose
+     */
+    inline void set_target_pose(PoseMap target_pose) 
+        { for (auto& [name, pose] : target_pose){
+            robots_[name].motion_state.target_pose = pose;
+        }};
+
+    /**
+     * @brief set target wrench for a robot by name
+     * @param robot_name
+     * @param target_wrench
+     */
+    inline void set_target_wrench(WrenchMap target_wrench) 
+        { for (auto& [name, wrench] : target_wrench){
+            robots_[name].motion_state.target_wrench = wrench;
+        }};
 
     /* FSM tasks */ 
     /**
      * @brief from start_pose(initialized when this task running) to target_pose
-     * @param left_target 
-     * @param right_target 
+     * @param target_poses map of robot name and target poses 
      * @param duration 
      * @return finish or not
      */ 
-    bool move(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, double duration);
+    bool move(PoseMap target_poses, 
+              double duration);
 
     /** 
      * @brief from start_pose(initialized when this task running) to target_pose
-     * @param left_target 
-     * @param right_target 
+     * @param target_poses map of robot name and target poses
+     * @param target_wrenches map of robot name and target wrenches
      * @param duration 
      * @return finish or not
      */
-    bool move_wrench(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, 
-                            geometry_msgs::msg::WrenchStamped left_wrench, geometry_msgs::msg::WrenchStamped right_wrench, double duration);
-
+    bool move_wrench(PoseMap target_poses, 
+                     WrenchMap target_wrenches, 
+                     double duration);
     /**
      * @brief sleep for a while
      * @param duration
@@ -151,11 +216,12 @@ protected:
 
     /**
      * @brief joint move
-     * @param left_target
-     * @param right_target
+     * @param target_joints map of robot name and target joint positions
+     * @param time
      * @return finish or not
      */
-    bool joint_move(std::vector<double> left_joints, std::vector<double> right_joints, double time);
+    bool joint_move(JointMap target_joints, 
+                    double time);
 
     
     /**
@@ -183,12 +249,16 @@ protected:
         goto_specific_task(tasks_vector_.size()-1);
     };
 
-    // states
-    std::shared_ptr<ServiceFlags> service_flags_;
-    bool initialized_l_ = false;
-    bool initialized_r_ = false;
-    inline bool check_init() { return initialized_l_ && initialized_r_; }
+    // get initialized states
+    inline bool check_init(){
+        bool init =true;
+        for (const auto& [name, handles] : robots_){
+            init = init && handles.initialized;
+        }
+        return init;
+    }
 
+    // states
     SystemState system_state_; // current task number, current time, start time
     uint8_t next_task_offset_ = 1;
 
@@ -214,29 +284,14 @@ private:
     
 
     /* variable */ 
-    uint16_t rate_;
-    // pub
-    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr target_pose_pub_l_;
-    rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr target_pose_pub_r_;
-    rclcpp::Publisher<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_pub_l_;
-    rclcpp::Publisher<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_pub_r_;
-
-    // sub
-    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr current_pose_sub_l_;
-    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr current_pose_sub_r_;
-    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr target_monitor_sub_l_;
-    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr target_monitor_sub_r_;
-
-    rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub_l_;
-    rclcpp::Subscription<geometry_msgs::msg::WrenchStamped>::SharedPtr wrench_sub_r_;
-
-    // service client
-    rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedPtr joint_move_client_l_; // an example for service client
-    rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedPtr joint_move_client_r_; // please change the serevice type on your case
-
+    bool model_joint_ = false;
+    
     // robot state
-    MotionState robot_l_;
-    MotionState robot_r_;
+    std::vector<RobotConfig> robot_configs_;
+    std::map<std::string, RobotHandles> robots_;
+    
+    uint16_t rate_;
+    size_t robot_count_ = 0;
 
 
 }; // class MotionBase

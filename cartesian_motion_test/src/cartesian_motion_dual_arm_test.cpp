@@ -1,11 +1,11 @@
-#include "cartesian_motion_test/cartesian_motion_test.hpp"
+#include "cartesian_motion_test/cartesian_motion_dual_arm_test.hpp"
 
 using namespace std::chrono_literals;
 
 namespace cartesian_motion_test
 {
 // For custom initialization
-void MotionTest::custom_init()
+void MotionDualArmTest::custom_init()
 {
     // service client
     test_client_ = this->create_client<std_srvs::srv::SetBool>("test_service");
@@ -34,16 +34,18 @@ void MotionTest::custom_init()
 }
 
 
-void MotionTest::tasks_init()
+void MotionDualArmTest::tasks_init()
 {
 
     // A fake service test. Please realize the service in your own node.
     task_pushback(TaskPtr("Go Home", [this](){
-        std::vector<double> home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0};
+        std::vector<double> left_home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0};
+        std::vector<double> right_home_joints = {3.14, -1.57, -1.57, -1.57, 1.57, 0.0};
         
         // Create joint map
         JointMap joint_map;
-        joint_map["ur"] = home_joints;
+        joint_map["left"] = left_home_joints;
+        joint_map["right"] = right_home_joints;
         if(joint_move(joint_map, 5.0)){
             set_task_finished();
         }
@@ -51,12 +53,15 @@ void MotionTest::tasks_init()
 
     // Move up
     task_pushback(TaskPtr("Move up", [this](){
-        geometry_msgs::msg::PoseStamped target_pose;
-        target_pose = get_start_pose("ur");
-        target_pose.pose.position.z += 0.1;
+        geometry_msgs::msg::PoseStamped left_target_pose, right_target_pose;
+        left_target_pose = get_start_pose("left");
+        right_target_pose = get_start_pose("right");
+        left_target_pose.pose.position.z += 0.1;
+        right_target_pose.pose.position.z += 0.1;
         // Set the target pose
         PoseMap pose_map;
-        pose_map["ur"] = target_pose;
+        pose_map["left"] = left_target_pose;
+        pose_map["right"] = right_target_pose;
         if (move(pose_map, 1.0)){
             set_task_finished();
         }
@@ -64,12 +69,15 @@ void MotionTest::tasks_init()
 
     // Move forward
     task_pushback(TaskPtr("Move forward", [this](){
-        geometry_msgs::msg::PoseStamped target_pose;
-        target_pose = get_start_pose("ur");
-        target_pose.pose.position.x += 0.1;
+        geometry_msgs::msg::PoseStamped left_target_pose, right_target_pose;
+        left_target_pose = get_start_pose("left");
+        right_target_pose = get_start_pose("right");
+        left_target_pose.pose.position.x += 0.1;
+        right_target_pose.pose.position.x += 0.1;
         // Set the target pose
         PoseMap pose_map;
-        pose_map["ur"] = target_pose;
+        pose_map["left"] = left_target_pose;
+        pose_map["right"] = right_target_pose;
         if (move(pose_map, 1.0)){
             set_task_finished();
         }
@@ -77,12 +85,15 @@ void MotionTest::tasks_init()
 
     // Move down
     task_pushback(TaskPtr("Move down", [this](){
-        geometry_msgs::msg::PoseStamped target_pose;
-        target_pose = get_start_pose("ur");
-        target_pose.pose.position.z -= 0.1;
+        geometry_msgs::msg::PoseStamped left_target_pose, right_target_pose;
+        left_target_pose = get_start_pose("left");
+        right_target_pose = get_start_pose("right");
+        left_target_pose.pose.position.z -= 0.1;
+        right_target_pose.pose.position.z -= 0.1;
         // Set the target pose
         PoseMap pose_map;
-        pose_map["ur"] = target_pose;
+        pose_map["left"] = left_target_pose;
+        pose_map["right"] = right_target_pose;
         if (move(pose_map, 1.0)){
             set_task_finished();
         }
@@ -90,12 +101,15 @@ void MotionTest::tasks_init()
 
     // Move back
     task_pushback(TaskPtr("Move back", [this](){
-        geometry_msgs::msg::PoseStamped target_pose;
-        target_pose = get_start_pose("ur");
-        target_pose.pose.position.x -= 0.1;
+        geometry_msgs::msg::PoseStamped left_target_pose, right_target_pose;
+        left_target_pose = get_start_pose("left");
+        right_target_pose = get_start_pose("right");
+        left_target_pose.pose.position.x -= 0.1;
+        right_target_pose.pose.position.x -= 0.1;
         // Set the target pose
         PoseMap pose_map;
-        pose_map["ur"] = target_pose;
+        pose_map["left"] = left_target_pose;
+        pose_map["right"] = right_target_pose;
         if (move(pose_map, 1.0)){
             set_task_finished();
         }
@@ -132,11 +146,14 @@ void MotionTest::tasks_init()
     // Log Test
     task_pushback(TaskPtr("Log Test", [this](){
         RCLCPP_INFO(this->get_logger(), "Log Test");
-        auto current_pose = get_current_pose("ur");
+        auto current_pose_l = get_current_pose("left");
+        auto current_pose_r = get_current_pose("right");
         auto system_state = get_system_state();
 
-        RCLCPP_INFO(this->get_logger(), "Current Pose is: [%f, %f, %f]", 
-            current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
+        RCLCPP_INFO(this->get_logger(), "Current Pose Left is: [%f, %f, %f]", 
+            current_pose_l.pose.position.x, current_pose_l.pose.position.y, current_pose_l.pose.position.z);
+        RCLCPP_INFO(this->get_logger(), "Current Pose Right is: [%f, %f, %f]", 
+            current_pose_r.pose.position.x, current_pose_r.pose.position.y, current_pose_r.pose.position.z);
 
         RCLCPP_INFO(this->get_logger(), "Current system task number is: %d", system_state.task_num);
         RCLCPP_INFO(this->get_logger(), "Current system start time is: %f", system_state.start_time.seconds());
@@ -153,18 +170,21 @@ void MotionTest::tasks_init()
     },
     // execute function
     [this](){
-        geometry_msgs::msg::PoseStamped target_pose;
-        target_pose = get_start_pose("ur");
+        geometry_msgs::msg::PoseStamped target_pose_l, target_pose_r;
+        target_pose_l = get_start_pose("left");
+        target_pose_r = get_start_pose("right");
 
         double current_duration = (get_system_state().current_time - get_system_state().start_time).seconds();
 
-        target_pose.pose.position.z += current_duration * 0.02;
+        target_pose_l.pose.position.z += current_duration * 0.02;
+        target_pose_r.pose.position.z += current_duration * 0.02;
 
         if (current_duration <= 5.0)
         {
             // Set the target pose
             PoseMap pose_map;
-            pose_map["ur"] = target_pose;
+            pose_map["left"] = target_pose_l;
+            pose_map["right"] = target_pose_r;
             set_target_pose(pose_map);
         }
         else
@@ -187,8 +207,8 @@ int main(int argc, char const *argv[])
     RCLCPP_INFO(rclcpp::get_logger("cartesian_motion_test"), "Garment Motion Test by FSM Node Started");
     rclcpp::init(argc, argv);
     rclcpp::executors::SingleThreadedExecutor executor;
-    auto node = std::make_shared<cartesian_motion_test::MotionTest>("cartesian_motion_test",
-                                             cartesian_motion_test::get_test_robot_configs(),
+    auto node = std::make_shared<cartesian_motion_test::MotionDualArmTest>("cartesian_motion_test",
+                                             cartesian_motion_test::get_test_dual_robot_configs(),
                                              125); // node name, robot configs, hz
 
     node->start();

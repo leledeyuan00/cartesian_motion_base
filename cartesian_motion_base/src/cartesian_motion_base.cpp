@@ -3,11 +3,32 @@
 namespace cartesian_motion_base
 {
 
-void MotionBase::init()
+void MotionBase::on_init()
 {
+    // Parsing configuration
+    if(!robot_init()){
+        RCLCPP_ERROR(this->get_logger(), "Failed to parse configuration");
+        return;
+    }
     // Initialize the node
     ros_init();
     // Initialize other functions
+    custom_init();
+    tasks_init();
+}
+
+bool MotionBase::robot_init()
+{
+    robot_count_ = robot_configs_.size(); // get robot count
+
+    // Initialize robot states
+    for (const auto& config : robot_configs_)
+    {
+        RobotHandles handles;
+        robots_[config.name] = RobotHandles();
+    }
+
+    return true;
 }
 
 void MotionBase::ros_init()
@@ -15,98 +36,129 @@ void MotionBase::ros_init()
     // clock
     my_clock_ = rclcpp::Clock(RCL_ROS_TIME);
 
-    // publishers
-    target_pose_pub_l_ =
-        this->create_publisher<geometry_msgs::msg::PoseStamped>("/left_cartesian_compliance_controller/target_frame", rclcpp::SystemDefaultsQoS());
-    target_pose_pub_r_ =
-        this->create_publisher<geometry_msgs::msg::PoseStamped>("/right_cartesian_compliance_controller/target_frame", rclcpp::SystemDefaultsQoS());
-    wrench_pub_l_ =
-        this->create_publisher<geometry_msgs::msg::WrenchStamped>("/left_cartesian_compliance_controller/target_wrench", rclcpp::SystemDefaultsQoS());
-    wrench_pub_r_ =
-        this->create_publisher<geometry_msgs::msg::WrenchStamped>("/right_cartesian_compliance_controller/target_wrench", rclcpp::SystemDefaultsQoS());
+    // Initialize ROS interfaces for each robot
+    for (const auto& config : robot_configs_)
+    {
+        RCLCPP_INFO(this->get_logger(), "Robot '%s' initialized", config.name.c_str());
+        RobotHandles& robot_handles = robots_[config.name];
+        ROSHandles& handles = robots_[config.name].ros_handles;
+        MotionState& motion_state = robots_[config.name].motion_state;
+        
+        // publishers 
+        handles.target_pose_pub = 
+            this->create_publisher<geometry_msgs::msg::PoseStamped>(config.cmd_pub, rclcpp::SystemDefaultsQoS());
+        handles.target_wrench_pub = 
+            this->create_publisher<geometry_msgs::msg::WrenchStamped>(config.wrench_pub, rclcpp::SystemDefaultsQoS());
+        
 
-    // subscribers
-    current_pose_sub_l_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/left_cartesian_compliance_controller/current_pose", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
-            robot_l_.current_pose = *msg;
-            if (!initialized_l_)
-            {
-                robot_l_.target_pose = *msg;
-                robot_l_.start_pose = *msg;
-                system_state_.start_time = my_clock_.now();
-                initialized_l_ = true;
-            }
-        });
-    current_pose_sub_r_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/right_cartesian_compliance_controller/current_pose", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
-            robot_r_.current_pose = *msg;
-            if (!initialized_r_)
-            {
-                robot_r_.target_pose = *msg;
-                robot_r_.start_pose = *msg;
-                system_state_.start_time = my_clock_.now();
-                initialized_r_ = true;
-            }
-        });
-    target_monitor_sub_l_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/left_cartesian_compliance_controller/target_frame_monitor", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
-            robot_l_.target_monitor = *msg;
-        });
-
-    target_monitor_sub_r_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-        "/right_cartesian_compliance_controller/target_frame_monitor", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
-            robot_r_.target_monitor = *msg;
-        });
-
-    wrench_sub_l_ = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
-        "/left_cartesian_compliance_controller/current_wrench", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::WrenchStamped::SharedPtr msg) {
-            robot_l_.current_wrench = *msg;
-        });
-    wrench_sub_r_ = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
-        "/right_cartesian_compliance_controller/current_wrench", rclcpp::SystemDefaultsQoS(),
-        [this](const geometry_msgs::msg::WrenchStamped::SharedPtr msg) {
-            robot_r_.current_wrench = *msg;
-        });
-    
-    // services
-    joint_move_client_l_ = this->create_client<cartesian_controller_msgs::srv::JointMove>("/left_cartesian_compliance_controller/target_joint");
-    joint_move_client_r_ = this->create_client<cartesian_controller_msgs::srv::JointMove>("/right_cartesian_compliance_controller/target_joint");
-
-    // system flags reset
-    service_flags_ .reset(new ServiceFlags());
+        // subscribers
+        handles.current_pose_sub = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+            config.pose_sub, rclcpp::SystemDefaultsQoS(),
+            [this, &robot_handles, &motion_state](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+                motion_state.current_pose = *msg;
+                if(!robot_handles.initialized)
+                {
+                    motion_state.target_pose = *msg;
+                    motion_state.start_pose = *msg;
+                    system_state_.start_time = my_clock_.now();
+                    robot_handles.initialized = true;
+                }
+            });
+        handles.target_monitor_sub = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+            config.cmd_monitor_sub, rclcpp::SystemDefaultsQoS(),
+            [this, &motion_state](const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
+                motion_state.target_monitor = *msg;
+            });
+        handles.wrench_sub = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
+            config.wrench_sub, rclcpp::SystemDefaultsQoS(),
+            [this, &motion_state](const geometry_msgs::msg::WrenchStamped::SharedPtr msg) {
+                motion_state.current_wrench = *msg;
+            });
+        
+        // services
+        handles.joint_move_client = std::make_shared<MotionClient<cartesian_controller_msgs::srv::JointMove>>(
+            config.joint_service,
+            [this](MotionClient<cartesian_controller_msgs::srv::JointMove>::ResponseSharedPtr response) {
+                // print result
+                RCLCPP_INFO(this->get_logger(), "Joint left send complete");
+                RCLCPP_INFO(this->get_logger(), "success: %d", response->success);
+                bool success = response->success;
+                if (!success)
+                {
+                    RCLCPP_ERROR(this->get_logger(), "Joint left Service Failed");
+                    rclcpp::shutdown();
+                }
+            },
+            this->shared_from_this()
+        );
+    }
 }
 
 /* Predefined Functions */
 
-bool MotionBase::move(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, double duration)
+bool MotionBase::move(PoseMap target_poses, double duration)
 {
+    // Update target poses
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
     if (current_duration >= duration)
     {
         return true;
     }
-    robot_l_.target_pose = intepolation(robot_l_.start_pose, left_target, duration, current_duration);
-    robot_r_.target_pose = intepolation(robot_r_.start_pose, right_target, duration, current_duration);
+
+    // Check target names
+    for (auto& [name, pose] : target_poses){
+        if (robots_.find(name) == robots_.end()){
+            RCLCPP_ERROR(this->get_logger(), "Target for robot '%s' not found", name.c_str());
+            RCLCPP_ERROR(this->get_logger(), "Available targets are:");
+            for (const auto& [robot_name, robot_handles] : robots_){
+                RCLCPP_ERROR(this->get_logger(), " - %s", robot_name.c_str());
+            }
+            deactivate();
+            return true;
+        }
+
+        // Interpolate and set target pose
+        auto pose_msg = intepolation(robots_[name].motion_state.start_pose, pose, duration, 
+                                    (system_state_.current_time - system_state_.start_time).seconds());
+        set_target_pose(PoseMap{{name, pose_msg}});
+    }
     return false;
 }
 
-bool MotionBase::move_wrench(geometry_msgs::msg::PoseStamped left_target, geometry_msgs::msg::PoseStamped right_target, 
-                            geometry_msgs::msg::WrenchStamped left_wrench, geometry_msgs::msg::WrenchStamped right_wrench, double duration)
+bool MotionBase::move_wrench(PoseMap target_poses, 
+                             WrenchMap target_wrenches, 
+                             double duration)
 {
+    // Update target poses
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
     if (current_duration >= duration)
     {
         return true;
     }
-    robot_l_.target_pose = intepolation(robot_l_.start_pose, left_target, duration, current_duration);
-    robot_r_.target_pose = intepolation(robot_r_.start_pose, right_target, duration, current_duration);
-    robot_l_.target_wrench = intepolation_wrench(robot_l_.current_wrench, left_wrench, duration, current_duration);
-    robot_r_.target_wrench = intepolation_wrench(robot_r_.current_wrench, right_wrench, duration, current_duration);
+
+    // Check target names
+    for (auto& [name, pose] : target_poses){
+        if (robots_.find(name) == robots_.end() || target_wrenches.find(name) == target_wrenches.end()){
+            RCLCPP_ERROR(this->get_logger(), "Target for robot '%s' not found", name.c_str());
+            RCLCPP_ERROR(this->get_logger(), "Available targets are:");
+            for (const auto& [robot_name, robot_handles] : robots_){
+                RCLCPP_ERROR(this->get_logger(), " - %s", robot_name.c_str());
+            }
+            deactivate();
+            return true;
+        }
+
+        // Interpolate and set target pose
+        auto pose_msg = intepolation(robots_[name].motion_state.start_pose, pose, duration, 
+                                    (system_state_.current_time - system_state_.start_time).seconds());
+        set_target_pose(PoseMap{{name, pose_msg}});
+
+        // Interpolate and set target wrench
+        auto wrench_msg = intepolation_wrench(robots_[name].motion_state.start_wrench, target_wrenches[name], duration,
+                                    (system_state_.current_time - system_state_.start_time).seconds());
+        set_target_wrench(WrenchMap{{name, wrench_msg}});
+    }
+
     return false;
 }
 
@@ -120,57 +172,42 @@ bool MotionBase::sleep(double duration)
     return false;
 }
 
-bool MotionBase::joint_move(std::vector<double> left_joints, std::vector<double> right_joints, double time)
+bool MotionBase::joint_move(std::map<std::string, std::vector<double>> target_joints, 
+                            double time)
 {
-    if (!service_flags_->service_called)
-    {
-        service_flags_->service_called = true;
-        service_flags_->model_joint = true;
-        auto left_request = std::make_shared<cartesian_controller_msgs::srv::JointMove::Request>();
-        auto right_request = std::make_shared<cartesian_controller_msgs::srv::JointMove::Request>();
-        left_request->cmd.data = left_joints;
-        left_request->duration = time;
-        right_request->cmd.data = right_joints;
-        right_request->duration = time;
-        
-        auto result_l = joint_move_client_l_->async_send_request(left_request, [this](const rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedFuture motor_future) {
-            auto result = motor_future.get();
-            // print result
-            RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "Joint left send complete");
-            RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "success: %d", result->success);
-            bool success = result->success;
-            if (!success)
-            {
-                RCLCPP_ERROR(this->get_logger(), "Joint left Service Failed");
-                rclcpp::shutdown();
+    for (const auto& [name, joints] : target_joints){
+        if (robots_.find(name) == robots_.end()){
+            RCLCPP_ERROR(this->get_logger(), "Target for robot '%s' not found", name.c_str());
+            RCLCPP_ERROR(this->get_logger(), "Available targets are:");
+            for (const auto& [robot_name, robot_handles] : robots_){
+                RCLCPP_ERROR(this->get_logger(), " - %s", robot_name.c_str());
             }
-            
-        });
+            deactivate();
+            return true;
+        }
 
-        auto result_r = joint_move_client_r_->async_send_request(right_request, [this](const rclcpp::Client<cartesian_controller_msgs::srv::JointMove>::SharedFuture motor_future) {
-            auto result = motor_future.get();
-            // print result
-            RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "Joint right send complete");
-            RCLCPP_INFO(rclcpp::get_logger("garment_motion_fsm"), "success: %d", result->success);
-            bool success = result->success;
-            if (!success)
-            {
-                RCLCPP_ERROR(this->get_logger(), "Joint right Service Failed");
-                rclcpp::shutdown();
-            }
-            
-        });
+        auto client = robots_[name].ros_handles.joint_move_client;
+        if (!client ->get_service_called())
+        {
+            auto request = std::make_shared<cartesian_controller_msgs::srv::JointMove::Request>();
+            request->cmd.data = joints;
+            request->duration = time;
+            client->call(request);
+        }
+
+        model_joint_ = true;
     }
 
     double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
+    // Finish condition
     if (current_duration >= time+0.5)
     {
-        robot_l_.target_pose = robot_l_.target_monitor;
-        robot_r_.target_pose = robot_r_.target_monitor;
-
-        service_flags_->service_called = false;
-        service_flags_->model_joint = false;
-
+        for (const auto& [name, joints] : target_joints){
+            auto client = robots_[name].ros_handles.joint_move_client;
+            client ->reset();  // reset service call flag
+            this->active();  // update target pose to avoid sudden jump
+            model_joint_ = false;
+        }
         return true;
     }
     return false;
@@ -188,10 +225,11 @@ void MotionBase::task_execute()
     case TaskState::INIT:
     {
         RCLCPP_INFO(this->get_logger(), "Init task [%d]: %s", system_state_.task_num, current_task->get_name().c_str());
-        service_flags_->service_called = false;
 
-        robot_l_.start_pose = robot_l_.target_monitor;
-        robot_r_.start_pose = robot_r_.target_monitor;
+        for (auto& [name, handles] : robots_){
+            handles.motion_state.start_pose = handles.motion_state.target_monitor;
+            handles.motion_state.start_wrench = handles.motion_state.target_wrench;
+        }
 
         system_state_.start_time = my_clock_.now();
 
@@ -237,6 +275,7 @@ uint8_t MotionBase::task_pushback(std::shared_ptr<cartesian_motion_base::MotionT
 // Start the control loop
 void MotionBase::start()
 {
+    on_init();
     control_loop_thread_ = std::thread(&MotionBase::control_loop, this);
 }
 
@@ -250,15 +289,15 @@ void MotionBase::control_loop()
         {
             task_execute();
 
-            if (!service_flags_->model_joint && active_)
+            if (!model_joint_ && active_)
             {
-                robot_l_.target_pose.header.stamp = this->now();
-                robot_r_.target_pose.header.stamp = this->now();
-                target_pose_pub_l_->publish(robot_l_.target_pose);
-                target_pose_pub_r_->publish(robot_r_.target_pose);
-
-                wrench_pub_l_->publish(robot_l_.target_wrench);
-                wrench_pub_r_->publish(robot_r_.target_wrench);
+                for (auto& [name, robot] : robots_)
+                {
+                    robot.motion_state.target_pose.header.stamp = my_clock_.now();
+                    robot.motion_state.target_wrench.header.stamp = my_clock_.now();
+                    robot.ros_handles.target_pose_pub->publish(robot.motion_state.target_pose);
+                    robot.ros_handles.target_wrench_pub->publish(robot.motion_state.target_wrench);
+                }
             }
         }
         rate.sleep();
