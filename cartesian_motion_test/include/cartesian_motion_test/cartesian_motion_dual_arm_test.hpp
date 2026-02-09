@@ -47,9 +47,9 @@ private:
     // load parameters test
     Eigen::Isometry3d calibration_matrix_;
 
-    uint8_t test_task_num1_;
-    uint8_t test_task_num2_;
-    uint8_t test_task_num3_;
+    size_t test_task_num1_;
+    size_t test_task_num2_;
+    size_t test_task_num3_;
 };
 }
 

@@ -138,7 +138,7 @@ void MotionTest::tasks_init()
         RCLCPP_INFO(this->get_logger(), "Current Pose is: [%f, %f, %f]", 
             current_pose.pose.position.x, current_pose.pose.position.y, current_pose.pose.position.z);
 
-        RCLCPP_INFO(this->get_logger(), "Current system task number is: %d", system_state.task_num);
+        RCLCPP_INFO(this->get_logger(), "Current system task number is: %zu", system_state.task_num);
         RCLCPP_INFO(this->get_logger(), "Current system start time is: %f", system_state.start_time.seconds());
         RCLCPP_INFO(this->get_logger(), "Current system current time is: %f", system_state.current_time.seconds());
 

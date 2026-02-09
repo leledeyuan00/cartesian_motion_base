@@ -1,4 +1,7 @@
 sphinx
 sphinx_rtd_theme
+sphinx-copybutton
+sphinx-tabs
 myst-parser
 breathe
+exhale

@@ -12,7 +12,7 @@ void MotionBase::on_init()
     }
     // Initialize the node
     ros_init();
-    // Initialize other functions
+    // Initialize user-defined components
     custom_init();
     tasks_init();
 }

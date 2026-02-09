@@ -233,18 +233,37 @@ protected:
     virtual void tasks_init() = 0;
     void task_execute();
 
-    /// @brief set the task finished
+    /**
+     * @brief Set the task finished, go to the next task
+     */
     void set_task_finished(){
         next_task_offset_ = 1;
         tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
     };
-    void goto_specific_task(uint8_t task_num){
+    
+    /**
+     * @brief Go to a specific task number. You can get the task number when you push back the task.
+     * @param task_num 
+     */
+    void goto_specific_task(size_t task_num){
+        if (task_num >= tasks_vector_.size()){
+            RCLCPP_WARN(this->get_logger(), "Task number %zu is out of range, max task number is %zu", task_num, tasks_vector_.size()-1);
+            return;
+        }
         next_task_offset_ = task_num - system_state_.task_num;
         tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
     };
+
+    /**
+     * @brief Go to the initial task
+     */
     void goto_init_task(){
         goto_specific_task(0);
     };
+
+    /**
+     * @brief Go to the last task
+     */
     void goto_last_task(){
         goto_specific_task(tasks_vector_.size()-1);
     };

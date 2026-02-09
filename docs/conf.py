@@ -1,5 +1,6 @@
 import os
 import sys
+import textwrap
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -21,9 +22,35 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    'sphinx_copybutton',
+    'sphinx_tabs.tabs',
+    'sphinx.ext.intersphinx',
     'myst_parser',
     'sphinx_rtd_theme',
+    'breathe',
+    'exhale',
 ]
+
+# Breathe Configuration
+breathe_projects = {"CartesianMotionBase": "./_doxygen/xml"}
+breathe_default_project = "CartesianMotionBase"
+
+# Exhale Configuration
+exhale_args = {
+    "containmentFolder": "./api",
+    "rootFileName": "library_root.rst",
+    "rootFileTitle": "C++ API Reference",
+    "doxygenStripFromPath": "..",
+    "createTreeView": True,
+    "exhaleExecutesDoxygen": True,
+    "exhaleDoxygenStdin": textwrap.dedent('''
+        INPUT = ../cartesian_motion_base/include/cartesian_motion_base
+        RECURSIVE = YES
+        EXTRACT_ALL = YES
+        example_path = ../cartesian_motion_test/include/cartesian_motion_test
+    '''),
+}
+
 
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -31,6 +58,26 @@ source_suffix = {
 }
 
 templates_path = ['_templates']
+html_theme_options = {
+    "collapse_navigation": True,
+    "sticky_navigation": True,
+    "navigation_depth": -1,
+    # Only display the logo image, do not display the project name at the top of the sidebar
+    # "logo_only": True,
+}
+
+html_context = {
+    "display_github": True,
+    "github_user": "leledeyuan00",
+    "github_repo": "cartesian_motion_base",
+    "github_version": "master/",
+    "conf_py_path": "docs/",
+    "source_suffix": ".rst",
+}
+
+templates_path = [
+    "_templates",
+]
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 

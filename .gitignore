@@ -7,6 +7,9 @@ node_modules/
 # Ignore build artifacts
 build/
 dist/
+docs/_build/
+docs/_doxygen/
+docs/api/
 
 # Ignore system files
 .DS_Store

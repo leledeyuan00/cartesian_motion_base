@@ -23,37 +23,59 @@ class MotionTask
 {
     public:
 
-    /// @brief Initialize the task with task_name and execute function
-    /// @param task_name 
-    /// @param execute 
+    /**
+     * @brief Initialize the task with task_name and execute function
+     * @param task_name 
+     * @param execute
+     */
     explicit MotionTask(std::string task_name, std::function<void()> execute)
         : task_name_(task_name), execute_(execute){
             init_ = [](){}; // empty init function
         };
-    
-    /// @brief Initialize the task with task_name, init function, and execute function
-    /// @param task_name 
-    /// @param init 
-    /// @param execute 
+
+    /**
+     * @brief Initialize the task with task_name and init function, and execute function
+     * @param task_name 
+     * @param init
+     * @param execute 
+     */
     explicit MotionTask(std::string task_name, std::function<void()> init, std::function<void()> execute)
         : task_name_(task_name), init_(init), execute_(execute){};
-
+    
+    /**
+     * @brief Initialize the cartesian motion task
+     */
     void init(){
         init_();
     }
 
+    /**
+     * @brief Execute the cartesian motion task
+     */
     void execute(){
         execute_();
     }
 
+    /**
+     * @brief Get the name of the task
+     * @return std::string
+     */
     std::string get_name(){
         return task_name_;
     }
 
+    /**
+     * @brief Get the state of the task
+     * @return TaskState
+     */
     TaskState get_state(){
         return state_;
     }
 
+    /**
+     * @brief Set the state of the task
+     * @param state 
+     */
     void set_state(TaskState state){
         state_ = state;
     }

@@ -1,17 +1,28 @@
-.. Cartesian Motion Base Library documentation master file, created by
-   sphinx-quickstart on Sun Feb  8 14:45:02 2026.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Cartesian Motion Base documentation master file
 
-Cartesian Motion Base Library documentation
-===========================================
+Cartesian Motion Base
+=================================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+**Cartesian Motion Base** is a lightweight C++ library for robot Cartesian control in ROS 2. 
+It provides a flexible framework for motion planning, task sequencing, and real-time control.
 
+.. note::
+   This project is currently under active development.
+
+How-To Use This Website
+------------------------
+
+* :doc:`Tutorials <tutorials/tutorials>` - Step-by-step guides to get started with Cartesian Motion Base.
+* :doc:`Examples <examples/examples>` - Sample code demonstrating various features and use cases.
+* :doc:`API Reference <api/library_root>` - Detailed documentation of the library's classes and functions.
+
+
+Table Of Contents
+-------------------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
+   tutorials/tutorials
+   examples/examples
+   api/library_root

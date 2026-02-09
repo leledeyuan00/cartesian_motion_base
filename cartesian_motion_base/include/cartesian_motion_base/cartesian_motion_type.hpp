@@ -83,8 +83,6 @@ public:
     }
 
 private:
-
-
     rclcpp::Node::SharedPtr node_;
     bool service_called_ = false;
     bool service_finished_ = false;
@@ -149,7 +147,7 @@ enum class TaskState
 // struct for System States Machine
 struct SystemState
 {
-    uint8_t task_num = 0;
+    size_t task_num = 0;
     rclcpp::Time start_time;
     rclcpp::Time current_time;
 };
@@ -196,7 +194,10 @@ inline geometry_msgs::msg::Point toMsgPoint(const Eigen::Vector3d& v) {
     return msg;
 }
 
-// struct for Robot Handles
+/**
+ * @brief Get default robot configurations
+ * @return std::vector<RobotConfig>
+ */
 std::vector<cartesian_motion_base::RobotConfig> get_default_robot_configs()
 {
     std::vector<cartesian_motion_base::RobotConfig> robot_configs;
