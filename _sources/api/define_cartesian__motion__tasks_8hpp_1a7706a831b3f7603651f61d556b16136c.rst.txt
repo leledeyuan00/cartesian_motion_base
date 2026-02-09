@@ -1,0 +1,14 @@
+.. _exhale_define_cartesian__motion__tasks_8hpp_1a7706a831b3f7603651f61d556b16136c:
+
+Define TaskPtr
+==============
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: TaskPtr
+   :project: CartesianMotionBase

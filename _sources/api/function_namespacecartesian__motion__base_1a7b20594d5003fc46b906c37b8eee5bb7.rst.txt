@@ -1,0 +1,14 @@
+.. _exhale_function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7:
+
+Function cartesian_motion_base::toMsgPoint
+==========================================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: cartesian_motion_base::toMsgPoint(const Eigen::Vector3d&)
+   :project: CartesianMotionBase

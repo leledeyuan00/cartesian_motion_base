@@ -1,0 +1,113 @@
+
+.. _file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp:
+
+File cartesian_motion_type.hpp
+==============================
+
+|exhale_lsh| :ref:`Parent directory <dir_cartesian_motion_base_include_cartesian_motion_base>` (``cartesian_motion_base/include/cartesian_motion_base``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``cartesian_motion_base/include/cartesian_motion_base/cartesian_motion_type.hpp``)
+----------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``cartesian_controller_msgs/srv/joint_move.hpp``
+
+- ``eigen3/Eigen/Dense``
+
+- ``geometry_msgs/msg/pose_stamped.hpp``
+
+- ``geometry_msgs/msg/wrench_stamped.hpp``
+
+- ``kdl/frames.hpp``
+
+- ``rclcpp/rclcpp.hpp``
+
+
+
+Included By
+-----------
+
+
+- :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp`
+
+- :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_cartesian_motion_base`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1MotionState`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1RobotConfig`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1RobotHandles`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1ROSHandles`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1SystemState`
+
+- :ref:`exhale_class_classcartesian__motion__base_1_1MotionClient`
+
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d`
+
+
+Defines
+-------
+
+
+- :ref:`exhale_define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c`
+
+- :ref:`exhale_define_cartesian__motion__type_8hpp_1a5ddb222c03922d74c2fc532a6f63fa39`
+
+- :ref:`exhale_define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df`
+

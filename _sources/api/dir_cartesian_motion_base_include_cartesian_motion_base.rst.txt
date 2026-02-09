@@ -1,0 +1,23 @@
+.. _dir_cartesian_motion_base_include_cartesian_motion_base:
+
+
+Directory cartesian_motion_base
+===============================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_cartesian_motion_base_include>` (``cartesian_motion_base/include``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+*Directory path:* ``cartesian_motion_base/include/cartesian_motion_base``
+
+
+Files
+-----
+
+- :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp`
+- :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp`
+- :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+

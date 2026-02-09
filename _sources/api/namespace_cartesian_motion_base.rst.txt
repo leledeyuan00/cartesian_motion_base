@@ -1,0 +1,56 @@
+
+.. _namespace_cartesian_motion_base:
+
+Namespace cartesian_motion_base
+===============================
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1MotionState`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1RobotConfig`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1RobotHandles`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1ROSHandles`
+
+- :ref:`exhale_struct_structcartesian__motion__base_1_1SystemState`
+
+- :ref:`exhale_class_classcartesian__motion__base_1_1MotionBase`
+
+- :ref:`exhale_class_classcartesian__motion__base_1_1MotionClient`
+
+- :ref:`exhale_class_classcartesian__motion__base_1_1MotionTask`
+
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7`
+
+- :ref:`exhale_function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d`

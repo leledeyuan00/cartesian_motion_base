@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct ROSHandles &mdash; Cartesian Motion Base Library 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+
+  
+    <link rel="canonical" href="https://leledeyuan00.github.io/cartesian_motion_base/api/structcartesian__motion__base_1_1ROSHandles.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct SystemState" href="structcartesian__motion__base_1_1SystemState.html" />
+    <link rel="prev" title="Struct RobotHandles" href="structcartesian__motion__base_1_1RobotHandles.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Cartesian Motion Base Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="library_root.html">C++ API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html">Struct MotionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html">Struct RobotConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html">Struct RobotHandles</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Struct ROSHandles</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandlesE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::ROSHandles</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles16current_pose_subE"><code class="docutils literal notranslate"><span class="pre">current_pose_sub</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles18target_monitor_subE"><code class="docutils literal notranslate"><span class="pre">target_monitor_sub</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles10wrench_subE"><code class="docutils literal notranslate"><span class="pre">wrench_sub</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles15target_pose_pubE"><code class="docutils literal notranslate"><span class="pre">target_pose_pub</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles17target_wrench_pubE"><code class="docutils literal notranslate"><span class="pre">target_wrench_pub</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10ROSHandles17joint_move_clientE"><code class="docutils literal notranslate"><span class="pre">joint_move_client</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html">Struct SystemState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html">Class MotionBase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html">Template Class MotionClient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html">Class MotionTask</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cartesian Motion Base Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Struct ROSHandles</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/leledeyuan00/cartesian_motion_base/blob/master/docs/api/structcartesian__motion__base_1_1ROSHandles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-roshandles">
+<span id="exhale-struct-structcartesian-motion-base-1-1roshandles"></span><h1>Struct ROSHandles<a class="headerlink" href="#struct-roshandles" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp.html#file-cartesian-motion-base-include-cartesian-motion-base-cartesian-motion-type-hpp"><span class="std std-ref">File cartesian_motion_type.hpp</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandlesE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandlesE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandlesE"></span><span id="cartesian_motion_base::ROSHandles"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ROSHandles</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandlesE" title="Link to this definition"></a><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles16current_pose_subE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles16current_pose_subE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles16current_pose_subE"></span><span id="cartesian_motion_base::ROSHandles::current_pose_sub__rclcpp::Subscription:geometry_msgs::msg::PoseStamped:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1a4ca8b79e7f102cb95e5fe31433a523bb"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Subscription</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">current_pose_sub</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles16current_pose_subE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles18target_monitor_subE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles18target_monitor_subE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles18target_monitor_subE"></span><span id="cartesian_motion_base::ROSHandles::target_monitor_sub__rclcpp::Subscription:geometry_msgs::msg::PoseStamped:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1a317b38c01f830ebd3a4f2190ac523597"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Subscription</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target_monitor_sub</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles18target_monitor_subE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles10wrench_subE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles10wrench_subE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles10wrench_subE"></span><span id="cartesian_motion_base::ROSHandles::wrench_sub__rclcpp::Subscription:geometry_msgs::msg::WrenchStamped:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1a335c20c1eb029f5dcb959ecd1f81f03b"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Subscription</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wrench_sub</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles10wrench_subE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles15target_pose_pubE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles15target_pose_pubE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles15target_pose_pubE"></span><span id="cartesian_motion_base::ROSHandles::target_pose_pub__rclcpp::Publisher:geometry_msgs::msg::PoseStamped:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1a48b69dffb30f1bd77f49af8b500d7fd5"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target_pose_pub</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles15target_pose_pubE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles17target_wrench_pubE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles17target_wrench_pubE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles17target_wrench_pubE"></span><span id="cartesian_motion_base::ROSHandles::target_wrench_pub__rclcpp::Publisher:geometry_msgs::msg::WrenchStamped:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1ab6b0832cd8899c1b6aa7abb82c50fad5"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Publisher</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">target_wrench_pub</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles17target_wrench_pubE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10ROSHandles17joint_move_clientE">
+<span id="_CPPv3N21cartesian_motion_base10ROSHandles17joint_move_clientE"></span><span id="_CPPv2N21cartesian_motion_base10ROSHandles17joint_move_clientE"></span><span id="cartesian_motion_base::ROSHandles::joint_move_client__MotionClient:cartesian_controller_msgs::srv::JointMove:::SharedPtr"></span><span class="target" id="structcartesian__motion__base_1_1ROSHandles_1a5249046f79fc2a712fdf74f86faf1b1b"></span><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4I0EN21cartesian_motion_base12MotionClientE" title="cartesian_motion_base::MotionClient"><span class="n"><span class="pre">MotionClient</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">cartesian_controller_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">srv</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">JointMove</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">SharedPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">joint_move_client</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10ROSHandles17joint_move_clientE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structcartesian__motion__base_1_1RobotHandles.html" class="btn btn-neutral float-left" title="Struct RobotHandles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="structcartesian__motion__base_1_1SystemState.html" class="btn btn-neutral float-right" title="Struct SystemState" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dayuan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

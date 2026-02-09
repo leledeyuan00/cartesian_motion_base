@@ -1,0 +1,14 @@
+.. _exhale_enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d:
+
+Enum TaskState
+==============
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Enum Documentation
+------------------
+
+
+.. doxygenenum:: cartesian_motion_base::TaskState
+   :project: CartesianMotionBase

@@ -1,0 +1,14 @@
+.. _exhale_define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c:
+
+Define JointMap
+===============
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: JointMap
+   :project: CartesianMotionBase

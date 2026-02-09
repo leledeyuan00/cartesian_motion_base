@@ -1,0 +1,17 @@
+.. _exhale_struct_structcartesian__motion__base_1_1RobotHandles:
+
+Struct RobotHandles
+===================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Struct Documentation
+--------------------
+
+
+.. doxygenstruct:: cartesian_motion_base::RobotHandles
+   :project: CartesianMotionBase
+   :members:
+   :protected-members:
+   :undoc-members:

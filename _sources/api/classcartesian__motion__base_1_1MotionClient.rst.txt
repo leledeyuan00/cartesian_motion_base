@@ -1,0 +1,17 @@
+.. _exhale_class_classcartesian__motion__base_1_1MotionClient:
+
+Template Class MotionClient
+===========================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: cartesian_motion_base::MotionClient
+   :project: CartesianMotionBase
+   :members:
+   :protected-members:
+   :undoc-members:

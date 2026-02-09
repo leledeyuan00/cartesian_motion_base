@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ API Reference &mdash; Cartesian Motion Base Library 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+
+  
+    <link rel="canonical" href="https://leledeyuan00.github.io/cartesian_motion_base/api/library_root.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Namespace cartesian_motion_base" href="namespace_cartesian_motion_base.html" />
+    <link rel="prev" title="Examples" href="../examples/examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Cartesian Motion Base Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">C++ API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-api">Full API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#namespaces">Namespaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="namespace_cartesian_motion_base.html">Namespace cartesian_motion_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="namespace_rclcpp.html">Namespace rclcpp</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html">Struct MotionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html">Struct RobotConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html">Struct RobotHandles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html">Struct ROSHandles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html">Struct SystemState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html">Class MotionBase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html">Template Class MotionClient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html">Class MotionTask</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html">Enum TaskState</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c.html">Function cartesian_motion_base::get_default_robot_configs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a.html">Function cartesian_motion_base::toEigen(const geometry_msgs::msg::Vector3&amp;)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69.html">Function cartesian_motion_base::toEigen(const geometry_msgs::msg::Point&amp;)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7.html">Function cartesian_motion_base::toMsgPoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d.html">Function cartesian_motion_base::toMsgVec</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#defines">Defines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c.html">Define JointMap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a5ddb222c03922d74c2fc532a6f63fa39.html">Define PoseMap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1a7706a831b3f7603651f61d556b16136c.html">Define TaskPtr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1af7eb1b1bde4b4c8ac6e3a4cc6d1e3545.html">Define TaskPtrConst</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df.html">Define WrenchMap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cartesian Motion Base Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">C++ API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/leledeyuan00/cartesian_motion_base/blob/master/docs/api/library_root.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-api-reference">
+<h1>C++ API Reference<a class="headerlink" href="#c-api-reference" title="Link to this heading"></a></h1>
+<section id="class-hierarchy">
+<h2>Class Hierarchy<a class="headerlink" href="#class-hierarchy" title="Link to this heading"></a></h2>
+<ul class="treeView" id="class-treeView">
+  <li>
+    <ul class="collapsibleList">
+      <li>Namespace <a href="namespace_cartesian_motion_base.html#namespace-cartesian-motion-base">cartesian_motion_base</a><ul><li>Struct <a href="structcartesian__motion__base_1_1MotionState.html#exhale-struct-structcartesian-motion-base-1-1MotionState">MotionState</a></li><li>Struct <a href="structcartesian__motion__base_1_1RobotConfig.html#exhale-struct-structcartesian-motion-base-1-1RobotConfig">RobotConfig</a></li><li>Struct <a href="structcartesian__motion__base_1_1RobotHandles.html#exhale-struct-structcartesian-motion-base-1-1RobotHandles">RobotHandles</a></li><li>Struct <a href="structcartesian__motion__base_1_1ROSHandles.html#exhale-struct-structcartesian-motion-base-1-1ROSHandles">ROSHandles</a></li><li>Struct <a href="structcartesian__motion__base_1_1SystemState.html#exhale-struct-structcartesian-motion-base-1-1SystemState">SystemState</a></li><li>Class <a href="classcartesian__motion__base_1_1MotionBase.html#exhale-class-classcartesian-motion-base-1-1MotionBase">MotionBase</a></li><li>Template Class <a href="classcartesian__motion__base_1_1MotionClient.html#exhale-class-classcartesian-motion-base-1-1MotionClient">MotionClient</a></li><li>Class <a href="classcartesian__motion__base_1_1MotionTask.html#exhale-class-classcartesian-motion-base-1-1MotionTask">MotionTask</a></li><li class="lastChild">Enum <a href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#exhale-enum-namespacecartesian-motion-base-1a8671d6a0b335c049744a86144d1b8c0d">TaskState</a></li></ul></li>
+    </ul>
+  </li><!-- only tree view element -->
+</ul><!-- /treeView class-treeView --></section>
+<section id="file-hierarchy">
+<h2>File Hierarchy<a class="headerlink" href="#file-hierarchy" title="Link to this heading"></a></h2>
+<ul class="treeView" id="file-treeView">
+  <li>
+    <ul class="collapsibleList">
+      <li class="lastChild">Directory <a href="dir_cartesian_motion_base.html#dir-cartesian-motion-base">cartesian_motion_base</a><ul><li class="lastChild">Directory <a href="dir_cartesian_motion_base_include.html#dir-cartesian-motion-base-include">include</a><ul><li class="lastChild">Directory <a href="dir_cartesian_motion_base_include_cartesian_motion_base.html#dir-cartesian-motion-base-include-cartesian-motion-base">cartesian_motion_base</a><ul><li>File <a href="file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp.html#file-cartesian-motion-base-include-cartesian-motion-base-cartesian-motion-base.hpp">cartesian_motion_base.hpp</a></li><li>File <a href="file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp.html#file-cartesian-motion-base-include-cartesian-motion-base-cartesian-motion-tasks.hpp">cartesian_motion_tasks.hpp</a></li><li class="lastChild">File <a href="file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp.html#file-cartesian-motion-base-include-cartesian-motion-base-cartesian-motion-type.hpp">cartesian_motion_type.hpp</a></li></ul></li></ul></li></ul></li>
+    </ul>
+  </li><!-- only tree view element -->
+</ul><!-- /treeView file-treeView --></section>
+<section id="full-api">
+<h2>Full API<a class="headerlink" href="#full-api" title="Link to this heading"></a></h2>
+<section id="namespaces">
+<h3>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_cartesian_motion_base.html">Namespace cartesian_motion_base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="namespace_cartesian_motion_base.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_cartesian_motion_base.html#enums">Enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="namespace_cartesian_motion_base.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="namespace_rclcpp.html">Namespace rclcpp</a></li>
+</ul>
+</div>
+</section>
+<section id="classes-and-structs">
+<h3>Classes and Structs<a class="headerlink" href="#classes-and-structs" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html">Struct MotionState</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionStateE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::MotionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState12current_poseE"><code class="docutils literal notranslate"><span class="pre">current_pose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState11target_poseE"><code class="docutils literal notranslate"><span class="pre">target_pose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState14target_monitorE"><code class="docutils literal notranslate"><span class="pre">target_monitor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState10start_poseE"><code class="docutils literal notranslate"><span class="pre">start_pose</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState14current_wrenchE"><code class="docutils literal notranslate"><span class="pre">current_wrench</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState13target_wrenchE"><code class="docutils literal notranslate"><span class="pre">target_wrench</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html#_CPPv4N21cartesian_motion_base11MotionState12start_wrenchE"><code class="docutils literal notranslate"><span class="pre">start_wrench</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html">Struct RobotConfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfigE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::RobotConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig4nameE"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig8pose_subE"><code class="docutils literal notranslate"><span class="pre">pose_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig15cmd_monitor_subE"><code class="docutils literal notranslate"><span class="pre">cmd_monitor_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig10wrench_subE"><code class="docutils literal notranslate"><span class="pre">wrench_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig10wrench_pubE"><code class="docutils literal notranslate"><span class="pre">wrench_pub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig7cmd_pubE"><code class="docutils literal notranslate"><span class="pre">cmd_pub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfig13joint_serviceE"><code class="docutils literal notranslate"><span class="pre">joint_service</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html">Struct RobotHandles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html#_CPPv4N21cartesian_motion_base12RobotHandlesE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::RobotHandles</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html#_CPPv4N21cartesian_motion_base12RobotHandles12motion_stateE"><code class="docutils literal notranslate"><span class="pre">motion_state</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html#_CPPv4N21cartesian_motion_base12RobotHandles11ros_handlesE"><code class="docutils literal notranslate"><span class="pre">ros_handles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html#_CPPv4N21cartesian_motion_base12RobotHandles11initializedE"><code class="docutils literal notranslate"><span class="pre">initialized</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html">Struct ROSHandles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandlesE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::ROSHandles</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles16current_pose_subE"><code class="docutils literal notranslate"><span class="pre">current_pose_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles18target_monitor_subE"><code class="docutils literal notranslate"><span class="pre">target_monitor_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles10wrench_subE"><code class="docutils literal notranslate"><span class="pre">wrench_sub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles15target_pose_pubE"><code class="docutils literal notranslate"><span class="pre">target_pose_pub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles17target_wrench_pubE"><code class="docutils literal notranslate"><span class="pre">target_wrench_pub</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html#_CPPv4N21cartesian_motion_base10ROSHandles17joint_move_clientE"><code class="docutils literal notranslate"><span class="pre">joint_move_client</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html">Struct SystemState</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#struct-documentation">Struct Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemStateE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::SystemState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemState8task_numE"><code class="docutils literal notranslate"><span class="pre">task_num</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemState10start_timeE"><code class="docutils literal notranslate"><span class="pre">start_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemState12current_timeE"><code class="docutils literal notranslate"><span class="pre">current_time</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html">Class MotionBase</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#inheritance-relationships">Inheritance Relationships</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#base-type">Base Type</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#class-documentation">Class Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBaseE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::MotionBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t"><code class="docutils literal notranslate"><span class="pre">MotionBase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBaseD0Ev"><code class="docutils literal notranslate"><span class="pre">~MotionBase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase7on_initEv"><code class="docutils literal notranslate"><span class="pre">on_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase5startEv"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase6activeEv"><code class="docutils literal notranslate"><span class="pre">active()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10deactivateEv"><code class="docutils literal notranslate"><span class="pre">deactivate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase4initEv"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10robot_initEv"><code class="docutils literal notranslate"><span class="pre">robot_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase11custom_initEv"><code class="docutils literal notranslate"><span class="pre">custom_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation_wrench()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_current_pose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_current_wrench()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_start_pose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_start_wrench()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_target_monitor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase16get_system_stateEv"><code class="docutils literal notranslate"><span class="pre">get_system_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap"><code class="docutils literal notranslate"><span class="pre">set_target_pose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap"><code class="docutils literal notranslate"><span class="pre">set_target_wrench()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase4moveE7PoseMapd"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd"><code class="docutils literal notranslate"><span class="pre">move_wrench()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase5sleepEd"><code class="docutils literal notranslate"><span class="pre">sleep()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd"><code class="docutils literal notranslate"><span class="pre">joint_move()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE"><code class="docutils literal notranslate"><span class="pre">task_pushback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10tasks_initEv"><code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase12task_executeEv"><code class="docutils literal notranslate"><span class="pre">task_execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase17set_task_finishedEv"><code class="docutils literal notranslate"><span class="pre">set_task_finished()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t"><code class="docutils literal notranslate"><span class="pre">goto_specific_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase14goto_init_taskEv"><code class="docutils literal notranslate"><span class="pre">goto_init_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase14goto_last_taskEv"><code class="docutils literal notranslate"><span class="pre">goto_last_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase10check_initEv"><code class="docutils literal notranslate"><span class="pre">check_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase13system_state_E"><code class="docutils literal notranslate"><span class="pre">system_state_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase17next_task_offset_E"><code class="docutils literal notranslate"><span class="pre">next_task_offset_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase20control_loop_thread_E"><code class="docutils literal notranslate"><span class="pre">control_loop_thread_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase9my_clock_E"><code class="docutils literal notranslate"><span class="pre">my_clock_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase13tasks_vector_E"><code class="docutils literal notranslate"><span class="pre">tasks_vector_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionBase.html#_CPPv4N21cartesian_motion_base10MotionBase7active_E"><code class="docutils literal notranslate"><span class="pre">active_</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html">Template Class MotionClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#class-documentation">Class Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4I0EN21cartesian_motion_base12MotionClientE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::MotionClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient16RequestSharedPtrE"><code class="docutils literal notranslate"><span class="pre">RequestSharedPtr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient17ResponseSharedPtrE"><code class="docutils literal notranslate"><span class="pre">ResponseSharedPtr</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient12SharedFutureE"><code class="docutils literal notranslate"><span class="pre">SharedFuture</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient4callE16RequestSharedPtr"><code class="docutils literal notranslate"><span class="pre">call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient18get_service_calledEv"><code class="docutils literal notranslate"><span class="pre">get_service_called()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient20get_service_finishedEv"><code class="docutils literal notranslate"><span class="pre">get_service_finished()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient5resetEv"><code class="docutils literal notranslate"><span class="pre">reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html#_CPPv4N21cartesian_motion_base12MotionClient10get_clientEv"><code class="docutils literal notranslate"><span class="pre">get_client()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html">Class MotionTask</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#class-documentation">Class Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTaskE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::MotionTask</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask10MotionTaskENSt6stringENSt8functionIFvvEEE"><code class="docutils literal notranslate"><span class="pre">MotionTask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask10MotionTaskENSt6stringENSt8functionIFvvEEENSt8functionIFvvEEE"><code class="docutils literal notranslate"><span class="pre">MotionTask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask4initEv"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask7executeEv"><code class="docutils literal notranslate"><span class="pre">execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask8get_nameEv"><code class="docutils literal notranslate"><span class="pre">get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask9get_stateEv"><code class="docutils literal notranslate"><span class="pre">get_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTask9set_stateE9TaskState"><code class="docutils literal notranslate"><span class="pre">set_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="enums">
+<h3>Enums<a class="headerlink" href="#enums" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html">Enum TaskState</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#enum-documentation">Enum Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#_CPPv4N21cartesian_motion_base9TaskStateE"><code class="docutils literal notranslate"><span class="pre">TaskState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#_CPPv4N21cartesian_motion_base9TaskState4INITE"><code class="docutils literal notranslate"><span class="pre">INIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#_CPPv4N21cartesian_motion_base9TaskState7EXECUTEE"><code class="docutils literal notranslate"><span class="pre">EXECUTE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_namespacecartesian__motion__base_1a8671d6a0b335c049744a86144d1b8c0d.html#_CPPv4N21cartesian_motion_base9TaskState6FINISHE"><code class="docutils literal notranslate"><span class="pre">FINISH</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c.html">Function cartesian_motion_base::get_default_robot_configs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c.html#_CPPv4N21cartesian_motion_base25get_default_robot_configsEv"><code class="docutils literal notranslate"><span class="pre">get_default_robot_configs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a.html">Function cartesian_motion_base::toEigen(const geometry_msgs::msg::Vector3&amp;)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_namespacecartesian__motion__base_1a20ddf75887ca74cf2c1392cfb50fdd4a.html#_CPPv4N21cartesian_motion_base7toEigenERKN13geometry_msgs3msg7Vector3E"><code class="docutils literal notranslate"><span class="pre">toEigen()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69.html">Function cartesian_motion_base::toEigen(const geometry_msgs::msg::Point&amp;)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_namespacecartesian__motion__base_1a97eb9069b1e24e249eac5a9214798b69.html#_CPPv4N21cartesian_motion_base7toEigenERKN13geometry_msgs3msg5PointE"><code class="docutils literal notranslate"><span class="pre">toEigen()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7.html">Function cartesian_motion_base::toMsgPoint</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_namespacecartesian__motion__base_1a7b20594d5003fc46b906c37b8eee5bb7.html#_CPPv4N21cartesian_motion_base10toMsgPointERKN5Eigen8Vector3dE"><code class="docutils literal notranslate"><span class="pre">toMsgPoint()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d.html">Function cartesian_motion_base::toMsgVec</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d.html#function-documentation">Function Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="function_namespacecartesian__motion__base_1a540683231e522deec52257e72336f01d.html#_CPPv4N21cartesian_motion_base8toMsgVecERKN5Eigen8Vector3dE"><code class="docutils literal notranslate"><span class="pre">toMsgVec()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="defines">
+<h3>Defines<a class="headerlink" href="#defines" title="Link to this heading"></a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c.html">Define JointMap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c.html#define-documentation">Define Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1aed82a0d73fecd64a2c6abcad9368f11c.html#c.JointMap"><code class="docutils literal notranslate"><span class="pre">JointMap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a5ddb222c03922d74c2fc532a6f63fa39.html">Define PoseMap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a5ddb222c03922d74c2fc532a6f63fa39.html#define-documentation">Define Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a5ddb222c03922d74c2fc532a6f63fa39.html#c.PoseMap"><code class="docutils literal notranslate"><span class="pre">PoseMap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1a7706a831b3f7603651f61d556b16136c.html">Define TaskPtr</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1a7706a831b3f7603651f61d556b16136c.html#define-documentation">Define Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1a7706a831b3f7603651f61d556b16136c.html#c.TaskPtr"><code class="docutils literal notranslate"><span class="pre">TaskPtr</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1af7eb1b1bde4b4c8ac6e3a4cc6d1e3545.html">Define TaskPtrConst</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1af7eb1b1bde4b4c8ac6e3a4cc6d1e3545.html#define-documentation">Define Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="define_cartesian__motion__tasks_8hpp_1af7eb1b1bde4b4c8ac6e3a4cc6d1e3545.html#c.TaskPtrConst"><code class="docutils literal notranslate"><span class="pre">TaskPtrConst</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df.html">Define WrenchMap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df.html#define-documentation">Define Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df.html#c.WrenchMap"><code class="docutils literal notranslate"><span class="pre">WrenchMap</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../examples/examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="namespace_cartesian_motion_base.html" class="btn btn-neutral float-right" title="Namespace cartesian_motion_base" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dayuan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

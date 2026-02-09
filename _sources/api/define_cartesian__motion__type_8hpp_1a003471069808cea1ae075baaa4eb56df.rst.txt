@@ -1,0 +1,14 @@
+.. _exhale_define_cartesian__motion__type_8hpp_1a003471069808cea1ae075baaa4eb56df:
+
+Define WrenchMap
+================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Define Documentation
+--------------------
+
+
+.. doxygendefine:: WrenchMap
+   :project: CartesianMotionBase

@@ -1,0 +1,70 @@
+
+.. _file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp:
+
+File cartesian_motion_base.hpp
+==============================
+
+|exhale_lsh| :ref:`Parent directory <dir_cartesian_motion_base_include_cartesian_motion_base>` (``cartesian_motion_base/include/cartesian_motion_base``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``cartesian_motion_base/include/cartesian_motion_base/cartesian_motion_base.hpp``)
+----------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``cartesian_motion_base/cartesian_motion_tasks.hpp`` (:ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp`)
+
+- ``cartesian_motion_base/cartesian_motion_type.hpp`` (:ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`)
+
+- ``cstring``
+
+- ``eigen3/Eigen/Dense``
+
+- ``kdl/frames.hpp``
+
+- ``rclcpp/rclcpp.hpp``
+
+- ``sstream``
+
+- ``stdlib.h``
+
+- ``tf2_eigen/tf2_eigen.hpp``
+
+- ``thread``
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_cartesian_motion_base`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_class_classcartesian__motion__base_1_1MotionBase`
+

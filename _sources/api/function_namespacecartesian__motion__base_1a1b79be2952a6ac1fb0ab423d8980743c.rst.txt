@@ -1,0 +1,14 @@
+.. _exhale_function_namespacecartesian__motion__base_1a1b79be2952a6ac1fb0ab423d8980743c:
+
+Function cartesian_motion_base::get_default_robot_configs
+=========================================================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_type.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: cartesian_motion_base::get_default_robot_configs()
+   :project: CartesianMotionBase

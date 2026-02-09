@@ -1,0 +1,21 @@
+.. _dir_cartesian_motion_base_include:
+
+
+Directory include
+=================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_cartesian_motion_base>` (``cartesian_motion_base``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+*Directory path:* ``cartesian_motion_base/include``
+
+Subdirectories
+--------------
+
+- :ref:`dir_cartesian_motion_base_include_cartesian_motion_base`
+
+
+

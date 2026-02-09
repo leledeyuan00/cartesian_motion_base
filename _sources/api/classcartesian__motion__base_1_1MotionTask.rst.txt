@@ -1,0 +1,17 @@
+.. _exhale_class_classcartesian__motion__base_1_1MotionTask:
+
+Class MotionTask
+================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_tasks.hpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: cartesian_motion_base::MotionTask
+   :project: CartesianMotionBase
+   :members:
+   :protected-members:
+   :undoc-members:

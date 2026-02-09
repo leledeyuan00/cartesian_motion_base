@@ -1,0 +1,26 @@
+.. _exhale_class_classcartesian__motion__base_1_1MotionBase:
+
+Class MotionBase
+================
+
+- Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public rclcpp::Node``
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: cartesian_motion_base::MotionBase
+   :project: CartesianMotionBase
+   :members:
+   :protected-members:
+   :undoc-members:

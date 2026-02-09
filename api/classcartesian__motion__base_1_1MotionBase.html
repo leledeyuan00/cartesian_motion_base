@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class MotionBase &mdash; Cartesian Motion Base Library 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+
+  
+    <link rel="canonical" href="https://leledeyuan00.github.io/cartesian_motion_base/api/classcartesian__motion__base_1_1MotionBase.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Template Class MotionClient" href="classcartesian__motion__base_1_1MotionClient.html" />
+    <link rel="prev" title="Struct SystemState" href="structcartesian__motion__base_1_1SystemState.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Cartesian Motion Base Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="library_root.html">C++ API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#class-hierarchy">Class Hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="library_root.html#file-hierarchy">File Hierarchy</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="library_root.html#full-api">Full API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#namespaces">Namespaces</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="library_root.html#classes-and-structs">Classes and Structs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1MotionState.html">Struct MotionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html">Struct RobotConfig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1RobotHandles.html">Struct RobotHandles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1ROSHandles.html">Struct ROSHandles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html">Struct SystemState</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Class MotionBase</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#inheritance-relationships">Inheritance Relationships</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#base-type">Base Type</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#class-documentation">Class Documentation</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBaseE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::MotionBase</span></code></a><ul>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t"><code class="docutils literal notranslate"><span class="pre">MotionBase()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBaseD0Ev"><code class="docutils literal notranslate"><span class="pre">~MotionBase()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase7on_initEv"><code class="docutils literal notranslate"><span class="pre">on_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase5startEv"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase6activeEv"><code class="docutils literal notranslate"><span class="pre">active()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10deactivateEv"><code class="docutils literal notranslate"><span class="pre">deactivate()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase4initEv"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10robot_initEv"><code class="docutils literal notranslate"><span class="pre">robot_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase11custom_initEv"><code class="docutils literal notranslate"><span class="pre">custom_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation_wrench()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_current_pose()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_current_wrench()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_start_pose()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_start_wrench()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE"><code class="docutils literal notranslate"><span class="pre">get_target_monitor()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_system_stateEv"><code class="docutils literal notranslate"><span class="pre">get_system_state()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap"><code class="docutils literal notranslate"><span class="pre">set_target_pose()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap"><code class="docutils literal notranslate"><span class="pre">set_target_wrench()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase4moveE7PoseMapd"><code class="docutils literal notranslate"><span class="pre">move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd"><code class="docutils literal notranslate"><span class="pre">move_wrench()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase5sleepEd"><code class="docutils literal notranslate"><span class="pre">sleep()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd"><code class="docutils literal notranslate"><span class="pre">joint_move()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE"><code class="docutils literal notranslate"><span class="pre">task_pushback()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10tasks_initEv"><code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase12task_executeEv"><code class="docutils literal notranslate"><span class="pre">task_execute()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase17set_task_finishedEv"><code class="docutils literal notranslate"><span class="pre">set_task_finished()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t"><code class="docutils literal notranslate"><span class="pre">goto_specific_task()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase14goto_init_taskEv"><code class="docutils literal notranslate"><span class="pre">goto_init_task()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase14goto_last_taskEv"><code class="docutils literal notranslate"><span class="pre">goto_last_task()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase10check_initEv"><code class="docutils literal notranslate"><span class="pre">check_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase13system_state_E"><code class="docutils literal notranslate"><span class="pre">system_state_</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase17next_task_offset_E"><code class="docutils literal notranslate"><span class="pre">next_task_offset_</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase20control_loop_thread_E"><code class="docutils literal notranslate"><span class="pre">control_loop_thread_</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase9my_clock_E"><code class="docutils literal notranslate"><span class="pre">my_clock_</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase13tasks_vector_E"><code class="docutils literal notranslate"><span class="pre">tasks_vector_</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base10MotionBase7active_E"><code class="docutils literal notranslate"><span class="pre">active_</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionClient.html">Template Class MotionClient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html">Class MotionTask</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="library_root.html#defines">Defines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cartesian Motion Base Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="library_root.html">C++ API Reference</a></li>
+      <li class="breadcrumb-item active">Class MotionBase</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/leledeyuan00/cartesian_motion_base/blob/master/docs/api/classcartesian__motion__base_1_1MotionBase.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-motionbase">
+<span id="exhale-class-classcartesian-motion-base-1-1motionbase"></span><h1>Class MotionBase<a class="headerlink" href="#class-motionbase" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp.html#file-cartesian-motion-base-include-cartesian-motion-base-cartesian-motion-base-hpp"><span class="std std-ref">File cartesian_motion_base.hpp</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Link to this heading"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">rclcpp::Node</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBaseE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBaseE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBaseE"></span><span id="cartesian_motion_base::MotionBase"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MotionBase</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Node</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBaseE" title="Link to this definition"></a><br /></dt>
+<dd><p>Base class for robot motion tasks. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Param node_name<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Name of the node. </p>
+</dd>
+<dt class="field-even">Param robot_configs<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vector of robot configurations. </p>
+</dd>
+<dt class="field-odd">Param rate<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Rate of the task execution. </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t"></span><span id="cartesian_motion_base::MotionBase::MotionBase__ssCR.std::vector:RobotConfig:.uint16_t"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a541db1d38fff56b919f0a0e6d828f921"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MotionBase</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">node_name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfigE" title="cartesian_motion_base::RobotConfig"><span class="n"><span class="pre">RobotConfig</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">robot_configs</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><a class="reference internal" href="structcartesian__motion__base_1_1RobotConfig.html#_CPPv4N21cartesian_motion_base11RobotConfigE" title="cartesian_motion_base::RobotConfig"><span class="n"><span class="pre">RobotConfig</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">}</span></span>, <span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rate</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">125</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10MotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBaseD0Ev">
+<span id="_CPPv3N21cartesian_motion_base10MotionBaseD0Ev"></span><span id="_CPPv2N21cartesian_motion_base10MotionBaseD0Ev"></span><span id="cartesian_motion_base::MotionBase::~MotionBase"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a9c17bcc918161e633cde272478e91592"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~MotionBase</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBaseD0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase7on_initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase7on_initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase7on_initEv"></span><span id="cartesian_motion_base::MotionBase::on_init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a95f6c5eef76fb91ef9b53440194ecce0"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">on_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase7on_initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase5startEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase5startEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase5startEv"></span><span id="cartesian_motion_base::MotionBase::start"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ad19c7042363ce704037fa61f28489082"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase5startEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase6activeEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase6activeEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase6activeEv"></span><span id="cartesian_motion_base::MotionBase::active"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a4c2b1975973039c3f7d2d063a94ef1cb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">active</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase6activeEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10deactivateEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10deactivateEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10deactivateEv"></span><span id="cartesian_motion_base::MotionBase::deactivate"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a53beb6e68496e648d40a0bbbcd3361f9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deactivate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10deactivateEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase4initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase4initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase4initEv"></span><span id="cartesian_motion_base::MotionBase::init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ad5f53c15410d9400478b0a19050a3dd1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase4initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10robot_initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10robot_initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10robot_initEv"></span><span id="cartesian_motion_base::MotionBase::robot_init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a96b4935d3e0cfe524eb2e578fea125da"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">robot_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10robot_initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase11custom_initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase11custom_initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase11custom_initEv"></span><span id="cartesian_motion_base::MotionBase::custom_init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a09d746e5f90664d7677d2cbd5bcaecb2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">custom_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase11custom_initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd"></span><span id="cartesian_motion_base::MotionBase::intepolation__geometry_msgs::msg::PoseStamped.geometry_msgs::msg::PoseStamped.double.double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a84208fca9055d72be6cdd1776d19c938"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intepolation</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_pose</span></span>, <span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_pose</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">duration</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">current_duration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd" title="Link to this definition"></a><br /></dt>
+<dd><p>Interpolation between two poses. Default is linear interpolation for position and slerp for orientation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_pose</strong> – Initial pose. </p></li>
+<li><p><strong>target_pose</strong> – Target pose. </p></li>
+<li><p><strong>duration</strong> – Duration of the interpolation. </p></li>
+<li><p><strong>current_duration</strong> – Current time in the interpolation. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Interpolated pose. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd"></span><span id="cartesian_motion_base::MotionBase::intepolation_wrench__geometry_msgs::msg::WrenchStamped.geometry_msgs::msg::WrenchStamped.double.double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a4946f8323b404205984dfe92ed66f901"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intepolation_wrench</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init_wrench</span></span>, <span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_wrench</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">duration</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">current_duration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd" title="Link to this definition"></a><br /></dt>
+<dd><p>Interpolation between two wrenches. Default is linear interpolation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>init_wrench</strong> – Initial wrench. </p></li>
+<li><p><strong>target_wrench</strong> – Target wrench. </p></li>
+<li><p><strong>duration</strong> – Duration of the interpolation. </p></li>
+<li><p><strong>current_duration</strong> – Current time in the interpolation. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Interpolated wrench. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE"></span><span id="cartesian_motion_base::MotionBase::get_current_pose__ss"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a37156a6a6aa81101f257b73736260926"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_current_pose</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_current_poseENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>get current pose for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>robot_name</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>current pose </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE"></span><span id="cartesian_motion_base::MotionBase::get_current_wrench__ss"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a62e4f21a03e47a6e8f0eeb7d6ffe8606"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_current_wrench</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase18get_current_wrenchENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>get current wrench for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>robot_name</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>current wrench </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE"></span><span id="cartesian_motion_base::MotionBase::get_start_pose__ss"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a2e3a536b676d8282858eb9f8d9668fde"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_start_pose</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase14get_start_poseENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>get start pose for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>robot_name</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>start pose </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE"></span><span id="cartesian_motion_base::MotionBase::get_start_wrench__ss"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a30cd5de7d834fce7d0bcb6525073db88"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">WrenchStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_start_wrench</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_start_wrenchENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>get start wrench for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>robot_name</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>start wrench </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE"></span><span id="cartesian_motion_base::MotionBase::get_target_monitor__ss"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a82bc59fc64f8b035df5261fd933458b9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">geometry_msgs</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">PoseStamped</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_target_monitor</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase18get_target_monitorENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>get current target monitor pose for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>robot_name</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>target monitor pose </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase16get_system_stateEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase16get_system_stateEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase16get_system_stateEv"></span><span id="cartesian_motion_base::MotionBase::get_system_state"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ad9483ee65a868fa461abb1beeee461af"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemStateE" title="cartesian_motion_base::SystemState"><span class="n"><span class="pre">SystemState</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_system_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase16get_system_stateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>get system state </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>system state. The system state includes current task number, start time, and current time. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap"></span><span id="cartesian_motion_base::MotionBase::set_target_pose__PoseMap"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ad4b0b51dbdacac2ff926a857d7adeb9e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_target_pose</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">PoseMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_pose</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase15set_target_poseE7PoseMap" title="Link to this definition"></a><br /></dt>
+<dd><p>set target pose for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>robot_name</strong> – </p></li>
+<li><p><strong>target_pose</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap"></span><span id="cartesian_motion_base::MotionBase::set_target_wrench__WrenchMap"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ae80eb9dcf4ec70b53d12ee215c16c4d4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_target_wrench</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">WrenchMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_wrench</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase17set_target_wrenchE9WrenchMap" title="Link to this definition"></a><br /></dt>
+<dd><p>set target wrench for a robot by name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>robot_name</strong> – </p></li>
+<li><p><strong>target_wrench</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase4moveE7PoseMapd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase4moveE7PoseMapd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase4moveE7PoseMapd"></span><span id="cartesian_motion_base::MotionBase::move__PoseMap.double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1aea124801bcd8f9f74992816450a354e8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">move</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">PoseMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_poses</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">duration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase4moveE7PoseMapd" title="Link to this definition"></a><br /></dt>
+<dd><p>from start_pose(initialized when this task running) to target_pose </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_poses</strong> – map of robot name and target poses </p></li>
+<li><p><strong>duration</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>finish or not </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd"></span><span id="cartesian_motion_base::MotionBase::move_wrench__PoseMap.WrenchMap.double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a181d1563c9491d733a01fdb9f137d6f7"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">move_wrench</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">PoseMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_poses</span></span>, <span class="n"><span class="pre">WrenchMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_wrenches</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">duration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase11move_wrenchE7PoseMap9WrenchMapd" title="Link to this definition"></a><br /></dt>
+<dd><p>from start_pose(initialized when this task running) to target_pose </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_poses</strong> – map of robot name and target poses </p></li>
+<li><p><strong>target_wrenches</strong> – map of robot name and target wrenches </p></li>
+<li><p><strong>duration</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>finish or not </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase5sleepEd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase5sleepEd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase5sleepEd"></span><span id="cartesian_motion_base::MotionBase::sleep__double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1af0653bfcdae921d6b19ce9161a7c683f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sleep</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">duration</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase5sleepEd" title="Link to this definition"></a><br /></dt>
+<dd><p>sleep for a while </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>duration</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>finish or not </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd"></span><span id="cartesian_motion_base::MotionBase::joint_move__JointMap.double"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a74002787117d8d6d7f6156ed3f97b6c5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">joint_move</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">JointMap</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">target_joints</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">time</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10joint_moveE8JointMapd" title="Link to this definition"></a><br /></dt>
+<dd><p>joint move </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_joints</strong> – map of robot name and target joint positions </p></li>
+<li><p><strong>time</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>finish or not </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE"></span><span id="cartesian_motion_base::MotionBase::task_pushback__std::shared_ptr:cartesian_motion_base::MotionTask:"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ac141ac93e293e845583aaf73ccb2c90c"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">task_pushback</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">cartesian_motion_base</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTaskE" title="cartesian_motion_base::MotionTask"><span class="n"><span class="pre">MotionTask</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">task</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Push back the task, the task is derived from GarmentTaskBase. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>task</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the task number </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10tasks_initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10tasks_initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10tasks_initEv"></span><span id="cartesian_motion_base::MotionBase::tasks_init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1acd94bde15691e9adb546c968e0ea5a1e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tasks_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10tasks_initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase12task_executeEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase12task_executeEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase12task_executeEv"></span><span id="cartesian_motion_base::MotionBase::task_execute"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1aa9b6c813ad1a8dd28c8c4fb78968571b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">task_execute</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase12task_executeEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase17set_task_finishedEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase17set_task_finishedEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase17set_task_finishedEv"></span><span id="cartesian_motion_base::MotionBase::set_task_finished"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a1240fb7d4505b633b6fb2a3753c09641"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_task_finished</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase17set_task_finishedEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the task finished, go to the next task. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t"></span><span id="cartesian_motion_base::MotionBase::goto_specific_task__s"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1abfd20a9569633d292c61b52bda87d8d4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">goto_specific_task</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">task_num</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase18goto_specific_taskE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Go to a specific task number. You can get the task number when you push back the task. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>task_num</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase14goto_init_taskEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase14goto_init_taskEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase14goto_init_taskEv"></span><span id="cartesian_motion_base::MotionBase::goto_init_task"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a66d8fba271f6c455f369ed40218ccd71"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">goto_init_task</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase14goto_init_taskEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Go to the initial task. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase14goto_last_taskEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase14goto_last_taskEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase14goto_last_taskEv"></span><span id="cartesian_motion_base::MotionBase::goto_last_task"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1add7aff64cf094d89c1d94c47ee67190d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">goto_last_task</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase14goto_last_taskEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Go to the last task. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase10check_initEv">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase10check_initEv"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase10check_initEv"></span><span id="cartesian_motion_base::MotionBase::check_init"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a3f9d9419c29cd1f6748de6aa31c03bd7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">check_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase10check_initEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase13system_state_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase13system_state_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase13system_state_E"></span><span id="cartesian_motion_base::MotionBase::system_state___SystemState"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ab965c24e77bc475dc1944cb06977e7e4"></span><a class="reference internal" href="structcartesian__motion__base_1_1SystemState.html#_CPPv4N21cartesian_motion_base11SystemStateE" title="cartesian_motion_base::SystemState"><span class="n"><span class="pre">SystemState</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">system_state_</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase13system_state_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase17next_task_offset_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase17next_task_offset_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase17next_task_offset_E"></span><span id="cartesian_motion_base::MotionBase::next_task_offset___uint8_t"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a61fe17e0d4a0a2d6d77df3a9c20378d0"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">next_task_offset_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase17next_task_offset_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase20control_loop_thread_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase20control_loop_thread_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase20control_loop_thread_E"></span><span id="cartesian_motion_base::MotionBase::control_loop_thread___std::thread"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1a3e7208101b8d38ccee009de148bb8651"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">thread</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">control_loop_thread_</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase20control_loop_thread_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase9my_clock_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase9my_clock_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase9my_clock_E"></span><span id="cartesian_motion_base::MotionBase::my_clock___rclcpp::Clock"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1af5fd3dd8be521521e1e3de970d373a41"></span><span class="n"><span class="pre">rclcpp</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Clock</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">my_clock_</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase9my_clock_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase13tasks_vector_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase13tasks_vector_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase13tasks_vector_E"></span><span id="cartesian_motion_base::MotionBase::tasks_vector___std::vector:std::shared_ptr:cartesian_motion_base::MotionTask::"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1aee5fc9aa83aae02e373807861d9d0fc5"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">cartesian_motion_base</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classcartesian__motion__base_1_1MotionTask.html#_CPPv4N21cartesian_motion_base10MotionTaskE" title="cartesian_motion_base::MotionTask"><span class="n"><span class="pre">MotionTask</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tasks_vector_</span></span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase13tasks_vector_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base10MotionBase7active_E">
+<span id="_CPPv3N21cartesian_motion_base10MotionBase7active_E"></span><span id="_CPPv2N21cartesian_motion_base10MotionBase7active_E"></span><span id="cartesian_motion_base::MotionBase::active___b"></span><span class="target" id="classcartesian__motion__base_1_1MotionBase_1ae0caaf08d3aeed7f44e67539359be1d3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">active_</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base10MotionBase7active_E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="structcartesian__motion__base_1_1SystemState.html" class="btn btn-neutral float-left" title="Struct SystemState" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classcartesian__motion__base_1_1MotionClient.html" class="btn btn-neutral float-right" title="Template Class MotionClient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dayuan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
