@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Move Your Robot &mdash; Cartesian Motion Base Library 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+
+  
+    <link rel="canonical" href="https://leledeyuan00.github.io/cartesian_motion_base/tutorials/move_your_robot/move_your_robot.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Examples" href="../../examples/examples.html" />
+    <link rel="prev" title="Creating Your Own Motion" href="../creating_your_own_motion/creating_your_own_motion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Cartesian Motion Base Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../simulating_robot/simulating_robot.html">Simulation in Gazebo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Your First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating_your_own_motion/creating_your_own_motion.html">Creating Your Own Motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Move Your Robot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#control-the-robot-using-cartesian-motion-base-api">Control the robot using Cartesian Motion Base API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#explanation-of-the-code">2.1 Explanation of the code</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-motion-program">3. Build and run the motion program</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">C++ API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Cartesian Motion Base Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Move Your Robot</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/leledeyuan00/cartesian_motion_base/blob/master/docs/tutorials/move_your_robot/move_your_robot.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="move-your-robot">
+<h1>Move Your Robot<a class="headerlink" href="#move-your-robot" title="Link to this heading"></a></h1>
+<p>In this tutorial, we will show you how to move your robot by joints and cartesian using the API provided by CMB.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Make sure you have completed the <a class="reference internal" href="../creating_your_own_motion/creating_your_own_motion.html"><span class="doc">creating your own motion program tutorial</span></a> and the <a class="reference internal" href="../simulating_robot/simulating_robot.html"><span class="doc">simulating robot tutorial</span></a>.</p>
+</section>
+<section id="control-the-robot-using-cartesian-motion-base-api">
+<h2>Control the robot using Cartesian Motion Base API<a class="headerlink" href="#control-the-robot-using-cartesian-motion-base-api" title="Link to this heading"></a></h2>
+<p>This time, we will edit the source code to move the robot using CMB API.</p>
+<ol class="arabic simple">
+<li><p>Open the source code file <code class="docutils literal notranslate"><span class="pre">cartesian_motion_test/src/cartesian_motion_test.cpp</span></code> in your favorite editor.</p></li>
+<li><p>Add the following code in the <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> function to add joint space motion and cartesian space motion:</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// into tasks_init() function</span>
+<span class="c1">// Go Home by joint space</span>
+<span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Go Home&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">home_joints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// Create joint map</span>
+<span class="w">    </span><span class="n">JointMap</span><span class="w"> </span><span class="n">joint_map</span><span class="p">;</span>
+<span class="w">    </span><span class="n">joint_map</span><span class="p">[</span><span class="s">&quot;ur&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">home_joints</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">joint_move</span><span class="p">(</span><span class="n">joint_map</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">)){</span>
+<span class="w">        </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}));</span>
+
+<span class="c1">// Move up with 0.1m in z direction by cartesian space</span>
+<span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Move Up&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">current_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_current_pose</span><span class="p">(</span><span class="s">&quot;ur&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_pose</span><span class="p">;</span>
+<span class="w">    </span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Create pose map</span>
+<span class="w">    </span><span class="n">PoseMap</span><span class="w"> </span><span class="n">pose_map</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pose_map</span><span class="p">[</span><span class="s">&quot;ur&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_pose</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">pose_map</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)){</span>
+<span class="w">        </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}));</span>
+
+<span class="c1">// Move down with 0.1m in z direction by cartesian space</span>
+<span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Move Down&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">current_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_current_pose</span><span class="p">(</span><span class="s">&quot;ur&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_pose</span><span class="p">;</span>
+<span class="w">    </span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Create pose map</span>
+<span class="w">    </span><span class="n">PoseMap</span><span class="w"> </span><span class="n">pose_map</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pose_map</span><span class="p">[</span><span class="s">&quot;ur&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_pose</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">pose_map</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)){</span>
+<span class="w">        </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}));</span>
+</pre></div>
+</div>
+<section id="explanation-of-the-code">
+<h3>2.1 Explanation of the code<a class="headerlink" href="#explanation-of-the-code" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><dl class="simple">
+<dt>First, we provide <code class="docutils literal notranslate"><span class="pre">joint_move()</span></code> method to move the robot to a specified joint position.</dt><dd><p>This method takes a <code class="docutils literal notranslate"><span class="pre">JointMap</span></code> as input, which is a map that associates robot names with their target joint positions.
+In this example, we create a <code class="docutils literal notranslate"><span class="pre">JointMap</span></code> called <code class="docutils literal notranslate"><span class="pre">joint_map</span></code>, and set the target joint positions for the robot named “ur” to <code class="docutils literal notranslate"><span class="pre">home_joints</span></code>.
+We then call <code class="docutils literal notranslate"><span class="pre">joint_move(joint_map,</span> <span class="pre">5.0)</span></code> to move the robot to the target joint positions in 5 seconds.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Second, we provide <code class="docutils literal notranslate"><span class="pre">move()</span></code> method to move the robot to a specified cartesian pose.</dt><dd><p>This method takes a <code class="docutils literal notranslate"><span class="pre">PoseMap</span></code> as input, which is a map that associates robot names with their target cartesian poses.
+In this example, we create a <code class="docutils literal notranslate"><span class="pre">PoseMap</span></code> called <code class="docutils literal notranslate"><span class="pre">pose_map</span></code>, and set the target cartesian pose for the robot named “ur” to <code class="docutils literal notranslate"><span class="pre">target_pose</span></code>.
+We then call <code class="docutils literal notranslate"><span class="pre">move(pose_map,</span> <span class="pre">1.0)</span></code> to move the robot to the target cartesian pose in 1 second.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Finally, the <code class="docutils literal notranslate"><span class="pre">set_task_finished()</span></code> method is called to indicate that the current task is finished, swithching to the next task in the sequence as a default behavior.</dt><dd><p><code class="docutils literal notranslate"><span class="pre">joint_move()</span></code> and <code class="docutils literal notranslate"><span class="pre">move()</span></code> methods return true when the motion is completed successfully.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+<section id="build-and-run-the-motion-program">
+<h2>3. Build and run the motion program<a class="headerlink" href="#build-and-run-the-motion-program" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws
+colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span class="w"> </span>my_cartesian_motion
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../creating_your_own_motion/creating_your_own_motion.html" class="btn btn-neutral float-left" title="Creating Your Own Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../examples/examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dayuan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

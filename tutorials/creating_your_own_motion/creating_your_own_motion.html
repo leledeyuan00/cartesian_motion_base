@@ -26,7 +26,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="../../examples/examples.html" />
+    <link rel="next" title="Move Your Robot" href="../move_your_robot/move_your_robot.html" />
     <link rel="prev" title="Your First Motion" href="../your_first_motion/your_first_motion.html" /> 
 </head>
 
@@ -54,7 +54,29 @@
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/getting_started.html">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../simulating_robot/simulating_robot.html">Simulation in Gazebo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Your First Motion</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Your Own Motion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating Your Own Motion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#crate-a-new-package">1 Crate a new package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-the-configuration-file">2 Writing the configuration file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#examine-the-code">2.1 Examine the code</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#writing-the-motion-program">3 Writing the motion program</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#writing-the-header-file">3.1 Writing the header file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examine-the-hpp-file">3.2 Examine the hpp file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writing-the-cpp-file">3.3 Writing the cpp file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examine-the-cpp-file">3.4 Examine the cpp file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-motion-program">4 Build and run the motion program</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modify-the-cmakelists-txt">4.1 Modify the CMakeLists.txt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-the-package">4.2 Build the package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-the-motion-program">4.3 Run the motion program</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">5 Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../move_your_robot/move_your_robot.html">Move Your Robot</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
@@ -88,6 +110,234 @@
              
   <section id="creating-your-own-motion">
 <h1>Creating Your Own Motion<a class="headerlink" href="#creating-your-own-motion" title="Link to this heading"></a></h1>
+<p>In this tutorial, we will create a new ros2 package to implement the motion program.</p>
+<section id="crate-a-new-package">
+<h2>1 Crate a new package<a class="headerlink" href="#crate-a-new-package" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src
+ros2<span class="w"> </span>pkg<span class="w"> </span>create<span class="w"> </span>--build-type<span class="w"> </span>ament_cmake<span class="w"> </span>my_cartesian_motion<span class="w"> </span>--dependencies<span class="w"> </span>rclcpp<span class="w"> </span>cartesian_motion_base<span class="w"> </span>cartesian_controller_msgs<span class="w"> </span>geometry_msgs
+</pre></div>
+</div>
+</section>
+<section id="writing-the-configuration-file">
+<h2>2 Writing the configuration file<a class="headerlink" href="#writing-the-configuration-file" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/include/my_cartesian_motion
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">my_cartesian_motion_config.hpp</span></code> file. In this configuration file, we will define the parameters of the robot for CMB.
+Here is an example configuration for a single-arm robot:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef MY_CARTESIAN_MOTION_CONFIG_HPP</span>
+<span class="cp">#define MY_CARTESIAN_MOTION_CONFIG_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cartesian_motion_base/cartesian_motion_type.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
+<span class="p">{</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_test_robot_configs</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">RobotConfig</span><span class="w"> </span><span class="n">robot</span><span class="p">;</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;ur&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// robot name which used for CMB API</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">pose_sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/current_pose&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// topic to subscribe current end-effector pose</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">cmd_monitor_sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/target_frame_monitor&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// topic to subscribe the target pose monitor</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">wrench_sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/current_wrench&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// topic to subscribe current end-effector wrench</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">wrench_pub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/target_wrench&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// topic to publish target end-effector wrench</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">cmd_pub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/target_frame&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// topic to publish target end-effector pose</span>
+<span class="w">    </span><span class="n">robot</span><span class="p">.</span><span class="n">joint_service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;/cartesian_compliance_controller/target_joint&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// service to set target joint positions</span>
+
+<span class="w">    </span><span class="n">robot_configs</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">robot</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
+
+<span class="cp">#endif </span><span class="c1">// MY_CARTESIAN_MOTION_CONFIG_HPP</span>
+</pre></div>
+</div>
+<section id="examine-the-code">
+<h3>2.1 Examine the code<a class="headerlink" href="#examine-the-code" title="Link to this heading"></a></h3>
+<p>The top of the code include the <code class="docutils literal notranslate"><span class="pre">cartesian_motion_type.hpp</span></code> file that defines the <code class="docutils literal notranslate"><span class="pre">RobotConfig</span></code> struct.</p>
+<p>Then, we define a function <code class="docutils literal notranslate"><span class="pre">get_test_robot_configs()</span></code> that returns a vector of <code class="docutils literal notranslate"><span class="pre">RobotConfig</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RobotConfig</span></code> struct contains CMB needed parameters, the CMB class needs a vector of <code class="docutils literal notranslate"><span class="pre">RobotConfig</span></code> to initialize itself.
+You can define multiple robots by push_back multiple <code class="docutils literal notranslate"><span class="pre">RobotConfig</span></code> into the vector.</p>
+</section>
+</section>
+<section id="writing-the-motion-program">
+<h2>3 Writing the motion program<a class="headerlink" href="#writing-the-motion-program" title="Link to this heading"></a></h2>
+<section id="writing-the-header-file">
+<h3>3.1 Writing the header file<a class="headerlink" href="#writing-the-header-file" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/include/my_cartesian_motion
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">my_cartesian_motion.hpp</span></code> file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef MY_CARTESIAN_MOTION_HPP</span>
+<span class="cp">#define MY_CARTESIAN_MOTION_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cartesian_motion_base/cartesian_motion_base.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_cartesian_motion/my_cartesian_motion_config.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
+<span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCartesianMotion</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MyCartesianMotion</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node_name</span><span class="p">,</span>
+<span class="w">           </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
+<span class="w">           </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span><span class="p">(</span>
+<span class="w">              </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">custom_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for task initialization</span>
+<span class="p">};</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
+<span class="cp">#endif </span><span class="c1">// MY_CARTESIAN_MOTION_HPP</span>
+</pre></div>
+</div>
+</section>
+<section id="examine-the-hpp-file">
+<h3>3.2 Examine the hpp file<a class="headerlink" href="#examine-the-hpp-file" title="Link to this heading"></a></h3>
+<p>The CartesianMotionBase class needs to be inherited to create a new motion class with <code class="docutils literal notranslate"><span class="pre">node_name</span></code>, <code class="docutils literal notranslate"><span class="pre">robot_configs</span></code>, and <code class="docutils literal notranslate"><span class="pre">rate</span></code> parameters in the constructor.</p>
+<p>Then, we must override two functions: <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> to implement our motion program.
+These two functions will initialize the extra ros components and the task sequence, respectively.
+They will be called when you call the <code class="docutils literal notranslate"><span class="pre">start()</span></code> method of the CMB class.</p>
+</section>
+<section id="writing-the-cpp-file">
+<h3>3.3 Writing the cpp file<a class="headerlink" href="#writing-the-cpp-file" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/src
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">my_cartesian_motion.cpp</span></code> file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_cartesian_motion/my_cartesian_motion.hpp&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">chrono_literals</span><span class="p">;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
+<span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianMotion::custom_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Custom initialization code here</span>
+<span class="w">    </span><span class="c1">// This time we leave it empty</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianMotion::tasks_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Define the task sequence here. The tasks will be executed in order.</span>
+<span class="w">    </span><span class="c1">// Here we create a log task just show how to create a task.</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;log_task&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Log Test&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">current_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_current_pose</span><span class="p">(</span><span class="s">&quot;ur&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">system_state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_system_state</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current Pose is: [%f, %f, %f]&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">current_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">current_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">current_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system task number is: %zu&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">task_num</span><span class="p">);</span>
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system start time is: %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">start_time</span><span class="p">.</span><span class="n">seconds</span><span class="p">());</span>
+<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system current time is: %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">current_time</span><span class="p">.</span><span class="n">seconds</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="c1">// Shut down task</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;shutdown&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">executors</span><span class="o">::</span><span class="n">SingleThreadedExecutor</span><span class="w"> </span><span class="n">executor</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">robot_configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_cartesian_motion</span><span class="o">::</span><span class="n">get_test_robot_configs</span><span class="p">();</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">my_motion_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">my_cartesian_motion</span><span class="o">::</span><span class="n">MyCartesianMotion</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;my_cartesian_motion_node&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="mi">125</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">my_motion_node</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">executor</span><span class="p">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">my_motion_node</span><span class="p">);</span>
+<span class="w">    </span><span class="n">executor</span><span class="p">.</span><span class="n">spin</span><span class="p">();</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="examine-the-cpp-file">
+<h3>3.4 Examine the cpp file<a class="headerlink" href="#examine-the-cpp-file" title="Link to this heading"></a></h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> function, we can add any customized initialization. In this example, we leave it empty.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> function, we define a sequence of tasks for the robot to execute.</p>
+<p>The tasks are defined using the predefined <code class="docutils literal notranslate"><span class="pre">task_pushback()</span></code> method, which takes a <code class="docutils literal notranslate"><span class="pre">TaskPtr</span></code> as input.
+<code class="docutils literal notranslate"><span class="pre">TaskPtr</span></code> is a smart pointer that points to a task.</p>
+<p>In this example, we create a log task that prints the current end-effector pose and system state to the console.
+We provide APIs like <code class="docutils literal notranslate"><span class="pre">get_current_pose()</span></code> and <code class="docutils literal notranslate"><span class="pre">get_system_state()</span></code> to get the robot’s current state.</p>
+<p>Finally, we add a shutdown task to safely shut down the node.</p>
+</section>
+</section>
+<section id="build-and-run-the-motion-program">
+<h2>4 Build and run the motion program<a class="headerlink" href="#build-and-run-the-motion-program" title="Link to this heading"></a></h2>
+<section id="modify-the-cmakelists-txt">
+<h3>4.1 Modify the CMakeLists.txt<a class="headerlink" href="#modify-the-cmakelists-txt" title="Link to this heading"></a></h3>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file in the <code class="docutils literal notranslate"><span class="pre">my_cartesian_motion</span></code> package to include the new source files.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.8</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">my_cartesian_motion</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_COMPILER_IS_GNUCXX</span><span class="w"> </span><span class="s">OR</span><span class="w"> </span><span class="s">CMAKE_CXX_COMPILER_ID</span><span class="w"> </span><span class="s">MATCHES</span><span class="w"> </span><span class="s2">&quot;Clang&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span><span class="w"> </span><span class="s">-Wextra</span><span class="w"> </span><span class="s">-Wpedantic</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># Find dependencies</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ament_cmake</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">THIS_PACKAGE_INCLUDE_DEPENDS</span>
+<span class="w">    </span><span class="s">rclcpp</span>
+<span class="w">    </span><span class="s">cartesian_motion_base</span>
+<span class="w">    </span><span class="s">cartesian_controller_msgs</span>
+<span class="w">    </span><span class="s">geometry_msgs</span>
+<span class="p">)</span>
+
+<span class="nb">foreach</span><span class="p">(</span><span class="s">Dependency</span><span class="w"> </span><span class="s">IN</span><span class="w"> </span><span class="s">ITEMS</span><span class="w"> </span><span class="o">${</span><span class="nv">THIS_PACKAGE_INCLUDE_DEPENDS</span><span class="o">}</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">find_package</span><span class="p">(</span><span class="o">${</span><span class="nv">Dependency</span><span class="o">}</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">endforeach</span><span class="p">()</span>
+
+<span class="c"># Add executable</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">my_cartesian_motion</span><span class="w"> </span><span class="s">src/my_cartesian_motion.cpp</span><span class="p">)</span>
+<span class="nb">ament_target_dependencies</span><span class="p">(</span><span class="s">my_cartesian_motion</span><span class="w"> </span><span class="o">${</span><span class="nv">THIS_PACKAGE_INCLUDE_DEPENDS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">my_cartesian_motion</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="nv">BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include</span><span class="o">&gt;</span>
+<span class="w">  </span><span class="o">$&lt;</span><span class="nv">INSTALL_INTERFACE:include</span><span class="o">&gt;</span>
+<span class="p">)</span>
+
+<span class="nb">install</span><span class="p">(</span><span class="s">TARGETS</span>
+<span class="w">  </span><span class="s">my_cartesian_motion</span>
+<span class="w">  </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">lib/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+<span class="p">)</span>
+
+<span class="nb">ament_package</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="build-the-package">
+<h3>4.2 Build the package<a class="headerlink" href="#build-the-package" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws
+colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
+</pre></div>
+</div>
+</section>
+<section id="run-the-motion-program">
+<h3>4.3 Run the motion program<a class="headerlink" href="#run-the-motion-program" title="Link to this heading"></a></h3>
+<p>Make sure running the simulation in Gazebo as shown in <a class="reference internal" href="../simulating_robot/simulating_robot.html"><span class="doc">Simulation in Gazebo</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span class="w"> </span>my_cartesian_motion
+</pre></div>
+</div>
+<p>You will see the log messages printed in the console.</p>
+</section>
+</section>
+<section id="next-steps">
+<h2>5 Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Next, we will try to <a class="reference internal" href="../move_your_robot/move_your_robot.html"><span class="doc">move the robot using Cartesian Motion Base</span></a>.</p>
+</section>
 </section>
 
 
@@ -95,7 +345,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../your_first_motion/your_first_motion.html" class="btn btn-neutral float-left" title="Your First Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../examples/examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../move_your_robot/move_your_robot.html" class="btn btn-neutral float-right" title="Move Your Robot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
