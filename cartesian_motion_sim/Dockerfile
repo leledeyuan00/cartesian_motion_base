@@ -15,7 +15,6 @@ RUN apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp -y
 # Create workspace and copy source files
 RUN mkdir -p /root/cmb_ws/src
 WORKDIR /root/cmb_ws/src
-# COPY . /root/cmb_ws/src/cartesian_motion_sim
 
 # Build the workspace
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \ 

@@ -5,8 +5,8 @@ Here, we will setup your environment to use Cartesian Motion Base (CMB) and run 
 CMB is designed to work with `cartesian controllers <https://github.com/leledeyuan00/cartesian_controllers.git>`_ in ROS 2.
 But, you can also use other controllers that support Cartesian commands.
 
-Installation
-^^^^^^^^^^^^^
+Installation ROS 2 distribution and tools:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Make sure you have ROS 2 Humble or later installed on your system.
 
@@ -14,6 +14,7 @@ Make sure you have ROS 2 Humble or later installed on your system.
 * `Jazzy Jalisco <https://docs.ros.org/en/jazzy/Installation.html>`_
 
 Install rosdep to install system dependencies:
+
 .. code-block:: bash
 
    sudo apt install python3-rosdep
@@ -21,12 +22,21 @@ Install rosdep to install system dependencies:
    rosdep update
 
 Install vcstool:
+
 .. code-block:: bash
 
    sudo apt install python3-vcstool
 
+Install cyclonedds for ROS 2 communication(if you haven't already):
+
+.. code-block:: bash
+
+   sudo apt install ros-humble-rmw-cyclonedds-cpp
+   echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
+
 Download the cartesian_motion_base source code:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. code-block:: bash
     
     mkdir -p ~/cmb_ws/src
@@ -43,10 +53,10 @@ Build your colcon workspace:
    rosdep install --from-paths src --ignore-src -r -y
    colcon build --symlink-install
 
-
 Setup your environment:
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 Source the workspace:
+
 .. code-block:: bash
 
    source ~/cmb_ws/install/setup.bash
