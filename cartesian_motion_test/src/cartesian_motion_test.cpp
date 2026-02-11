@@ -37,7 +37,7 @@ void MotionTest::custom_init()
 void MotionTest::tasks_init()
 {
 
-    // A fake service test. Please realize the service in your own node.
+    // Go Home by joint space
     task_pushback(TaskPtr("Go Home", [this](){
         std::vector<double> home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0};
         

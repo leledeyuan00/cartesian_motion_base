@@ -1,21 +1,8 @@
 #ifndef CARTESIAN_MOTION_DUAL_ARM_TEST_HPP__
 #define CARTESIAN_MOTION_DUAL_ARM_TEST_HPP__
 
-// std
-#include <stdlib.h>
-#include <sstream>
-#include <ctime>
-#include <fstream>
-#include <thread>
-
 // ros
-#include <rclcpp/rclcpp.hpp>
 #include <std_srvs/srv/set_bool.hpp>
-#include <geometry_msgs/msg/pose_stamped.hpp>
-#include "geometry_msgs/msg/wrench_stamped.hpp"
-
-#include "kdl/frames.hpp"
-#include "tf2_eigen/tf2_eigen.hpp"
 
 // custom
 #include "cartesian_motion_base/cartesian_motion_base.hpp"
@@ -35,9 +22,9 @@ public:
 
 private:
     /* function */
-    virtual void custom_init(); // must override for custom initialization
+    void custom_init() override; // must override for custom initialization
     //tasks
-    virtual void tasks_init(); // must override for task initialization
+    void tasks_init() override; // must override for task initialization
     
     void test_service(bool on);
     /* variable */
