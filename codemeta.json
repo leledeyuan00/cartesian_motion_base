@@ -1,0 +1,23 @@
+{
+  "@context": "https://raw.githubusercontent.com/codemeta/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "https://orcid.org/0000-0001-9644-7584",
+      "@type": "Person",
+      "email": "leledeyuan@gamil.com",
+      "name": "Dayuan",
+      "affiliation": "Tohoku University"
+    }
+  ],
+  "identifier": "https://doi.org/10.5281/zenodo.18616705",
+  "codeRepository": "https://github.com/leledeyuan00/cartesian_motion_base",
+  "datePublished": "2026-02-12",
+  "dateModified": "2026-02-12",
+  "dateCreated": "2026-02-12",
+  "description": "An real-time tasks sequencial control architecture on ROS2 based manipulator. Easily deploy, extend and reusage.",
+  "keywords": "real-time, ros2, cartesian-controller, sequencer, control-architecture, manipulator-control",
+  "license": "MIT",
+  "title": "Cartesian Motion Base",
+  "version": "v0.1.0"
+}
