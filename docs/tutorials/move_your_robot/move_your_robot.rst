@@ -3,12 +3,12 @@ Move Your Robot
 
 In this tutorial, we will show you how to move your robot by joints and cartesian using the API provided by CMB.
 
-Prerequisites
+1. Prerequisites
 ^^^^^^^^^^^^^^^^^
 
 Make sure you have completed the :doc:`creating your own motion program tutorial </tutorials/creating_your_own_motion/creating_your_own_motion>` and the :doc:`simulating robot tutorial </tutorials/simulating_robot/simulating_robot>`.
 
-Control the robot using Cartesian Motion Base API
+2. Control the robot using Cartesian Motion Base API
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This time, we will edit the source code to move the robot using CMB API.

@@ -144,6 +144,26 @@ Create a ``my_cartesian_interface.cpp`` file.
 3. Build and run the node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1 Modyfy CMakeLists.txt
+--------------------------
+
+Add the following lines in ``CMakeLists.txt`` of ``my_cartesian_interface`` package:
+
+.. code:: cmake
+    
+    add_executable(my_cartesian_interface src/my_cartesian_interface.cpp)
+    ament_target_dependencies(my_cartesian_interface ${THIS_PACKAGE_INCLUDE_DEPENDS})
+    target_include_directories(my_cartesian_interface PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+    )
+
+    install(
+        TARGETS 
+        my_cartesian_interface
+        DESTINATION lib/${PROJECT_NAME}
+    )
+
 .. code:: bash
 
     cd ~/cmb_ws

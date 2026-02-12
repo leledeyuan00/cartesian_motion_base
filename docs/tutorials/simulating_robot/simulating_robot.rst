@@ -6,19 +6,19 @@ You can easily run the simulation directly in :ref:`Docker <using-docker>`, or i
 
 .. _using-docker:
 
-Running the Simulation in Docker
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Running the Simulation in Docker
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Install Docker and Nvidia drivers for Docker:
-----------------------------------------------
+1.1 Install Docker and Nvidia drivers for Docker:
+--------------------------------------------------
 
 
     * `Docker Installation for Ubuntu <https://docs.docker.com/engine/install/ubuntu/>`_
     * `Nvidia drivers for Docker <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html>`_
     * `Linux Post Installation Steps <https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user>`_
 
-Launch container and run simulation:
---------------------------------------
+1.2 Launch container and run simulation:
+-----------------------------------------
 
 Launch the Docker container with GUI and GPU support:
 
@@ -58,11 +58,11 @@ Launch the simulation:
 Based on the Docker configuration, you can also communicate with the docker environment from your host machine.
 For example, you can run ``ros2 topic list`` in your host machine terminal to see the topics published in the Docker container.
 
-Running the Simulation on Your Local Machine
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2. Running the Simulation on Your Local Machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Install Gazebo and its plugins(if you haven't already):
--------------------------------------------------------
+2.1 Install Gazebo and its plugins(if you haven't already):
+------------------------------------------------------------
 
 .. code:: bash
 
@@ -80,7 +80,7 @@ or launch the dual-arm simulation
 
    ros2 launch cartesian_sim_bringup cartesian_sim_bringup.launch.py config_type:=dual_arm
 
-Next Setps:
-^^^^^^^^^^^^^
+3. Next Setps:
+^^^^^^^^^^^^^^^
 
 Nice job! Next, we will try to :doc:`control the robot in simulation using Cartesian Motion Base</tutorials/your_first_motion/your_first_motion>`.
