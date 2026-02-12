@@ -1,5 +1,5 @@
-Your First Motion
-=====================
+Trying our Example Motion
+===========================
 
 In this tutorial, we will give you a quick start on using or provided example to moving the robot in simulation.
 

@@ -26,7 +26,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Examples" href="../../examples/examples.html" />
+    <link rel="next" title="Real-Time Servo Control" href="../real_time_servo/real_time_servo.html" />
     <link rel="prev" title="Creating Your Own Motion" href="../creating_your_own_motion/creating_your_own_motion.html" /> 
 </head>
 
@@ -53,7 +53,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/getting_started.html">Getting Started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../simulating_robot/simulating_robot.html">Simulation in Gazebo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Your First Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Trying our Example Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../creating_your_own_motion/creating_your_own_motion.html">Creating Your Own Motion</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Move Your Robot</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
@@ -62,8 +62,11 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-motion-program">3. Build and run the motion program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">4. Next Steps</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../real_time_servo/real_time_servo.html">Real-Time Servo Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extend_ros_interface/extend_ros_interface.html">Extend ROS Interface on Cartesian Motion Base</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
@@ -109,7 +112,7 @@
 <li><p>Open the source code file <code class="docutils literal notranslate"><span class="pre">cartesian_motion_test/src/cartesian_motion_test.cpp</span></code> in your favorite editor.</p></li>
 <li><p>Add the following code in the <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> function to add joint space motion and cartesian space motion:</p></li>
 </ol>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// into tasks_init() function</span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// into tasks_init() function</span>
 <span class="c1">// Go Home by joint space</span>
 <span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Go Home&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">home_joints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">};</span>
@@ -185,6 +188,10 @@ ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span 
 </pre></div>
 </div>
 </section>
+<section id="next-steps">
+<h2>4. Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Next, we will show how to use set_target_pose() method to  <a class="reference internal" href="../real_time_servo/real_time_servo.html"><span class="doc">realize a simple real-time servo control</span></a>.</p>
+</section>
 </section>
 
 
@@ -192,7 +199,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span 
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../creating_your_own_motion/creating_your_own_motion.html" class="btn btn-neutral float-left" title="Creating Your Own Motion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../examples/examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../real_time_servo/real_time_servo.html" class="btn btn-neutral float-right" title="Real-Time Servo Control" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

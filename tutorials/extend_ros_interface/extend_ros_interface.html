@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extend ROS Interface on Cartesian Motion Base &mdash; Cartesian Motion Base Library 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/collapsible-lists/css/tree_view.css?v=a885cde7" />
+
+  
+    <link rel="canonical" href="https://leledeyuan00.github.io/cartesian_motion_base/tutorials/extend_ros_interface/extend_ros_interface.html" />
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js?v=73120307"></script>
+      <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js?v=660e4f45"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Examples" href="../../examples/examples.html" />
+    <link rel="prev" title="Real-Time Servo Control" href="../real_time_servo/real_time_servo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Cartesian Motion Base Library
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting_started/getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../simulating_robot/simulating_robot.html">Simulation in Gazebo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Trying our Example Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating_your_own_motion/creating_your_own_motion.html">Creating Your Own Motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../move_your_robot/move_your_robot.html">Move Your Robot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../real_time_servo/real_time_servo.html">Real-Time Servo Control</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Extend ROS Interface on Cartesian Motion Base</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-header-file">1. Create a new header file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implement-the-interface-in-cpp-file">2. Implement the interface in cpp file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-node">3. Build and run the node</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/library_root.html">C++ API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Cartesian Motion Base Library</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Extend ROS Interface on Cartesian Motion Base</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/leledeyuan00/cartesian_motion_base/blob/master/docs/tutorials/extend_ros_interface/extend_ros_interface.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="extend-ros-interface-on-cartesian-motion-base">
+<h1>Extend ROS Interface on Cartesian Motion Base<a class="headerlink" href="#extend-ros-interface-on-cartesian-motion-base" title="Link to this heading"></a></h1>
+<p>This tutorial will show how to realize a topic and a service interface on Cartesian Motion Base (CMB).</p>
+<section id="create-a-new-header-file">
+<h2>1. Create a new header file<a class="headerlink" href="#create-a-new-header-file" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/include/my_cartesian_motion
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface.hpp</span></code> file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifndef MY_CARTESIAN_INTERFACE_HPP</span>
+<span class="cp">#define MY_CARTESIAN_INTERFACE_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cartesian_motion_base/cartesian_motion_base.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_cartesian_motion/my_cartesian_motion_config.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;std_msgs/msg/string.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;std_srvs/srv/set_bool.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
+<span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyCartesianInterface</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MyCartesianInterface</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node_name</span><span class="p">,</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
+<span class="w">       </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="p">)</span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span><span class="p">(</span>
+<span class="w">          </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">custom_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for task initialization</span>
+
+<span class="w">    </span><span class="c1">// ROS interface</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Subscription</span><span class="o">&lt;</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">&gt;::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">subscriber_</span><span class="p">;</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Service</span><span class="o">&lt;</span><span class="n">std_srvs</span><span class="o">::</span><span class="n">srv</span><span class="o">::</span><span class="n">SetBool</span><span class="o">&gt;::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">service_</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">service_flag_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
+<span class="cp">#endif </span><span class="c1">// MY_CARTESIAN_INTERFACE_HPP</span>
+</pre></div>
+</div>
+</section>
+<section id="implement-the-interface-in-cpp-file">
+<h2>2. Implement the interface in cpp file<a class="headerlink" href="#implement-the-interface-in-cpp-file" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/src
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface.cpp</span></code> file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_cartesian_motion/my_cartesian_interface.hpp&quot;</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">chrono_literals</span><span class="p">;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
+<span class="p">{</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianInterface::custom_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Subscriber example</span>
+<span class="w">    </span><span class="n">subscriber_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;my_topic&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">msg</span><span class="p">){</span>
+<span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Received: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w">        </span><span class="p">});</span>
+
+<span class="w">    </span><span class="c1">// Service example</span>
+<span class="w">    </span><span class="n">service_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">create_service</span><span class="o">&lt;</span><span class="n">std_srvs</span><span class="o">::</span><span class="n">srv</span><span class="o">::</span><span class="n">SetBool</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;my_service&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="k">this</span><span class="p">](</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std_srvs</span><span class="o">::</span><span class="n">srv</span><span class="o">::</span><span class="n">SetBool</span><span class="o">::</span><span class="n">Request</span><span class="o">&gt;</span><span class="w"> </span><span class="n">request</span><span class="p">,</span>
+<span class="w">               </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">std_srvs</span><span class="o">::</span><span class="n">srv</span><span class="o">::</span><span class="n">SetBool</span><span class="o">::</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="n">response</span><span class="p">){</span>
+<span class="w">            </span><span class="n">service_flag_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="w">            </span><span class="n">response</span><span class="o">-&gt;</span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">            </span><span class="n">response</span><span class="o">-&gt;</span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Trigger flag set to &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">service_flag_</span><span class="p">);;</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianInterface::tasks_init</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Go Home by joint space</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Go Home&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">home_joints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">-1.57</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">};</span>
+
+<span class="w">        </span><span class="c1">// Create joint map</span>
+<span class="w">        </span><span class="n">JointMap</span><span class="w"> </span><span class="n">joint_map</span><span class="p">;</span>
+<span class="w">        </span><span class="n">joint_map</span><span class="p">[</span><span class="s">&quot;ur&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">home_joints</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">joint_move</span><span class="p">(</span><span class="n">joint_map</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">)){</span>
+<span class="w">            </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="c1">// Wait for service trigger</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Wait for Service Trigger&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">service_flag_</span><span class="p">){</span>
+<span class="w">            </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Service triggered, proceeding to next task.&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="c1">// Move up with 0.1m in z direction by cartesian space</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;Move Up&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">current_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_current_pose</span><span class="p">(</span><span class="s">&quot;ur&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current_pose</span><span class="p">;</span>
+<span class="w">        </span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">z</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// Create pose map</span>
+<span class="w">        </span><span class="n">PoseMap</span><span class="w"> </span><span class="n">pose_map</span><span class="p">;</span>
+<span class="w">        </span><span class="n">pose_map</span><span class="p">[</span><span class="s">&quot;ur&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">target_pose</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">pose_map</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)){</span>
+<span class="w">            </span><span class="n">set_task_finished</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}));</span>
+
+<span class="w">    </span><span class="c1">// Shut down task</span>
+<span class="w">    </span><span class="n">task_pushback</span><span class="p">(</span><span class="n">TaskPtr</span><span class="p">(</span><span class="s">&quot;shutdown&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="k">this</span><span class="p">](){</span>
+<span class="w">        </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="p">}</span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">executors</span><span class="o">::</span><span class="n">SingleThreadedExecutor</span><span class="w"> </span><span class="n">executor</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">robot_configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_cartesian_motion</span><span class="o">::</span><span class="n">get_test_robot_configs</span><span class="p">();</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">my_interface_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">my_cartesian_motion</span><span class="o">::</span><span class="n">MyCartesianInterface</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;my_cartesian_interface_node&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="mi">125</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">my_interface_node</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">executor</span><span class="p">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">my_interface_node</span><span class="p">);</span>
+<span class="w">    </span><span class="n">executor</span><span class="p">.</span><span class="n">spin</span><span class="p">();</span>
+<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">shutdown</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="build-and-run-the-node">
+<h2>3. Build and run the node<a class="headerlink" href="#build-and-run-the-node" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>my_cartesian_motion
+<span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
+ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span class="w"> </span>my_cartesian_interface
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep your simulation environment running while you run this node.</p>
+</div>
+<p>Now, you have created a topic subscriber and a service server on Cartesian Motion Base.</p>
+<p>Open a new terminal and send a test message to the topic:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/my_topic<span class="w"> </span>std_msgs/msg/String<span class="w"> </span><span class="s2">&quot;{data: &#39;Hello from topic!&#39;}&quot;</span>
+</pre></div>
+</div>
+<p>You should see the message printed in the terminal running the <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface</span></code> node.</p>
+<p>Then, call the service to set the trigger flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
+ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/my_service<span class="w"> </span>std_srvs/srv/SetBool<span class="w"> </span><span class="s2">&quot;{data: true}&quot;</span>
+</pre></div>
+</div>
+<p>The robot should move up by 0.1m in the z direction after the service is called.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can further extend publisher and client interfaces similarly by following the ROS2 communication patterns.</p>
+</div>
+<p>Congratulations! You have successfully extended the ROS interface on Cartesian Motion Base.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../real_time_servo/real_time_servo.html" class="btn btn-neutral float-left" title="Real-Time Servo Control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../examples/examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Dayuan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

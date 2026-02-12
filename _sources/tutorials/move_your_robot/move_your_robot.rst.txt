@@ -16,7 +16,7 @@ This time, we will edit the source code to move the robot using CMB API.
 1. Open the source code file ``cartesian_motion_test/src/cartesian_motion_test.cpp`` in your favorite editor.
 2. Add the following code in the ``tasks_init()`` function to add joint space motion and cartesian space motion:
 
-.. code:: cpp
+.. code:: c++
 
     // into tasks_init() function
     // Go Home by joint space
@@ -86,3 +86,6 @@ This time, we will edit the source code to move the robot using CMB API.
    source ~/cmb_ws/install/setup.bash
    ros2 run my_cartesian_motion my_cartesian_motion
 
+4. Next Steps
+^^^^^^^^^^^^^^
+Next, we will show how to use set_target_pose() method to  :doc:`realize a simple real-time servo control </tutorials/real_time_servo/real_time_servo>`.
