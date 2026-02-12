@@ -37,7 +37,7 @@ void MotionDualArmTest::custom_init()
 void MotionDualArmTest::tasks_init()
 {
 
-    // A fake service test. Please realize the service in your own node.
+    // Go Home by joint space
     task_pushback(TaskPtr("Go Home", [this](){
         std::vector<double> left_home_joints = {0.0, -1.57, 1.57, -1.57, -1.57, 0.0};
         std::vector<double> right_home_joints = {3.14, -1.57, -1.57, -1.57, 1.57, 0.0};
