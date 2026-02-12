@@ -57,12 +57,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../creating_your_own_motion/creating_your_own_motion.html">Creating Your Own Motion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../move_your_robot/move_your_robot.html">Move Your Robot</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Real-Time Servo Control</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#move-robot-in-real-time-servo-mode">Move robot in real-time servo mode</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#explanation-of-the-code">2.1 Explanation of the code</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#build-and-run-the-example">2.2 Build and Run the example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#move-robot-in-real-time-servo-mode">1. Move robot in real-time servo mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#explanation-of-the-code">1.1 Explanation of the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-and-run-the-example">1.2 Build and Run the example</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#next-steps">3. Next Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-steps">2. Next Steps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../extend_ros_interface/extend_ros_interface.html">Extend ROS Interface on Cartesian Motion Base</a></li>
@@ -106,7 +106,7 @@ And it is also what Cartesian Motion Base (CMB) is designed for.</p>
 <p>Even <code class="docutils literal notranslate"><span class="pre">move()</span></code> and <code class="docutils literal notranslate"><span class="pre">joint_move()</span></code> are also implemented using real-time servo control under the hood.</p>
 </div>
 <section id="move-robot-in-real-time-servo-mode">
-<h2>Move robot in real-time servo mode<a class="headerlink" href="#move-robot-in-real-time-servo-mode" title="Link to this heading"></a></h2>
+<h2>1. Move robot in real-time servo mode<a class="headerlink" href="#move-robot-in-real-time-servo-mode" title="Link to this heading"></a></h2>
 <p>When you need to generate a target pose in real-time and send it to the robot, you can use the <code class="docutils literal notranslate"><span class="pre">set_target_pose()</span></code> method provided by CMB.</p>
 <ol class="arabic simple">
 <li><p>Open the source code file <code class="docutils literal notranslate"><span class="pre">cartesian_motion_test/src/cartesian_motion_test.cpp</span></code> in your favorite editor.</p></li>
@@ -186,7 +186,7 @@ And it is also what Cartesian Motion Base (CMB) is designed for.</p>
 </pre></div>
 </div>
 <section id="explanation-of-the-code">
-<h3>2.1 Explanation of the code<a class="headerlink" href="#explanation-of-the-code" title="Link to this heading"></a></h3>
+<h3>1.1 Explanation of the code<a class="headerlink" href="#explanation-of-the-code" title="Link to this heading"></a></h3>
 <p>In this example, we generate a target pose in real-time based on the current time.</p>
 <ul>
 <li><dl>
@@ -226,7 +226,7 @@ And it is also what Cartesian Motion Base (CMB) is designed for.</p>
 </ul>
 </section>
 <section id="build-and-run-the-example">
-<h3>2.2 Build and Run the example<a class="headerlink" href="#build-and-run-the-example" title="Link to this heading"></a></h3>
+<h3>1.2 Build and Run the example<a class="headerlink" href="#build-and-run-the-example" title="Link to this heading"></a></h3>
 <p>Open a new terminal and source your workspace:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws
 colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
@@ -243,7 +243,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span 
 </section>
 </section>
 <section id="next-steps">
-<h2>3. Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<h2>2. Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
 <p>Next, we will show how to <a class="reference internal" href="../extend_ros_interface/extend_ros_interface.html"><span class="doc">extend the ROS interface</span></a>.</p>
 </section>
 </section>

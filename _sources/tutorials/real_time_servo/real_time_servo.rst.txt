@@ -8,8 +8,8 @@ And it is also what Cartesian Motion Base (CMB) is designed for.
 
     Even ``move()`` and ``joint_move()`` are also implemented using real-time servo control under the hood.
 
-Move robot in real-time servo mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Move robot in real-time servo mode
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When you need to generate a target pose in real-time and send it to the robot, you can use the ``set_target_pose()`` method provided by CMB.
 
@@ -91,7 +91,7 @@ When you need to generate a target pose in real-time and send it to the robot, y
         }));
     }
 
-2.1 Explanation of the code
+1.1 Explanation of the code
 ----------------------------
 
 In this example, we generate a target pose in real-time based on the current time.
@@ -125,7 +125,7 @@ In this example, we generate a target pose in real-time based on the current tim
 
     * ``set_target_wrench()``: Set the target wrench of the robot.
 
-2.2 Build and Run the example
+1.2 Build and Run the example
 ------------------------------
 
 Open a new terminal and source your workspace:
@@ -144,6 +144,6 @@ Open a new terminal and source your workspace:
 
     Now pleae trying to realize dual-arm motion by yourself.
 
-3. Next Steps
+2. Next Steps
 ^^^^^^^^^^^^^^
 Next, we will show how to :doc:`extend the ROS interface </tutorials/extend_ros_interface/extend_ros_interface>`.

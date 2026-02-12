@@ -60,7 +60,10 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Extend ROS Interface on Cartesian Motion Base</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-new-header-file">1. Create a new header file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#implement-the-interface-in-cpp-file">2. Implement the interface in cpp file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-node">3. Build and run the node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-and-run-the-node">3. Build and run the node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modyfy-cmakelists-txt">3.1 Modyfy CMakeLists.txt</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -231,6 +234,23 @@
 </section>
 <section id="build-and-run-the-node">
 <h2>3. Build and run the node<a class="headerlink" href="#build-and-run-the-node" title="Link to this heading"></a></h2>
+<section id="modyfy-cmakelists-txt">
+<h3>3.1 Modyfy CMakeLists.txt<a class="headerlink" href="#modyfy-cmakelists-txt" title="Link to this heading"></a></h3>
+<p>Add the following lines in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> of <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface</span></code> package:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="s">src/my_cartesian_interface.cpp</span><span class="p">)</span>
+<span class="nb">ament_target_dependencies</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="o">${</span><span class="nv">THIS_PACKAGE_INCLUDE_DEPENDS</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">    </span><span class="o">$&lt;</span><span class="nv">BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">$&lt;</span><span class="nv">INSTALL_INTERFACE:include</span><span class="o">&gt;</span>
+<span class="p">)</span>
+
+<span class="nb">install</span><span class="p">(</span>
+<span class="w">    </span><span class="s">TARGETS</span>
+<span class="w">    </span><span class="s">my_cartesian_interface</span>
+<span class="w">    </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">lib/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws
 colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>my_cartesian_motion
 <span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
@@ -259,6 +279,7 @@ ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> 
 <p>You can further extend publisher and client interfaces similarly by following the ROS2 communication patterns.</p>
 </div>
 <p>Congratulations! You have successfully extended the ROS interface on Cartesian Motion Base.</p>
+</section>
 </section>
 </section>
 

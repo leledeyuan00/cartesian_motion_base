@@ -5,8 +5,8 @@ Here, we will setup your environment to use Cartesian Motion Base (CMB) and run 
 CMB is designed to work with `cartesian controllers <https://github.com/leledeyuan00/cartesian_controllers.git>`_ in ROS 2.
 But, you can also use other controllers that support Cartesian commands.
 
-Installation ROS 2 distribution and tools:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Installation ROS 2 distribution and tools:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Make sure you have ROS 2 Humble or later installed on your system.
 
@@ -34,8 +34,8 @@ Install cyclonedds for ROS 2 communication(if you haven't already):
    sudo apt install ros-humble-rmw-cyclonedds-cpp
    echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
 
-Download the cartesian_motion_base source code:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2. Download the cartesian_motion_base source code:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
     
@@ -44,8 +44,8 @@ Download the cartesian_motion_base source code:
     git clone https://github.com/leledeyuan00/cartesian_motion_base.git
     vcs import < cartesian_motion_base/cartesian_motion_base.repos
 
-Build your colcon workspace:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+3. Build your colcon workspace:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -53,8 +53,8 @@ Build your colcon workspace:
    rosdep install --from-paths src --ignore-src -r -y
    colcon build --symlink-install
 
-Setup your environment:
-^^^^^^^^^^^^^^^^^^^^^^^^^
+4. Setup your environment:
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 Source the workspace:
 
 .. code-block:: bash
@@ -69,7 +69,7 @@ Optional: add the previous command to your ``~/.bashrc``: ::
    not required and often skipped by advanced users who use more than one
    Colcon workspace at a time, but we recommend it for simplicity.
 
-Next Steps
+5. Next Steps
 ^^^^^^^^^^^^^
 
 Nice job! Next, we will :doc:`visualize a simple Cartesian motion example using Gazebo </tutorials/simulating_robot/simulating_robot>`

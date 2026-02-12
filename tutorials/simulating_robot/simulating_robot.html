@@ -53,16 +53,16 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../getting_started/getting_started.html">Getting Started</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Simulation in Gazebo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-in-docker">Running the Simulation in Docker</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#install-docker-and-nvidia-drivers-for-docker">Install Docker and Nvidia drivers for Docker:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#launch-container-and-run-simulation">Launch container and run simulation:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-in-docker">1. Running the Simulation in Docker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-docker-and-nvidia-drivers-for-docker">1.1 Install Docker and Nvidia drivers for Docker:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#launch-container-and-run-simulation">1.2 Launch container and run simulation:</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-on-your-local-machine">Running the Simulation on Your Local Machine</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#install-gazebo-and-its-plugins-if-you-haven-t-already">Install Gazebo and its plugins(if you haven’t already):</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-on-your-local-machine">2. Running the Simulation on Your Local Machine</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-gazebo-and-its-plugins-if-you-haven-t-already">2.1 Install Gazebo and its plugins(if you haven’t already):</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#next-setps">Next Setps:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#next-setps">3. Next Setps:</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../your_first_motion/your_first_motion.html">Trying our Example Motion</a></li>
@@ -106,9 +106,9 @@
 <p>In this tutorial, we provide two method to simulate a robot in Gazebo.
 You can easily run the simulation directly in <a class="reference internal" href="#using-docker"><span class="std std-ref">Docker</span></a>, or install Gazebo on your local machine and run the simulation there.</p>
 <section id="running-the-simulation-in-docker">
-<span id="using-docker"></span><h2>Running the Simulation in Docker<a class="headerlink" href="#running-the-simulation-in-docker" title="Link to this heading"></a></h2>
+<span id="using-docker"></span><h2>1. Running the Simulation in Docker<a class="headerlink" href="#running-the-simulation-in-docker" title="Link to this heading"></a></h2>
 <section id="install-docker-and-nvidia-drivers-for-docker">
-<h3>Install Docker and Nvidia drivers for Docker:<a class="headerlink" href="#install-docker-and-nvidia-drivers-for-docker" title="Link to this heading"></a></h3>
+<h3>1.1 Install Docker and Nvidia drivers for Docker:<a class="headerlink" href="#install-docker-and-nvidia-drivers-for-docker" title="Link to this heading"></a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Docker Installation for Ubuntu</a></p></li>
@@ -118,7 +118,7 @@ You can easily run the simulation directly in <a class="reference internal" href
 </div></blockquote>
 </section>
 <section id="launch-container-and-run-simulation">
-<h3>Launch container and run simulation:<a class="headerlink" href="#launch-container-and-run-simulation" title="Link to this heading"></a></h3>
+<h3>1.2 Launch container and run simulation:<a class="headerlink" href="#launch-container-and-run-simulation" title="Link to this heading"></a></h3>
 <p>Launch the Docker container with GUI and GPU support:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/cartesian_motion_base/cartesian_motion_sim/
 ./set_display.sh<span class="w"> </span><span class="c1"># For display forwarding</span>
@@ -151,9 +151,9 @@ For example, you can run <code class="docutils literal notranslate"><span class=
 </section>
 </section>
 <section id="running-the-simulation-on-your-local-machine">
-<h2>Running the Simulation on Your Local Machine<a class="headerlink" href="#running-the-simulation-on-your-local-machine" title="Link to this heading"></a></h2>
+<h2>2. Running the Simulation on Your Local Machine<a class="headerlink" href="#running-the-simulation-on-your-local-machine" title="Link to this heading"></a></h2>
 <section id="install-gazebo-and-its-plugins-if-you-haven-t-already">
-<h3>Install Gazebo and its plugins(if you haven’t already):<a class="headerlink" href="#install-gazebo-and-its-plugins-if-you-haven-t-already" title="Link to this heading"></a></h3>
+<h3>2.1 Install Gazebo and its plugins(if you haven’t already):<a class="headerlink" href="#install-gazebo-and-its-plugins-if-you-haven-t-already" title="Link to this heading"></a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ignition-fortress<span class="w"> </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-gazebo-plugins<span class="w"> </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-gz-ros2-control<span class="w"> </span>ros-<span class="si">${</span><span class="nv">ROS_DISTRO</span><span class="si">}</span>-ros-gz
 </pre></div>
 </div>
@@ -168,7 +168,7 @@ For example, you can run <code class="docutils literal notranslate"><span class=
 </section>
 </section>
 <section id="next-setps">
-<h2>Next Setps:<a class="headerlink" href="#next-setps" title="Link to this heading"></a></h2>
+<h2>3. Next Setps:<a class="headerlink" href="#next-setps" title="Link to this heading"></a></h2>
 <p>Nice job! Next, we will try to <a class="reference internal" href="../your_first_motion/your_first_motion.html"><span class="doc">control the robot in simulation using Cartesian Motion Base</span></a>.</p>
 </section>
 </section>
