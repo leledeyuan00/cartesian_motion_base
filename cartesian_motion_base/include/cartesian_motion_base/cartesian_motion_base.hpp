@@ -115,6 +115,18 @@ protected:
 
     // robot state
     /**
+     * @brief get robot names
+     * @return vector of robot names
+     */
+    std::vector<std::string> get_robot_names() {
+        std::vector<std::string> names;
+        for (const auto& [name, handles] : robots_){
+            names.push_back(name);
+        }
+        return names;
+    };
+
+    /**
      * @brief get current pose for a robot by name
      * @param robot_name
      * @return current pose
