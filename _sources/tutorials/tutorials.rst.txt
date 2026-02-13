@@ -5,10 +5,12 @@ Tutorials
 
 .. raw:: html
 
-   <video width="60%" controls autoplay loop muted>
-   <source src="https://github.com/user-attachments/assets/e33cec7b-e2ad-4d44-a3dc-7c1c639f3c69" type="video/mp4">
-      Your browser does not support the video tag.
-   </video>
+   <div style="max-width: 480px !important; box-sizing: border-box;">
+      <video controls autoplay loop muted playsinline style="width: 100% !important; max-width: 480px !important; height: auto; display: block;">
+         <source src="https://github.com/user-attachments/assets/f799f0ce-cd6d-4bd7-a956-051c45087995" type="video/mp4">
+         Your browser does not support the video tag.
+      </video>
+   </div>
 
 .. toctree::
    :maxdepth: 1
