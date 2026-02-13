@@ -167,7 +167,7 @@ Add the following lines in ``CMakeLists.txt`` of ``my_cartesian_interface`` pack
 .. code:: bash
 
     cd ~/cmb_ws
-    colcon build --packages-select my_cartesian_motion
+    colcon build --symlink-install
     source ~/cmb_ws/install/setup.bash
     ros2 run my_cartesian_motion my_cartesian_interface
 
