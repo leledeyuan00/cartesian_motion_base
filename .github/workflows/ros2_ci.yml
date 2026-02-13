@@ -4,9 +4,19 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'cartesian_motion_base/**'
+      - 'cartesian_motion_test/**'
+      - 'cartesian_motion_tools/**'
+      - '.github/workflows/ros2_ci.yml'
   pull_request:
     branches:
       - master
+    paths:
+      - 'cartesian_motion_base/**'
+      - 'cartesian_motion_test/**'
+      - 'cartesian_motion_tools/**'
+      - '.github/workflows/ros2_ci.yml'
   workflow_dispatch:
 
 defaults:
