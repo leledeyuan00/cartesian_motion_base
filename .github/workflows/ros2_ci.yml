@@ -13,20 +13,26 @@ jobs:
   build_and_test:
     runs-on: ubuntu-22.04
 
+    container:
+      image: osrf/ros:humble-desktop
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up ROS 2 Humble
-        uses: ros-tooling/setup-ros@v0.7
         with:
-          required-ros-distributions: humble
+          path: src/cartesian_motion_base
+        
+      - name: Clone dependencies using vcs
+        run: |
+          sudo apt update
+          sudo apt install -y python3-vcstool git
+          vcs import src < cartesian_motion_base/cartesian_motion_base.repos
 
       - name: Install dependencies
         run: |
           sudo apt update
           rosdep update
-          rosdep install --from-paths . --ignore-src -r -y --rosdistro humble
+          rosdep install --from-paths src --ignore-src -r -y --rosdistro humble
 
       - name: Build the workspace
         run: |

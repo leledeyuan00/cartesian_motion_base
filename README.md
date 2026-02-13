@@ -26,14 +26,13 @@ ros2 launch cartesian_motion_test cartesian_motion_dual_arm_test.launch.launch.p
 ```
 
 ## Citation
-If you use this library in your research, please cite the following paper:
+If you use this library in your research, please cite the following Zenodo release:
 
 ```
 @software{dayuan_2026_18616705,
   author       = {Dayuan},
   title        = {leledeyuan00/cartesian\_motion\_base: Realease
-                   v0.1.0
-                  },
+                   v0.1.0},
   month        = feb,
   year         = 2026,
   publisher    = {Zenodo},
