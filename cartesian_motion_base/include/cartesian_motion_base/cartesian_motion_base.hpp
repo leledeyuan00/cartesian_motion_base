@@ -125,8 +125,8 @@ protected:
   std::vector<std::string> get_robot_names()
   {
     std::vector<std::string> names;
-    for (const auto & [name, handles] : robots_) {
-      names.push_back(name);
+    for (const auto & config : robot_configs_) {
+      names.push_back(config.name);
     }
     return names;
   }

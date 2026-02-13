@@ -28,28 +28,49 @@ const std::vector<cartesian_motion_base::RobotConfig> get_test_robot_config()
   return robot_configs;
 }
 
-// Test robot motion base initialization
-TEST(CartesianMotionBaseTest, Initialization)
+// Define a test motion base class
+class TestMotionBase : public cartesian_motion_base::MotionBase
 {
-  auto robot_configs = get_test_robot_config();
-  class TestMotionBase : public cartesian_motion_base::MotionBase
-  {
 public:
-    TestMotionBase(
-      const std::string & node_name,
-      const std::vector<cartesian_motion_base::RobotConfig> & robot_configs, double rate)
-    : cartesian_motion_base::MotionBase(node_name, robot_configs, rate) {}
-    void custom_init() override {}
-    void tasks_init() override {}
+  TestMotionBase(
+    const std::string & node_name,
+    const std::vector<cartesian_motion_base::RobotConfig> & robot_configs, double rate)
+  : cartesian_motion_base::MotionBase(node_name, robot_configs, rate) {}
+  void custom_init() override {}
+  void tasks_init() override {}
 
-    void test()
-    {
-      EXPECT_EQ(get_robot_names().size(), 2);
-      EXPECT_EQ(get_robot_names()[0], "ur");
-      EXPECT_EQ(get_robot_names()[1], "franka");
-    }
-  };
-  auto node = std::make_shared<TestMotionBase>("test_motion_base", robot_configs, 125);
-  node->start();
-  node->test();
+  void test()
+  {
+    EXPECT_EQ(get_robot_names().size(), 2);
+    EXPECT_EQ(get_robot_names()[0], "ur");
+    EXPECT_EQ(get_robot_names()[1], "franka");
+  }
+};
+
+// Test fixture for ROS2 lifecycle management
+class MyNodeTest : public ::testing::Test
+{
+protected:
+  void SetUp() override
+  {
+    rclcpp::init(0, nullptr);
+    auto configs = get_test_robot_config();
+    node_ = std::make_shared<TestMotionBase>("test_motion_base", configs, 125);
+  }
+
+  void TearDown() override
+  {
+    node_.reset();
+    rclcpp::shutdown();
+  }
+
+  std::shared_ptr<TestMotionBase> node_;
+};
+
+// Test robot motion base initialization
+TEST_F(MyNodeTest, Initialization)
+{
+  ASSERT_NE(node_, nullptr);
+  node_->on_init();
+  node_->test();
 }

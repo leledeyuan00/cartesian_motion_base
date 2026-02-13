@@ -42,7 +42,7 @@ jobs:
         run: |
           source /opt/ros/humble/setup.bash
           source install/setup.bash
-          colcon test --package-select cartesian_motion_base cartesian_motion_tools cartesian_motion_test --event-handlers console_cohesion+
+          colcon test --packages-select cartesian_motion_base cartesian_motion_tools cartesian_motion_test --event-handlers console_cohesion+
       
       - name: Check test results
         run: |
