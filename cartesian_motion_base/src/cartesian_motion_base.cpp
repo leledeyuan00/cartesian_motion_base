@@ -227,7 +227,7 @@ void MotionBase::task_execute()
     case TaskState::INIT:
       {
         RCLCPP_INFO(
-          this->get_logger(), "Init task [%d]: %s", system_state_.task_num,
+          this->get_logger(), "Init task [%zu]: %s", system_state_.task_num,
           current_task->get_name().c_str());
 
         for (auto & [name, handles] : robots_) {
@@ -254,7 +254,7 @@ void MotionBase::task_execute()
 
         current_task->set_state(TaskState::INIT);
         RCLCPP_INFO(
-          this->get_logger(), "The task [%d]: %s finished", system_state_.task_num,
+          this->get_logger(), "The task [%zu]: %s finished", system_state_.task_num,
           current_task->get_name().c_str());
         // Check if the task is the last task
         if (system_state_.task_num == tasks_vector_.size() - 1) {

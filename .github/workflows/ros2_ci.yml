@@ -9,6 +9,10 @@ on:
       - master
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build_and_test:
     runs-on: ubuntu-22.04

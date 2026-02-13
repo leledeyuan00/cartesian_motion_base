@@ -14,7 +14,6 @@
   <depend>std_srvs</depend>
   <depend>tf2_eigen</depend>
   <depend>tf2_kdl</depend>
-  <depend>orocos_kdl</depend>
   <depend>cartesian_controller_msgs</depend>
 
   <test_depend>ament_lint_auto</test_depend>

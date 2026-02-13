@@ -18,7 +18,6 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   std_srvs
   tf2_eigen
   tf2_kdl
-  orocos_kdl
   cartesian_controller_msgs
   Eigen3
 )
