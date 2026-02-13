@@ -39,186 +39,217 @@ Program Listing for File cartesian_motion_base.hpp
    {
    
    public:
-       explicit MotionBase(const std::string &node_name, 
-               std::vector<RobotConfig> robot_configs = {RobotConfig()}, 
-               uint16_t rate = 125)
-           : Node(node_name), robot_configs_(robot_configs), rate_(rate)
-       {
-           // Initialize the node
-           RCLCPP_INFO(this->get_logger(), "MotionBase initializing...");
-       }
-       virtual ~MotionBase() = default;
+     explicit MotionBase(
+       const std::string & node_name,
+       std::vector<RobotConfig> robot_configs = {RobotConfig()},
+       uint16_t rate = 125)
+     : Node(node_name), robot_configs_(robot_configs), rate_(rate)
+     {
+       // Initialize the node
+       RCLCPP_INFO(this->get_logger(), "MotionBase initializing...");
+     }
+     virtual ~MotionBase() = default;
    
-       void on_init();
-       void start();
-       void active(){
-           for (auto& [name, handles] : robots_){
-               handles.motion_state.target_pose = handles.motion_state.target_monitor;
-               handles.motion_state.start_pose  = handles.motion_state.target_monitor;
-           }
-           active_ = true;
-       };
-       void deactivate(){active_ = false;};
+     void on_init();
+     void start();
+     void active()
+     {
+       for (auto & [name, handles] : robots_) {
+         handles.motion_state.target_pose = handles.motion_state.target_monitor;
+         handles.motion_state.start_pose = handles.motion_state.target_monitor;
+       }
+       active_ = true;
+     }
+     void deactivate() {active_ = false;}
    
    protected:
-       /* functions */
-       void init();
-       bool robot_init();
-       virtual void custom_init(){};
+     /* functions */
+     void init();
+     bool robot_init();
+     virtual void custom_init() {}
    
-       virtual geometry_msgs::msg::PoseStamped intepolation(geometry_msgs::msg::PoseStamped init_pose, geometry_msgs::msg::PoseStamped target_pose,
-                           double duration, double current_duration)
-       {
-           Eigen::Vector3d p_start = toEigen(init_pose.pose.position);
-           Eigen::Vector3d p_target = toEigen(target_pose.pose.position);
-           geometry_msgs::msg::PoseStamped pose;
-           pose.header.frame_id = init_pose.header.frame_id;
-           pose.pose.position = toMsgPoint(p_start + (p_target - p_start) * current_duration / duration);
-                               
+     virtual geometry_msgs::msg::PoseStamped intepolation(
+       geometry_msgs::msg::PoseStamped init_pose, geometry_msgs::msg::PoseStamped target_pose,
+       double duration, double current_duration)
+     {
+       Eigen::Vector3d p_start = toEigen(init_pose.pose.position);
+       Eigen::Vector3d p_target = toEigen(target_pose.pose.position);
+       geometry_msgs::msg::PoseStamped pose;
+       pose.header.frame_id = init_pose.header.frame_id;
+       pose.pose.position = toMsgPoint(p_start + (p_target - p_start) * current_duration / duration);
    
-           Eigen::Quaterniond init_q, target_q;
-           tf2::fromMsg(init_pose.pose.orientation, init_q);
-           tf2::fromMsg(target_pose.pose.orientation, target_q);
    
-           Eigen::Quaterniond q = init_q.slerp(current_duration / duration, target_q);
-           pose.pose.orientation = tf2::toMsg(q);
+       Eigen::Quaterniond init_q, target_q;
+       tf2::fromMsg(init_pose.pose.orientation, init_q);
+       tf2::fromMsg(target_pose.pose.orientation, target_q);
    
-           return pose;
+       Eigen::Quaterniond q = init_q.slerp(current_duration / duration, target_q);
+       pose.pose.orientation = tf2::toMsg(q);
+   
+       return pose;
+     }
+   
+     virtual geometry_msgs::msg::WrenchStamped intepolation_wrench(
+       geometry_msgs::msg::WrenchStamped init_wrench, geometry_msgs::msg::WrenchStamped target_wrench,
+       double duration, double current_duration)
+     {
+       Eigen::Vector3d f_start = toEigen(init_wrench.wrench.force);
+       Eigen::Vector3d f_target = toEigen(target_wrench.wrench.force);
+       Eigen::Vector3d t_start = toEigen(init_wrench.wrench.torque);
+       Eigen::Vector3d t_target = toEigen(target_wrench.wrench.torque);
+   
+       geometry_msgs::msg::WrenchStamped wrench;
+       wrench.header = init_wrench.header;
+       wrench.wrench.force = toMsgVec(f_start + (f_target - f_start) * current_duration / duration);
+       wrench.wrench.torque = toMsgVec(t_start + (t_target - t_start) * current_duration / duration);
+   
+       return wrench;
+     }
+   
+   
+     // robot state
+     std::vector<std::string> get_robot_names()
+     {
+       std::vector<std::string> names;
+       for (const auto & [name, handles] : robots_) {
+         names.push_back(name);
        }
+       return names;
+     }
    
-       virtual geometry_msgs::msg::WrenchStamped intepolation_wrench(geometry_msgs::msg::WrenchStamped init_wrench, geometry_msgs::msg::WrenchStamped target_wrench,
-                               double duration, double current_duration)
-       {
-           Eigen::Vector3d f_start = toEigen(init_wrench.wrench.force);
-           Eigen::Vector3d f_target = toEigen(target_wrench.wrench.force);
-           Eigen::Vector3d t_start = toEigen(init_wrench.wrench.torque);
-           Eigen::Vector3d t_target = toEigen(target_wrench.wrench.torque);
+     const geometry_msgs::msg::PoseStamped get_current_pose(std::string name)
+     {
+       return robots_[name].motion_state.current_pose;
+     }
    
-           geometry_msgs::msg::WrenchStamped wrench;
-           wrench.header = init_wrench.header;
-           wrench.wrench.force = toMsgVec(f_start + (f_target - f_start) * current_duration / duration);
-           wrench.wrench.torque = toMsgVec(t_start + (t_target - t_start) * current_duration / duration);
+     const geometry_msgs::msg::WrenchStamped get_current_wrench(std::string name)
+     {
+       return robots_[name].motion_state.current_wrench;
+     }
    
-           return wrench;
+     const geometry_msgs::msg::PoseStamped get_start_pose(std::string name)
+     {
+       return robots_[name].motion_state.start_pose;
+     }
+   
+     const geometry_msgs::msg::WrenchStamped get_start_wrench(std::string name)
+     {
+       return robots_[name].motion_state.start_wrench;
+     }
+   
+     const geometry_msgs::msg::PoseStamped get_target_monitor(std::string name)
+     {
+       return robots_[name].motion_state.target_monitor;
+     }
+   
+     SystemState get_system_state() {return system_state_;}
+   
+   
+     inline void set_target_pose(PoseMap target_pose)
+     {
+       for (auto & [name, pose] : target_pose) {
+         robots_[name].motion_state.target_pose = pose;
        }
+     }
    
-   
-       // robot state
-       const geometry_msgs::msg::PoseStamped get_current_pose(std::string name) {
-           return robots_[name].motion_state.current_pose;
-       };
-   
-       const geometry_msgs::msg::WrenchStamped get_current_wrench(std::string name) {
-           return robots_[name].motion_state.current_wrench;
-       };
-   
-       const geometry_msgs::msg::PoseStamped get_start_pose(std::string name) {
-           return robots_[name].motion_state.start_pose;
-       };
-   
-       const geometry_msgs::msg::WrenchStamped get_start_wrench(std::string name) {
-           return robots_[name].motion_state.start_wrench;
-       };
-   
-       const geometry_msgs::msg::PoseStamped get_target_monitor(std::string name) {
-           return robots_[name].motion_state.target_monitor;
-       };
-   
-       SystemState get_system_state() {return system_state_;};
-   
-   
-       inline void set_target_pose(PoseMap target_pose) 
-           { for (auto& [name, pose] : target_pose){
-               robots_[name].motion_state.target_pose = pose;
-           }};
-   
-       inline void set_target_wrench(WrenchMap target_wrench) 
-           { for (auto& [name, wrench] : target_wrench){
-               robots_[name].motion_state.target_wrench = wrench;
-           }};
-   
-       /* FSM tasks */ 
-       bool move(PoseMap target_poses, 
-                 double duration);
-   
-       bool move_wrench(PoseMap target_poses, 
-                        WrenchMap target_wrenches, 
-                        double duration);
-       bool sleep(double duration);
-   
-       bool joint_move(JointMap target_joints, 
-                       double time);
-   
-       
-       uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
-       virtual void tasks_init() = 0;
-       void task_execute();
-   
-       void set_task_finished(){
-           next_task_offset_ = 1;
-           tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
-       };
-       
-       void goto_specific_task(size_t task_num){
-           if (task_num >= tasks_vector_.size()){
-               RCLCPP_WARN(this->get_logger(), "Task number %zu is out of range, max task number is %zu", task_num, tasks_vector_.size()-1);
-               return;
-           }
-           next_task_offset_ = task_num - system_state_.task_num;
-           tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
-       };
-   
-       void goto_init_task(){
-           goto_specific_task(0);
-       };
-   
-       void goto_last_task(){
-           goto_specific_task(tasks_vector_.size()-1);
-       };
-   
-       // get initialized states
-       inline bool check_init(){
-           bool init =true;
-           for (const auto& [name, handles] : robots_){
-               init = init && handles.initialized;
-           }
-           return init;
+     inline void set_target_wrench(WrenchMap target_wrench)
+     {
+       for (auto & [name, wrench] : target_wrench) {
+         robots_[name].motion_state.target_wrench = wrench;
        }
+     }
    
-       // states
-       SystemState system_state_; // current task number, current time, start time
-       uint8_t next_task_offset_ = 1;
+     /* FSM tasks */
+     bool move(
+       PoseMap target_poses,
+       double duration);
    
-       // std
-       std::thread control_loop_thread_;
+     bool move_wrench(
+       PoseMap target_poses,
+       WrenchMap target_wrenches,
+       double duration);
+     bool sleep(double duration);
    
-       // time
-       rclcpp::Clock my_clock_;
+     bool joint_move(
+       JointMap target_joints,
+       double time);
    
-       // system state
-       // create a vector for TaskWrapper
-       std::vector<std::shared_ptr<cartesian_motion_base::MotionTask>> tasks_vector_;
-       
-       
-       bool active_ = true;
+   
+     uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
+     virtual void tasks_init() = 0;
+     void task_execute();
+   
+     void set_task_finished()
+     {
+       next_task_offset_ = 1;
+       tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
+     }
+   
+     void goto_specific_task(size_t task_num)
+     {
+       if (task_num >= tasks_vector_.size()) {
+         RCLCPP_WARN(
+           this->get_logger(), "Task number %zu is out of range, max task number is %zu", task_num,
+           tasks_vector_.size() - 1);
+         return;
+       }
+       next_task_offset_ = task_num - system_state_.task_num;
+       tasks_vector_[system_state_.task_num]->set_state(TaskState::FINISH);
+     }
+   
+     void goto_init_task()
+     {
+       goto_specific_task(0);
+     }
+   
+     void goto_last_task()
+     {
+       goto_specific_task(tasks_vector_.size() - 1);
+     }
+   
+     // get initialized states
+     inline bool check_init()
+     {
+       bool init = true;
+       for (const auto & [name, handles] : robots_) {
+         init = init && handles.initialized;
+       }
+       return init;
+     }
+   
+     // states
+     SystemState system_state_;   // current task number, current time, start time
+     uint8_t next_task_offset_ = 1;
+   
+     // std
+     std::thread control_loop_thread_;
+   
+     // time
+     rclcpp::Clock my_clock_;
+   
+     // system state
+     // create a vector for TaskWrapper
+     std::vector<std::shared_ptr<cartesian_motion_base::MotionTask>> tasks_vector_;
+   
+   
+     bool active_ = true;
    
    private:
+     /* function */
+     void control_loop();
+     // ros
+     void ros_init();
    
-       /* function */
-       void control_loop();
-       // ros
-       void ros_init();
-       
    
-       /* variable */ 
-       bool model_joint_ = false;
-       
-       // robot state
-       std::vector<RobotConfig> robot_configs_;
-       std::map<std::string, RobotHandles> robots_;
-       
-       uint16_t rate_;
-       size_t robot_count_ = 0;
+     /* variable */
+     bool model_joint_ = false;
+   
+     // robot state
+     std::vector<RobotConfig> robot_configs_;
+     std::map<std::string, RobotHandles> robots_;
+   
+     uint16_t rate_;
+     size_t robot_count_ = 0;
    
    
    }; // class MotionBase

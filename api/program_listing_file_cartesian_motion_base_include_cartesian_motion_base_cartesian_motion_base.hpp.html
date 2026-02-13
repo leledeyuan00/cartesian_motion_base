@@ -109,186 +109,217 @@
 <span class="p">{</span>
 
 <span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="k">explicit</span><span class="w"> </span><span class="n">MotionBase</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node_name</span><span class="p">,</span>
-<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">RobotConfig</span><span class="p">()},</span>
-<span class="w">            </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">125</span><span class="p">)</span>
-<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Node</span><span class="p">(</span><span class="n">node_name</span><span class="p">),</span><span class="w"> </span><span class="n">robot_configs_</span><span class="p">(</span><span class="n">robot_configs</span><span class="p">),</span><span class="w"> </span><span class="n">rate_</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Initialize the node</span>
-<span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;MotionBase initializing...&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">MotionBase</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">MotionBase</span><span class="p">(</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">node_name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">RobotConfig</span><span class="p">()},</span>
+<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">125</span><span class="p">)</span>
+<span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="n">Node</span><span class="p">(</span><span class="n">node_name</span><span class="p">),</span><span class="w"> </span><span class="n">robot_configs_</span><span class="p">(</span><span class="n">robot_configs</span><span class="p">),</span><span class="w"> </span><span class="n">rate_</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Initialize the node</span>
+<span class="w">    </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;MotionBase initializing...&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">MotionBase</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
 
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_init</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">active</span><span class="p">(){</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">handles</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">robots_</span><span class="p">){</span>
-<span class="w">            </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
-<span class="w">            </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_pose</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">deactivate</span><span class="p">(){</span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;};</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">on_init</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">active</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">handles</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">robots_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
+<span class="w">      </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">deactivate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;}</span>
 
 <span class="k">protected</span><span class="o">:</span>
-<span class="w">    </span><span class="cm">/* functions */</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">init</span><span class="p">();</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">robot_init</span><span class="p">();</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">custom_init</span><span class="p">(){};</span>
+<span class="w">  </span><span class="cm">/* functions */</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">init</span><span class="p">();</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">robot_init</span><span class="p">();</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">custom_init</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
 
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="nf">intepolation</span><span class="p">(</span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">init_pose</span><span class="p">,</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">target_pose</span><span class="p">,</span>
-<span class="w">                        </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">current_duration</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">p_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">p_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
-<span class="w">        </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
-<span class="w">        </span><span class="n">pose</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">frame_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_pose</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">frame_id</span><span class="p">;</span>
-<span class="w">        </span><span class="n">pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgPoint</span><span class="p">(</span><span class="n">p_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">p_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="nf">intepolation</span><span class="p">(</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">init_pose</span><span class="p">,</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">target_pose</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">current_duration</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">p_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">p_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pose</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">frame_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_pose</span><span class="p">.</span><span class="n">header</span><span class="p">.</span><span class="n">frame_id</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgPoint</span><span class="p">(</span><span class="n">p_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">p_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">p_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
 
 
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Quaterniond</span><span class="w"> </span><span class="n">init_q</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">;</span>
-<span class="w">        </span><span class="n">tf2</span><span class="o">::</span><span class="n">fromMsg</span><span class="p">(</span><span class="n">init_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="p">,</span><span class="w"> </span><span class="n">init_q</span><span class="p">);</span>
-<span class="w">        </span><span class="n">tf2</span><span class="o">::</span><span class="n">fromMsg</span><span class="p">(</span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Quaterniond</span><span class="w"> </span><span class="n">init_q</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tf2</span><span class="o">::</span><span class="n">fromMsg</span><span class="p">(</span><span class="n">init_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="p">,</span><span class="w"> </span><span class="n">init_q</span><span class="p">);</span>
+<span class="w">    </span><span class="n">tf2</span><span class="o">::</span><span class="n">fromMsg</span><span class="p">(</span><span class="n">target_pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">);</span>
 
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Quaterniond</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_q</span><span class="p">.</span><span class="n">slerp</span><span class="p">(</span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">);</span>
-<span class="w">        </span><span class="n">pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tf2</span><span class="o">::</span><span class="n">toMsg</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Quaterniond</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_q</span><span class="p">.</span><span class="n">slerp</span><span class="p">(</span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="n">target_q</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pose</span><span class="p">.</span><span class="n">pose</span><span class="p">.</span><span class="n">orientation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tf2</span><span class="o">::</span><span class="n">toMsg</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="nf">intepolation_wrench</span><span class="p">(</span>
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">init_wrench</span><span class="p">,</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">current_duration</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">f_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">f_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">t_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">t_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
+<span class="w">    </span><span class="n">wrench</span><span class="p">.</span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_wrench</span><span class="p">.</span><span class="n">header</span><span class="p">;</span>
+<span class="w">    </span><span class="n">wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgVec</span><span class="p">(</span><span class="n">f_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">f_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">f_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgVec</span><span class="p">(</span><span class="n">t_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">t_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+
+<span class="w">  </span><span class="c1">// robot state</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">get_robot_names</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">names</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">handles</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">robots_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">names</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">names</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="nf">intepolation_wrench</span><span class="p">(</span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">init_wrench</span><span class="p">,</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">,</span>
-<span class="w">                            </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">current_duration</span><span class="p">)</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">f_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">f_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">t_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">init_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="p">);</span>
-<span class="w">        </span><span class="n">Eigen</span><span class="o">::</span><span class="n">Vector3d</span><span class="w"> </span><span class="n">t_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toEigen</span><span class="p">(</span><span class="n">target_wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="p">);</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">get_current_pose</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">current_pose</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">        </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
-<span class="w">        </span><span class="n">wrench</span><span class="p">.</span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_wrench</span><span class="p">.</span><span class="n">header</span><span class="p">;</span>
-<span class="w">        </span><span class="n">wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">force</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgVec</span><span class="p">(</span><span class="n">f_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">f_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">f_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
-<span class="w">        </span><span class="n">wrench</span><span class="p">.</span><span class="n">wrench</span><span class="p">.</span><span class="n">torque</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">toMsgVec</span><span class="p">(</span><span class="n">t_start</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">t_target</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t_start</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_duration</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">get_current_wrench</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">current_wrench</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">get_start_pose</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_pose</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="n">get_start_wrench</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_wrench</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="n">get_target_monitor</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">SystemState</span><span class="w"> </span><span class="n">get_system_state</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">system_state_</span><span class="p">;}</span>
+
+
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">set_target_pose</span><span class="p">(</span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_pose</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">pose</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">target_pose</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 
-
-<span class="w">    </span><span class="c1">// robot state</span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="nf">get_current_pose</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">current_pose</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="nf">get_current_wrench</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">current_wrench</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="nf">get_start_pose</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_pose</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">WrenchStamped</span><span class="w"> </span><span class="nf">get_start_wrench</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">start_wrench</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">geometry_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">PoseStamped</span><span class="w"> </span><span class="nf">get_target_monitor</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_monitor</span><span class="p">;</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="n">SystemState</span><span class="w"> </span><span class="nf">get_system_state</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">system_state_</span><span class="p">;};</span>
-
-
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_target_pose</span><span class="p">(</span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_pose</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">pose</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">target_pose</span><span class="p">){</span>
-<span class="w">            </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_pose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}};</span>
-
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_target_wrench</span><span class="p">(</span><span class="n">WrenchMap</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">)</span>
-<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">wrench</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">){</span>
-<span class="w">            </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_wrench</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}};</span>
-
-<span class="w">    </span><span class="cm">/* FSM tasks */</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_poses</span><span class="p">,</span>
-<span class="w">              </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
-
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">move_wrench</span><span class="p">(</span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_poses</span><span class="p">,</span>
-<span class="w">                     </span><span class="n">WrenchMap</span><span class="w"> </span><span class="n">target_wrenches</span><span class="p">,</span>
-<span class="w">                     </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">sleep</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
-
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nf">joint_move</span><span class="p">(</span><span class="n">JointMap</span><span class="w"> </span><span class="n">target_joints</span><span class="p">,</span>
-<span class="w">                    </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="p">);</span>
-
-
-<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">task_pushback</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">MotionTask</span><span class="o">&gt;</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">task_execute</span><span class="p">();</span>
-
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_task_finished</span><span class="p">(){</span>
-<span class="w">        </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">        </span><span class="n">tasks_vector_</span><span class="p">[</span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_state</span><span class="p">(</span><span class="n">TaskState</span><span class="o">::</span><span class="n">FINISH</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_specific_task</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">task_num</span><span class="p">){</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">task_num</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-<span class="w">            </span><span class="n">RCLCPP_WARN</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Task number %zu is out of range, max task number is %zu&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task_num</span><span class="p">,</span><span class="w"> </span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">            </span><span class="k">return</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task_num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">;</span>
-<span class="w">        </span><span class="n">tasks_vector_</span><span class="p">[</span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_state</span><span class="p">(</span><span class="n">TaskState</span><span class="o">::</span><span class="n">FINISH</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_init_task</span><span class="p">(){</span>
-<span class="w">        </span><span class="n">goto_specific_task</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_last_task</span><span class="p">(){</span>
-<span class="w">        </span><span class="n">goto_specific_task</span><span class="p">(</span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="mi">-1</span><span class="p">);</span>
-<span class="w">    </span><span class="p">};</span>
-
-<span class="w">    </span><span class="c1">// get initialized states</span>
-<span class="w">    </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">check_init</span><span class="p">(){</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="nb">true</span><span class="p">;</span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">handles</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">robots_</span><span class="p">){</span>
-<span class="w">            </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">initialized</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">init</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">set_target_wrench</span><span class="p">(</span><span class="n">WrenchMap</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">wrench</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">target_wrench</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">robots_</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">motion_state</span><span class="p">.</span><span class="n">target_wrench</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wrench</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 
-<span class="w">    </span><span class="c1">// states</span>
-<span class="w">    </span><span class="n">SystemState</span><span class="w"> </span><span class="n">system_state_</span><span class="p">;</span><span class="w"> </span><span class="c1">// current task number, current time, start time</span>
-<span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* FSM tasks */</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">move</span><span class="p">(</span>
+<span class="w">    </span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_poses</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// std</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="w"> </span><span class="n">control_loop_thread_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">move_wrench</span><span class="p">(</span>
+<span class="w">    </span><span class="n">PoseMap</span><span class="w"> </span><span class="n">target_poses</span><span class="p">,</span>
+<span class="w">    </span><span class="n">WrenchMap</span><span class="w"> </span><span class="n">target_wrenches</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">sleep</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">duration</span><span class="p">);</span>
 
-<span class="w">    </span><span class="c1">// time</span>
-<span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Clock</span><span class="w"> </span><span class="n">my_clock_</span><span class="p">;</span>
-
-<span class="w">    </span><span class="c1">// system state</span>
-<span class="w">    </span><span class="c1">// create a vector for TaskWrapper</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">MotionTask</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">tasks_vector_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="nf">joint_move</span><span class="p">(</span>
+<span class="w">    </span><span class="n">JointMap</span><span class="w"> </span><span class="n">target_joints</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="p">);</span>
 
 
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">task_pushback</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">MotionTask</span><span class="o">&gt;</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
+<span class="w">  </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">task_execute</span><span class="p">();</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_task_finished</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tasks_vector_</span><span class="p">[</span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_state</span><span class="p">(</span><span class="n">TaskState</span><span class="o">::</span><span class="n">FINISH</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_specific_task</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">task_num</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">task_num</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">RCLCPP_WARN</span><span class="p">(</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Task number %zu is out of range, max task number is %zu&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task_num</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">task_num</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">;</span>
+<span class="w">    </span><span class="n">tasks_vector_</span><span class="p">[</span><span class="n">system_state_</span><span class="p">.</span><span class="n">task_num</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">set_state</span><span class="p">(</span><span class="n">TaskState</span><span class="o">::</span><span class="n">FINISH</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_init_task</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">goto_specific_task</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">goto_last_task</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="n">goto_specific_task</span><span class="p">(</span><span class="n">tasks_vector_</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// get initialized states</span>
+<span class="w">  </span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">check_init</span><span class="p">()</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">handles</span><span class="p">]</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">robots_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">handles</span><span class="p">.</span><span class="n">initialized</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">init</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// states</span>
+<span class="w">  </span><span class="n">SystemState</span><span class="w"> </span><span class="n">system_state_</span><span class="p">;</span><span class="w">   </span><span class="c1">// current task number, current time, start time</span>
+<span class="w">  </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">next_task_offset_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// std</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="w"> </span><span class="n">control_loop_thread_</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// time</span>
+<span class="w">  </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Clock</span><span class="w"> </span><span class="n">my_clock_</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// system state</span>
+<span class="w">  </span><span class="c1">// create a vector for TaskWrapper</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">MotionTask</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">tasks_vector_</span><span class="p">;</span>
+
+
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">active_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
 
 <span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="cm">/* function */</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="n">control_loop</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// ros</span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="nf">ros_init</span><span class="p">();</span>
 
-<span class="w">    </span><span class="cm">/* function */</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">control_loop</span><span class="p">();</span>
-<span class="w">    </span><span class="c1">// ros</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">ros_init</span><span class="p">();</span>
 
+<span class="w">  </span><span class="cm">/* variable */</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">model_joint_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
 
-<span class="w">    </span><span class="cm">/* variable */</span>
-<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">model_joint_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// robot state</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs_</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">RobotHandles</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robots_</span><span class="p">;</span>
 
-<span class="w">    </span><span class="c1">// robot state</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs_</span><span class="p">;</span>
-<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">RobotHandles</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robots_</span><span class="p">;</span>
-
-<span class="w">    </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate_</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">robot_count_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate_</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">robot_count_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
 
 <span class="p">};</span><span class="w"> </span><span class="c1">// class MotionBase</span>

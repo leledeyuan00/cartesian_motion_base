@@ -27,48 +27,53 @@ Program Listing for File cartesian_motion_tasks.hpp
    {
    class MotionTask
    {
-       public:
+   public:
+     explicit MotionTask(std::string task_name, std::function<void()> execute)
+     : task_name_(task_name), execute_(execute)
+     {
+       init_ = []() {};        // empty init function
+     }
    
-       explicit MotionTask(std::string task_name, std::function<void()> execute)
-           : task_name_(task_name), execute_(execute){
-               init_ = [](){}; // empty init function
-           };
+     explicit MotionTask(
+       std::string task_name, std::function<void()> init,
+       std::function<void()> execute)
+     : task_name_(task_name), init_(init), execute_(execute) {}
    
-       explicit MotionTask(std::string task_name, std::function<void()> init, std::function<void()> execute)
-           : task_name_(task_name), init_(init), execute_(execute){};
-       
-       void init(){
-           init_();
-       }
+     void init()
+     {
+       init_();
+     }
    
-       void execute(){
-           execute_();
-       }
+     void execute()
+     {
+       execute_();
+     }
    
-       std::string get_name(){
-           return task_name_;
-       }
+     std::string get_name()
+     {
+       return task_name_;
+     }
    
-       TaskState get_state(){
-           return state_;
-       }
+     TaskState get_state()
+     {
+       return state_;
+     }
    
-       void set_state(TaskState state){
-           state_ = state;
-       }
+     void set_state(TaskState state)
+     {
+       state_ = state;
+     }
    
    private:
-       std::string task_name_;
-       std::function<void()> init_;
-       std::function<void()> execute_;
+     std::string task_name_;
+     std::function<void()> init_;
+     std::function<void()> execute_;
    
-       TaskState state_ = TaskState::INIT;
+     TaskState state_ = TaskState::INIT;
    };
    
    
-   
    } // namespace cartesian_motion_base
-   
    
    
    #endif // CARTESIAN_MOTION_TASKS_HPP__
