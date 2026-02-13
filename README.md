@@ -1,6 +1,6 @@
 # Cartesian Motion Base Library (CMB)
 
-
+[![ROS 2 CI (Build and Test)](https://github.com/leledeyuan00/cartesian_motion_base/actions/workflows/ros2_ci.yml/badge.svg)](https://github.com/leledeyuan00/cartesian_motion_base/actions/workflows/ros2_ci.yml)
 ## Simulation
 
 ### Single Arm Simulation
