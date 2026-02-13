@@ -1,0 +1,46 @@
+name: ROS 2 CI (Build and Test)
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up ROS 2 Humble
+        uses: ros-tooling/setup-ros@v0.7
+        with:
+          required-ros-distributions: humble
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          rosdep update
+          rosdep install --from-paths . --ignore-src -r -y --rosdistro humble
+
+      - name: Build the workspace
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --symlink-install
+
+      - name: Run tests
+        run: |
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
+          colcon test --package-select cartesian_motion_base cartesian_motion_tools cartesian_motion_test --event-handlers console_cohesion+
+      
+      - name: Check test results
+        run: |
+          source /opt/ros/humble/setup.bash
+          source install/setup.bash
+          colcon test-result --verbose
