@@ -44,7 +44,7 @@ install(
   DESTINATION include
 )
 
-INSTALL(
+install(
   TARGETS ${CARTESIAN_MOTION_BASE}
   EXPORT export_${CARTESIAN_MOTION_BASE}
   LIBRARY DESTINATION lib
@@ -66,12 +66,11 @@ if(BUILD_TESTING)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
   set(ament_cmake_cpplint_FOUND TRUE)
-  # ament_lint_auto_find_test_dependencies()
+  ament_lint_auto_find_test_dependencies()
 
   find_package(ament_cmake_gtest REQUIRED)
   ament_add_gtest(test_cartesian_motion_base test/test_cartesian_motion_base.cpp)
   target_link_libraries(test_cartesian_motion_base ${CARTESIAN_MOTION_BASE})
-  
 endif()
 
 ament_package()

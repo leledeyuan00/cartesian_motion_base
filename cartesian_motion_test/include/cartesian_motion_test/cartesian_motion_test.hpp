@@ -15,28 +15,29 @@ namespace cartesian_motion_test
 class MotionTest : public MotionBase
 {
 public:
-    MotionTest(const std::string &node_name,
-               std::vector<RobotConfig> robot_configs,
-               uint16_t rate) :
-        MotionBase(node_name, robot_configs, rate){}; // pass to base class
+  MotionTest(
+    const std::string & node_name,
+    std::vector<RobotConfig> robot_configs,
+    uint16_t rate)
+  : MotionBase(node_name, robot_configs, rate) {}     // pass to base class
 
 private:
-    /* function */
-    void custom_init() override; // must override for custom initialization
-    //tasks
-    void tasks_init() override; // must override for task initialization
-    
-    void test_service(bool on);
-    /* variable */
-    // service client
-    rclcpp::Client<std_srvs::srv::SetBool>::SharedPtr test_client_;
+  /* function */
+  void custom_init() override;   // must override for custom initialization
+  //tasks
+  void tasks_init() override;   // must override for task initialization
 
-    // load parameters test
-    Eigen::Isometry3d calibration_matrix_;
+  void test_service(bool on);
+  /* variable */
+  // service client
+  rclcpp::Client<std_srvs::srv::SetBool>::SharedPtr test_client_;
 
-    size_t test_task_num1_;
-    size_t test_task_num2_;
-    size_t test_task_num3_;
+  // load parameters test
+  Eigen::Isometry3d calibration_matrix_;
+
+  size_t test_task_num1_;
+  size_t test_task_num2_;
+  size_t test_task_num3_;
 };
 }
 

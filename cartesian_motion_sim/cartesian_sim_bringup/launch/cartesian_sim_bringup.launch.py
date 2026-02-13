@@ -1,15 +1,16 @@
 # Copyright 2025 Smart Robotics Design Lab. All rights reserved.
-# 
-# Licensed under the MIT License. See LICENSE file in the project root for license information.
+#
+# Licensed under the MIT License. See LICENSE file in the project root
+# for license information.
 # Author: Dayuan
 
 import os
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, RegisterEventHandler, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition
-from launch.event_handlers import OnProcessExit
-from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution, PythonExpression
+from launch.substitutions import Command, FindExecutable, LaunchConfiguration
+from launch.substitutions import PathJoinSubstitution, PythonExpression
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
@@ -17,7 +18,6 @@ from launch_ros.substitutions import FindPackageShare
 
 from ament_index_python.packages import get_package_share_directory
 
-import xacro
 
 def generate_launch_description():
     # Declare arguments
@@ -27,8 +27,9 @@ def generate_launch_description():
         DeclareLaunchArgument(
             "description_package",
             default_value="cartesian_sim_description",
-            description="Description package with robot URDF/xacro files. Usually the argument \
-        is not set, it enables use of a custom description.",
+            description="Description package with robot URDF/xacro files. \
+            Usually the argument is not set, it enables use of a custom \
+            description.",
         )
     )
     declared_arguments.append(
@@ -88,7 +89,8 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare(description_package), "urdf", description_file]
+                [FindPackageShare(description_package), "urdf",
+                    description_file]
             ),
             " ",
             "name:=",
@@ -114,7 +116,8 @@ def generate_launch_description():
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster", "--controller-manager",
+                   "/controller_manager"],
     )
 
     robot_controller_spawner = Node(
@@ -122,7 +125,8 @@ def generate_launch_description():
         executable="spawner",
         arguments=[robot_controller, "-c", "/controller_manager"],
         parameters=[robot_description],
-        condition=IfCondition(PythonExpression(["'", config_type, "' == 'single_arm'"]))
+        condition=IfCondition(
+            PythonExpression(["'", config_type, "' == 'single_arm'"]))
     )
 
     robot_controller_spawner_L = Node(
@@ -130,14 +134,16 @@ def generate_launch_description():
         executable="spawner",
         arguments=[robot_controller_L, "-c", "/controller_manager"],
         parameters=[robot_description],
-        condition=IfCondition(PythonExpression(["'", config_type, "' == 'dual_arm'"]))
+        condition=IfCondition(
+            PythonExpression(["'", config_type, "' == 'dual_arm'"]))
     )
 
     robot_controller_spawner_R = Node(
         package="controller_manager",
         executable="spawner",
         arguments=[robot_controller_R, "-c", "/controller_manager"],
-        condition=IfCondition(PythonExpression(["'", config_type, "' == 'dual_arm'"]))
+        condition=IfCondition(
+            PythonExpression(["'", config_type, "' == 'dual_arm'"]))
     )
 
     # Gazebo
@@ -145,11 +151,11 @@ def generate_launch_description():
         [FindPackageShare(description_package), "gazebo", "ur_world.sdf"])
 
     gazebo_node = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                [os.path.join(get_package_share_directory('ros_gz_sim'),
-                              'launch', 'gz_sim.launch.py')]),
-            launch_arguments=[('gz_args', [' -r -v 4 ', gazebo_world_file])],
-            condition=IfCondition(sim_gazebo),
+        PythonLaunchDescriptionSource(
+            [os.path.join(get_package_share_directory('ros_gz_sim'),
+                          'launch', 'gz_sim.launch.py')]),
+        launch_arguments=[('gz_args', [' -r -v 4 ', gazebo_world_file])],
+        condition=IfCondition(sim_gazebo),
     )
     gz_spawn_entity = Node(
         package='ros_gz_sim',
@@ -157,7 +163,7 @@ def generate_launch_description():
         arguments=['-topic', 'robot_description', '-name',  'UR'],
         output='screen',
         condition=IfCondition(sim_gazebo),
-    )    
+    )
 
     nodes = [
         robot_state_pub_node,
