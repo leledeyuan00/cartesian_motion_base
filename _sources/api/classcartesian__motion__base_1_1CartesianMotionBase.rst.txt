@@ -1,7 +1,7 @@
-.. _exhale_class_classcartesian__motion__base_1_1MotionBase:
+.. _exhale_class_classcartesian__motion__base_1_1CartesianMotionBase:
 
-Class MotionBase
-================
+Class CartesianMotionBase
+=========================
 
 - Defined in :ref:`file_cartesian_motion_base_include_cartesian_motion_base_cartesian_motion_base.hpp`
 
@@ -19,7 +19,7 @@ Class Documentation
 -------------------
 
 
-.. doxygenclass:: cartesian_motion_base::MotionBase
+.. doxygenclass:: cartesian_motion_base::CartesianMotionBase
    :project: CartesianMotionBase
    :members:
    :protected-members:

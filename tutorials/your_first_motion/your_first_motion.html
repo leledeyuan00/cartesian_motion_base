@@ -129,7 +129,7 @@ with its hpp file in <code class="docutils literal notranslate"><span class="pre
 as well as the configuration file in <code class="docutils literal notranslate"><span class="pre">cartesian_motion_test/include/cartesian_motion_config.hpp</span></code>.</p>
 <ol class="arabic simple">
 <li><p>First, in the configuration file, we define the parameters of the robot for CMB. Including the robot name, the topics and client names for cartesian controllers.</p></li>
-<li><p>Second, in the hpp file, we define a class <code class="docutils literal notranslate"><span class="pre">MotionTest</span></code> inherited from <code class="docutils literal notranslate"><span class="pre">CartesianMotionBase</span></code>.
+<li><p>Second, in the hpp file, we define a class <code class="docutils literal notranslate"><span class="pre">CartesianMotionTest</span></code> inherited from <code class="docutils literal notranslate"><span class="pre">CartesianMotionBase</span></code>.
 In the constructor, we initialize the CMB with the parameters defined in the configuration file.
 And there are two functions that we must override two functions: <code class="docutils literal notranslate"><span class="pre">custom_init</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init</span></code>.</p></li>
 <li><p>Third, in the cpp file, we implement the two functions.

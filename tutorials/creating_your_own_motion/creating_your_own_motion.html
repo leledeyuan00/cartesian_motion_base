@@ -112,7 +112,10 @@
              
   <section id="creating-your-own-motion">
 <h1>Creating Your Own Motion<a class="headerlink" href="#creating-your-own-motion" title="Link to this heading"></a></h1>
-<p>In this tutorial, we will create a new ros2 package to implement the motion program.</p>
+<p>In this tutorial, we will:
+* Create a new ros2 package
+* Write a simple node that inherits the CartesianMotionBase class
+* Show printing the current robot state and system state in this architecture.</p>
 <section id="crate-a-new-package">
 <h2>1 Crate a new package<a class="headerlink" href="#crate-a-new-package" title="Link to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src
@@ -185,7 +188,7 @@ You can define multiple robots by push_back multiple <code class="docutils liter
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">    </span><span class="n">MyCartesianMotion</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node_name</span><span class="p">,</span>
-<span class="w">           </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
+<span class="w">           </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
 <span class="w">           </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="p">)</span>
 <span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span><span class="p">(</span>
 <span class="w">              </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
@@ -221,6 +224,8 @@ They will be called when you call the <code class="docutils literal notranslate"
 <span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianMotion::custom_init</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">// Custom initialization code here</span>
+<span class="w">    </span><span class="c1">// Usually, you can create your own ROS components here,</span>
+<span class="w">    </span><span class="c1">// such as publishers, subscribers, clients, etc.</span>
 <span class="w">    </span><span class="c1">// This time we leave it empty</span>
 <span class="p">}</span>
 
@@ -239,6 +244,11 @@ They will be called when you call the <code class="docutils literal notranslate"
 <span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system task number is: %zu&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">task_num</span><span class="p">);</span>
 <span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system start time is: %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">start_time</span><span class="p">.</span><span class="n">seconds</span><span class="p">());</span>
 <span class="w">        </span><span class="n">RCLCPP_INFO</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">get_logger</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;Current system current time is: %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">system_state</span><span class="p">.</span><span class="n">current_time</span><span class="p">.</span><span class="n">seconds</span><span class="p">());</span>
+
+<span class="w">        </span><span class="c1">// Using set_task_finished() to jump to the next task.</span>
+<span class="w">        </span><span class="c1">// You must call this function manually to jump to the next task,</span>
+<span class="w">        </span><span class="c1">// Otherwise the system will keep executing the current task looply.</span>
+<span class="w">        </span><span class="n">set_task_finished</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}));</span>
 
 <span class="w">    </span><span class="c1">// Shut down task</span>
@@ -296,6 +306,10 @@ We provide APIs like <code class="docutils literal notranslate"><span class="pre
 <span class="w">    </span><span class="s">cartesian_motion_base</span>
 <span class="w">    </span><span class="s">cartesian_controller_msgs</span>
 <span class="w">    </span><span class="s">geometry_msgs</span>
+<span class="w">    </span><span class="s">std_srvs</span>
+<span class="w">    </span><span class="s">tf2_eigen</span>
+<span class="w">    </span><span class="s">tf2_kdl</span>
+<span class="w">    </span><span class="s">std_msgs</span>
 <span class="p">)</span>
 
 <span class="nb">foreach</span><span class="p">(</span><span class="s">Dependency</span><span class="w"> </span><span class="s">IN</span><span class="w"> </span><span class="s">ITEMS</span><span class="w"> </span><span class="o">${</span><span class="nv">THIS_PACKAGE_INCLUDE_DEPENDS</span><span class="o">}</span><span class="p">)</span>

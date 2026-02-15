@@ -39,7 +39,7 @@ When you need to generate a target pose in real-time and send it to the robot, y
             start_pose = get_start_pose("ur");
             target_pose = start_pose;
 
-            double move_distance = 0.01; // 0.01 m
+            double move_distance = 0.1; // 0.1 m
             double move_duration = 2.0; // 2 seconds to move forward
             double current_duration = (get_system_state().current_time - get_system_state().start_time).seconds();
 
@@ -65,11 +65,11 @@ When you need to generate a target pose in real-time and send it to the robot, y
             start_pose = get_start_pose("ur");
             target_pose = start_pose;
 
-            double move_distance = 0.01; // 0.01 m
+            double move_distance = -0.1; // 0.1 m
             double move_duration = 2.0; // 2 seconds to move back
             double current_duration = (get_system_state().current_time - get_system_state().start_time).seconds();
 
-            target_pose.pose.position.x = start_pose.pose.position.x - move_distance * (current_duration / move_duration);
+            target_pose.pose.position.x = start_pose.pose.position.x + move_distance * (current_duration / move_duration);
 
             // Task finish condition: move back for move_duration seconds
             if (current_duration <= move_duration)

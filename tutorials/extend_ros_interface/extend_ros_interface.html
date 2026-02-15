@@ -99,7 +99,11 @@
              
   <section id="extend-ros-interface-on-cartesian-motion-base">
 <h1>Extend ROS Interface on Cartesian Motion Base<a class="headerlink" href="#extend-ros-interface-on-cartesian-motion-base" title="Link to this heading"></a></h1>
-<p>This tutorial will show how to realize a topic and a service interface on Cartesian Motion Base (CMB).</p>
+<p>This tutorial will
+* Show how to realize a topic and a service interface on Cartesian Motion Base (CMB).
+* Print the received message from the topic.
+* Trigger a motion task by calling the service.
+* These components will be initialized in the <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> function.</p>
 <section id="create-a-new-header-file">
 <h2>1. Create a new header file<a class="headerlink" href="#create-a-new-header-file" title="Link to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/include/my_cartesian_motion
@@ -120,7 +124,7 @@
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
 <span class="w">    </span><span class="n">MyCartesianInterface</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node_name</span><span class="p">,</span>
-<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
+<span class="w">       </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">RobotConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span>
 <span class="w">       </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rate</span><span class="p">)</span>
 <span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">cartesian_motion_base</span><span class="o">::</span><span class="n">CartesianMotionBase</span><span class="p">(</span>
 <span class="w">          </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
@@ -134,7 +138,7 @@
 <span class="w">    </span><span class="n">rclcpp</span><span class="o">::</span><span class="n">Service</span><span class="o">&lt;</span><span class="n">std_srvs</span><span class="o">::</span><span class="n">srv</span><span class="o">::</span><span class="n">SetBool</span><span class="o">&gt;::</span><span class="n">SharedPtr</span><span class="w"> </span><span class="n">service_</span><span class="p">;</span>
 
 <span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">service_flag_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="p">};</span>
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
 <span class="cp">#endif </span><span class="c1">// MY_CARTESIAN_INTERFACE_HPP</span>
 </pre></div>
@@ -237,6 +241,10 @@
 <section id="modyfy-cmakelists-txt">
 <h3>3.1 Modyfy CMakeLists.txt<a class="headerlink" href="#modyfy-cmakelists-txt" title="Link to this heading"></a></h3>
 <p>Add the following lines in <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> of <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface</span></code> package:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure the <code class="docutils literal notranslate"><span class="pre">ament_package()</span></code> is at the end of the CMakeLists.txt file.</p>
+</div>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="s">src/my_cartesian_interface.cpp</span><span class="p">)</span>
 <span class="nb">ament_target_dependencies</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="o">${</span><span class="nv">THIS_PACKAGE_INCLUDE_DEPENDS</span><span class="o">}</span><span class="p">)</span>
 <span class="nb">target_include_directories</span><span class="p">(</span><span class="s">my_cartesian_interface</span><span class="w"> </span><span class="s">PUBLIC</span>
@@ -264,7 +272,7 @@ ros2<span class="w"> </span>run<span class="w"> </span>my_cartesian_motion<span 
 <p>Now, you have created a topic subscriber and a service server on Cartesian Motion Base.</p>
 <p>Open a new terminal and send a test message to the topic:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>~/cmb_ws/install/setup.bash
-ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/my_topic<span class="w"> </span>std_msgs/msg/String<span class="w"> </span><span class="s2">&quot;{data: &#39;Hello from topic!&#39;}&quot;</span>
+ros2<span class="w"> </span>topic<span class="w"> </span>pub<span class="w"> </span>/my_topic<span class="w"> </span>std_msgs/msg/String<span class="w"> </span><span class="s2">&quot;{data: &#39;Hello from topic&#39;}&quot;</span><span class="w"> </span>--once
 </pre></div>
 </div>
 <p>You should see the message printed in the terminal running the <code class="docutils literal notranslate"><span class="pre">my_cartesian_interface</span></code> node.</p>

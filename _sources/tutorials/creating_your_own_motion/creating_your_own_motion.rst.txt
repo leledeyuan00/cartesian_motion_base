@@ -1,7 +1,10 @@
 Creating Your Own Motion
 ===========================
 
-In this tutorial, we will create a new ros2 package to implement the motion program.
+In this tutorial, we will:
+* Create a new ros2 package
+* Write a simple node that inherits the CartesianMotionBase class
+* Show printing the current robot state and system state in this architecture.
 
 1 Crate a new package
 ^^^^^^^^^^^^^^^^^^^^^
@@ -88,7 +91,7 @@ Create a ``my_cartesian_motion.hpp`` file.
     {
     public:
         MyCartesianMotion(const std::string &node_name,
-               std::vector<RobotConfig> robot_configs,
+               std::vector<cartesian_motion_base::RobotConfig> robot_configs,
                uint16_t rate)
             : cartesian_motion_base::CartesianMotionBase(
                   node_name, robot_configs, rate){};
@@ -142,6 +145,8 @@ Create a ``my_cartesian_motion.cpp`` file.
     void MyCartesianMotion::custom_init()
     {
         // Custom initialization code here
+        // Usually, you can create your own ROS components here,
+        // such as publishers, subscribers, clients, etc.
         // This time we leave it empty
     }
 
@@ -160,6 +165,11 @@ Create a ``my_cartesian_motion.cpp`` file.
             RCLCPP_INFO(this->get_logger(), "Current system task number is: %zu", system_state.task_num);
             RCLCPP_INFO(this->get_logger(), "Current system start time is: %f", system_state.start_time.seconds());
             RCLCPP_INFO(this->get_logger(), "Current system current time is: %f", system_state.current_time.seconds());
+            
+            // Using set_task_finished() to jump to the next task. 
+            // You must call this function manually to jump to the next task, 
+            // Otherwise the system will keep executing the current task looply.
+            set_task_finished();
         }));
 
         // Shut down task
@@ -243,6 +253,10 @@ Edit the ``CMakeLists.txt`` file in the ``my_cartesian_motion`` package to inclu
         cartesian_motion_base
         cartesian_controller_msgs
         geometry_msgs
+        std_srvs
+        tf2_eigen
+        tf2_kdl
+        std_msgs
     )
 
     foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})

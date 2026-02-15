@@ -27,7 +27,7 @@ Classes
 
 - :ref:`exhale_struct_structcartesian__motion__base_1_1SystemState`
 
-- :ref:`exhale_class_classcartesian__motion__base_1_1MotionBase`
+- :ref:`exhale_class_classcartesian__motion__base_1_1CartesianMotionBase`
 
 - :ref:`exhale_class_classcartesian__motion__base_1_1MotionClient`
 

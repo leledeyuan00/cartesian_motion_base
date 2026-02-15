@@ -1,7 +1,11 @@
 Extend ROS Interface on Cartesian Motion Base
 ===============================================
 
-This tutorial will show how to realize a topic and a service interface on Cartesian Motion Base (CMB).
+This tutorial will 
+* Show how to realize a topic and a service interface on Cartesian Motion Base (CMB).
+* Print the received message from the topic.
+* Trigger a motion task by calling the service.
+* These components will be initialized in the ``custom_init()`` function.
 
 1. Create a new header file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -28,7 +32,7 @@ Create a ``my_cartesian_interface.hpp`` file.
     {
     public:
         MyCartesianInterface(const std::string &node_name,
-           std::vector<RobotConfig> robot_configs,
+           std::vector<cartesian_motion_base::RobotConfig> robot_configs,
            uint16_t rate)
         : cartesian_motion_base::CartesianMotionBase(
               node_name, robot_configs, rate){};
@@ -42,7 +46,7 @@ Create a ``my_cartesian_interface.hpp`` file.
         rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr service_;
 
         bool service_flag_ = false;
-    }
+    };
     } // namespace my_cartesian_motion
     #endif // MY_CARTESIAN_INTERFACE_HPP
 
@@ -149,6 +153,9 @@ Create a ``my_cartesian_interface.cpp`` file.
 
 Add the following lines in ``CMakeLists.txt`` of ``my_cartesian_interface`` package:
 
+.. note::
+    Make sure the ``ament_package()`` is at the end of the CMakeLists.txt file.
+
 .. code:: cmake
     
     add_executable(my_cartesian_interface src/my_cartesian_interface.cpp)
@@ -181,7 +188,7 @@ Open a new terminal and send a test message to the topic:
 .. code-block:: bash
 
    source ~/cmb_ws/install/setup.bash
-   ros2 topic pub /my_topic std_msgs/msg/String "{data: 'Hello from topic!'}"
+   ros2 topic pub /my_topic std_msgs/msg/String "{data: 'Hello from topic'}" --once
 
 You should see the message printed in the terminal running the ``my_cartesian_interface`` node.
 
