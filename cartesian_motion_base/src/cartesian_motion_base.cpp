@@ -3,7 +3,7 @@
 namespace cartesian_motion_base
 {
 
-void MotionBase::on_init()
+void CartesianMotionBase::on_init()
 {
   // Parsing configuration
   if (!robot_init()) {
@@ -17,7 +17,7 @@ void MotionBase::on_init()
   tasks_init();
 }
 
-bool MotionBase::robot_init()
+bool CartesianMotionBase::robot_init()
 {
   robot_count_ = robot_configs_.size();   // get robot count
 
@@ -30,7 +30,7 @@ bool MotionBase::robot_init()
   return true;
 }
 
-void MotionBase::ros_init()
+void CartesianMotionBase::ros_init()
 {
   // clock
   my_clock_ = rclcpp::Clock(RCL_ROS_TIME);
@@ -97,7 +97,7 @@ void MotionBase::ros_init()
 
 /* Predefined Functions */
 
-bool MotionBase::move(PoseMap target_poses, double duration)
+bool CartesianMotionBase::move(PoseMap target_poses, double duration)
 {
   // Update target poses
   double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
@@ -126,7 +126,7 @@ bool MotionBase::move(PoseMap target_poses, double duration)
   return false;
 }
 
-bool MotionBase::move_wrench(
+bool CartesianMotionBase::move_wrench(
   PoseMap target_poses,
   WrenchMap target_wrenches,
   double duration)
@@ -167,7 +167,7 @@ bool MotionBase::move_wrench(
   return false;
 }
 
-bool MotionBase::sleep(double duration)
+bool CartesianMotionBase::sleep(double duration)
 {
   double current_duration = (system_state_.current_time - system_state_.start_time).seconds();
   if (current_duration >= duration) {
@@ -176,7 +176,7 @@ bool MotionBase::sleep(double duration)
   return false;
 }
 
-bool MotionBase::joint_move(
+bool CartesianMotionBase::joint_move(
   std::map<std::string, std::vector<double>> target_joints,
   double time)
 {
@@ -218,7 +218,7 @@ bool MotionBase::joint_move(
 
 // Execute the task
 
-void MotionBase::task_execute()
+void CartesianMotionBase::task_execute()
 {
   auto current_task = tasks_vector_[system_state_.task_num];
   system_state_.current_time = my_clock_.now();
@@ -271,20 +271,20 @@ void MotionBase::task_execute()
   }
 }
 
-uint8_t MotionBase::task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task)
+uint8_t CartesianMotionBase::task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task)
 {
   tasks_vector_.push_back(task);
   return tasks_vector_.size() - 1;
 }
 
 // Start the control loop
-void MotionBase::start()
+void CartesianMotionBase::start()
 {
   on_init();
-  control_loop_thread_ = std::thread(&MotionBase::control_loop, this);
+  control_loop_thread_ = std::thread(&CartesianMotionBase::control_loop, this);
 }
 
-void MotionBase::control_loop()
+void CartesianMotionBase::control_loop()
 {
   rclcpp::Rate rate(rate_);
   RCLCPP_INFO(this->get_logger(), "Waiting for initialization");

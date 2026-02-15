@@ -29,13 +29,13 @@ const std::vector<cartesian_motion_base::RobotConfig> get_test_robot_config()
 }
 
 // Define a test motion base class
-class TestMotionBase : public cartesian_motion_base::MotionBase
+class TestMotionBase : public cartesian_motion_base::CartesianMotionBase
 {
 public:
   TestMotionBase(
     const std::string & node_name,
     const std::vector<cartesian_motion_base::RobotConfig> & robot_configs, double rate)
-  : cartesian_motion_base::MotionBase(node_name, robot_configs, rate) {}
+  : cartesian_motion_base::CartesianMotionBase(node_name, robot_configs, rate) {}
   void custom_init() override {}
   void tasks_init() override {}
 

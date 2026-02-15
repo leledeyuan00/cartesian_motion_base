@@ -12,14 +12,14 @@ using namespace cartesian_motion_base;
 
 namespace cartesian_motion_test
 {
-class MotionDualArmTest : public MotionBase
+class MotionDualArmTest : public CartesianMotionBase
 {
 public:
   MotionDualArmTest(
     const std::string & node_name,
     std::vector<RobotConfig> robot_configs,
     uint16_t rate)
-  : MotionBase(node_name, robot_configs, rate) {}     // pass to base class
+  : CartesianMotionBase(node_name, robot_configs, rate) {}     // pass to base class
 
 private:
   /* function */

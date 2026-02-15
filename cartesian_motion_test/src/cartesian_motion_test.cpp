@@ -5,7 +5,7 @@ using namespace std::chrono_literals;
 namespace cartesian_motion_test
 {
 // For custom initialization
-void MotionTest::custom_init()
+void CartesianMotionTest::custom_init()
 {
   // service client
   test_client_ = this->create_client<std_srvs::srv::SetBool>("test_service");
@@ -33,7 +33,7 @@ void MotionTest::custom_init()
 }
 
 
-void MotionTest::tasks_init()
+void CartesianMotionTest::tasks_init()
 {
 
   // Go Home by joint space
@@ -221,7 +221,7 @@ int main(int argc, char const * argv[])
     "Garment Motion Test by FSM Node Started");
   rclcpp::init(argc, argv);
   rclcpp::executors::SingleThreadedExecutor executor;
-  auto node = std::make_shared<cartesian_motion_test::MotionTest>(
+  auto node = std::make_shared<cartesian_motion_test::CartesianMotionTest>(
     "cartesian_motion_test",
     cartesian_motion_test::get_test_robot_configs(),
     125);                                          // node name, robot configs, hz

@@ -40,7 +40,7 @@ with its hpp file in ``cartesian_motion_test/include/cartesian_motion_test/carte
 as well as the configuration file in ``cartesian_motion_test/include/cartesian_motion_config.hpp``.
 
 1. First, in the configuration file, we define the parameters of the robot for CMB. Including the robot name, the topics and client names for cartesian controllers.
-2. Second, in the hpp file, we define a class ``MotionTest`` inherited from ``CartesianMotionBase``.
+2. Second, in the hpp file, we define a class ``CartesianMotionTest`` inherited from ``CartesianMotionBase``.
    In the constructor, we initialize the CMB with the parameters defined in the configuration file. 
    And there are two functions that we must override two functions: ``custom_init`` and ``tasks_init``.
 3. Third, in the cpp file, we implement the two functions.

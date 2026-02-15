@@ -29,20 +29,20 @@ namespace cartesian_motion_base
  * @param robot_configs Vector of robot configurations.
  * @param rate Rate of the task execution.
  */
-class MotionBase : public rclcpp::Node
+class CartesianMotionBase : public rclcpp::Node
 {
 
 public:
-  explicit MotionBase(
+  explicit CartesianMotionBase(
     const std::string & node_name,
     std::vector<RobotConfig> robot_configs = {RobotConfig()},
     uint16_t rate = 125)
   : Node(node_name), robot_configs_(robot_configs), rate_(rate)
   {
     // Initialize the node
-    RCLCPP_INFO(this->get_logger(), "MotionBase initializing...");
+    RCLCPP_INFO(this->get_logger(), "CartesianMotionBase initializing...");
   }
-  virtual ~MotionBase() = default;
+  virtual ~CartesianMotionBase() = default;
 
   void on_init();
   void start();
@@ -348,7 +348,7 @@ private:
   size_t robot_count_ = 0;
 
 
-}; // class MotionBase
+}; // class CartesianMotionBase
 
 
 } // namespace cartesian_motion_base
