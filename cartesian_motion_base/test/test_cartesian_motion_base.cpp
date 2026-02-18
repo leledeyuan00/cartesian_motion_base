@@ -36,7 +36,7 @@ public:
     const std::string & node_name,
     const std::vector<cartesian_motion_base::RobotConfig> & robot_configs, double rate)
   : cartesian_motion_base::CartesianMotionBase(node_name, robot_configs, rate) {}
-  void custom_init() override {}
+  void on_init() override {}
   void tasks_init() override {}
 
   void test()

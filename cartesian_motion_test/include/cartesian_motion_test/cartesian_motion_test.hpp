@@ -23,7 +23,7 @@ public:
 
 private:
   /* function */
-  void custom_init() override;   // must override for custom initialization
+  void on_init() override;   // must override for custom initialization
   //tasks
   void tasks_init() override;   // must override for task initialization
 

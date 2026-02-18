@@ -5,7 +5,7 @@ using namespace std::chrono_literals;
 namespace cartesian_motion_test
 {
 // For custom initialization
-void MotionDualArmTest::custom_init()
+void MotionDualArmTest::on_init()
 {
   // service client
   test_client_ = this->create_client<std_srvs::srv::SetBool>("test_service");

@@ -3,7 +3,7 @@
 namespace cartesian_motion_base
 {
 
-void CartesianMotionBase::on_init()
+void CartesianMotionBase::init()
 {
   // Parsing configuration
   if (!robot_init()) {
@@ -13,7 +13,7 @@ void CartesianMotionBase::on_init()
   // Initialize the node
   ros_init();
   // Initialize user-defined components
-  custom_init();
+  on_init();
   tasks_init();
 }
 
@@ -280,7 +280,7 @@ uint8_t CartesianMotionBase::task_pushback(std::shared_ptr<cartesian_motion_base
 // Start the control loop
 void CartesianMotionBase::start()
 {
-  on_init();
+  init();
   control_loop_thread_ = std::thread(&CartesianMotionBase::control_loop, this);
 }
 

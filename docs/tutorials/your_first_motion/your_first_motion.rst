@@ -42,9 +42,9 @@ as well as the configuration file in ``cartesian_motion_test/include/cartesian_m
 1. First, in the configuration file, we define the parameters of the robot for CMB. Including the robot name, the topics and client names for cartesian controllers.
 2. Second, in the hpp file, we define a class ``CartesianMotionTest`` inherited from ``CartesianMotionBase``.
    In the constructor, we initialize the CMB with the parameters defined in the configuration file. 
-   And there are two functions that we must override two functions: ``custom_init`` and ``tasks_init``.
+   And there are two functions that we must override two functions: ``on_init`` and ``tasks_init``.
 3. Third, in the cpp file, we implement the two functions.
-   In ``custom_init``, we can add any customized initialization. In this example, we create a simple client and a ROS parameters parsing from a yaml file.
+   In ``on_init``, we can add any customized initialization. In this example, we create a simple client and a ROS parameters parsing from a yaml file.
    In ``tasks_init``, we define a sequence of tasks for the robot to execute. In this example, we define 4 tasks using predefined intepolation method ``move()``, 
    showing how to jump from each tasks, how to get current robot and system status and showing a simple real-time servo control intepolation task using ``set_target_pose()`` method.
 

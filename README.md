@@ -31,12 +31,10 @@ If you use this library in your research, please cite the following Zenodo relea
 ```
 @software{dayuan_2026_18616705,
   author       = {Dayuan},
-  title        = {leledeyuan00/cartesian\_motion\_base: Realease
-                   v0.1.0},
+  title        = {leledeyuan00/cartesian\_motion\_base},
   month        = feb,
   year         = 2026,
   publisher    = {Zenodo},
-  version      = {v0.1.0},
   doi          = {10.5281/zenodo.18616705},
   url          = {https://doi.org/10.5281/zenodo.18616705},
 }

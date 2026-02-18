@@ -44,7 +44,6 @@ public:
   }
   virtual ~CartesianMotionBase() = default;
 
-  void on_init();
   void start();
   void active()
   {
@@ -58,9 +57,17 @@ public:
 
 protected:
   /* functions */
-  void init();
-  bool robot_init();
-  virtual void custom_init() {}
+  /**
+   * @brief A interface for user to implement their own initialization function.
+   *  Usually used for ROS related initialization.
+   */
+  virtual void on_init() {}
+  /**
+   * @brief A interface for user to implement their own task initialization function.
+   *  Usually used for initializing the FSM tasks.
+   * @attention This function must be implemented by the user.
+   */
+  virtual void tasks_init() = 0;
 
   /**
    * @brief Interpolation between two poses. Default is linear interpolation for position and slerp for orientation.
@@ -259,7 +266,6 @@ protected:
    * @return the task number
    */
   uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
-  virtual void tasks_init() = 0;
   void task_execute();
 
   /**
@@ -333,6 +339,8 @@ protected:
 private:
   /* function */
   void control_loop();
+  void init();
+  bool robot_init();
   // ros
   void ros_init();
 

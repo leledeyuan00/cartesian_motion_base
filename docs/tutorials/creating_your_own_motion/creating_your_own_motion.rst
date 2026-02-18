@@ -97,7 +97,7 @@ Create a ``my_cartesian_motion.hpp`` file.
                   node_name, robot_configs, rate){};
     
     private:
-        void custom_init() override; // must override for custom initialization
+        void on_init() override; // must override for custom initialization
         void tasks_init() override; // must override for task initialization
     };
     } // namespace my_cartesian_motion
@@ -116,13 +116,13 @@ The CartesianMotionBase class needs to be inherited to create a new motion class
         : cartesian_motion_base::CartesianMotionBase(
               node_name, robot_configs, rate){};
 
-Then, we must override two functions: ``custom_init()`` and ``tasks_init()`` to implement our motion program.
+Then, we must override two functions: ``on_init()`` and ``tasks_init()`` to implement our motion program.
 These two functions will initialize the extra ros components and the task sequence, respectively.
 They will be called when you call the ``start()`` method of the CMB class.
 
 .. code::c++
 
-    void custom_init() override;
+    void on_init() override;
     void tasks_init() override;
 
 3.3 Writing the cpp file
@@ -142,7 +142,7 @@ Create a ``my_cartesian_motion.cpp`` file.
 
     namespace my_cartesian_motion
     {
-    void MyCartesianMotion::custom_init()
+    void MyCartesianMotion::on_init()
     {
         // Custom initialization code here
         // Usually, you can create your own ROS components here,
@@ -198,7 +198,7 @@ Create a ``my_cartesian_motion.cpp`` file.
 3.4 Examine the cpp file
 -------------------------------
 
-In the ``custom_init()`` function, we can add any customized initialization. In this example, we leave it empty.
+In the ``on_init()`` function, we can add any customized initialization. In this example, we leave it empty.
 
 In the ``tasks_init()`` function, we define a sequence of tasks for the robot to execute.
 

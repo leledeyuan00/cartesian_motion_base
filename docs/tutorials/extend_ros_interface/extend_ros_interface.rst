@@ -5,7 +5,7 @@ This tutorial will
 * Show how to realize a topic and a service interface on Cartesian Motion Base (CMB).
 * Print the received message from the topic.
 * Trigger a motion task by calling the service.
-* These components will be initialized in the ``custom_init()`` function.
+* These components will be initialized in the ``on_init()`` function.
 
 1. Create a new header file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -38,7 +38,7 @@ Create a ``my_cartesian_interface.hpp`` file.
               node_name, robot_configs, rate){};
 
     private:
-        void custom_init() override; // must override for custom initialization
+        void on_init() override; // must override for custom initialization
         void tasks_init() override; // must override for task initialization
 
         // ROS interface
@@ -67,7 +67,7 @@ Create a ``my_cartesian_interface.cpp`` file.
 
     namespace my_cartesian_motion
     {
-    void MyCartesianInterface::custom_init()
+    void MyCartesianInterface::on_init()
     {
         // Subscriber example
         subscriber_ = this->create_subscription<std_msgs::msg::String>(
