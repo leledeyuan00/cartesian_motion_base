@@ -103,7 +103,7 @@
 * Show how to realize a topic and a service interface on Cartesian Motion Base (CMB).
 * Print the received message from the topic.
 * Trigger a motion task by calling the service.
-* These components will be initialized in the <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> function.</p>
+* These components will be initialized in the <code class="docutils literal notranslate"><span class="pre">on_init()</span></code> function.</p>
 <section id="create-a-new-header-file">
 <h2>1. Create a new header file<a class="headerlink" href="#create-a-new-header-file" title="Link to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/cmb_ws/src/my_cartesian_motion/include/my_cartesian_motion
@@ -130,7 +130,7 @@
 <span class="w">          </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
 
 <span class="k">private</span><span class="o">:</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">custom_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
 <span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for task initialization</span>
 
 <span class="w">    </span><span class="c1">// ROS interface</span>
@@ -156,7 +156,7 @@
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
 <span class="p">{</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianInterface::custom_init</span><span class="p">()</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianInterface::on_init</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">// Subscriber example</span>
 <span class="w">    </span><span class="n">subscriber_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">std_msgs</span><span class="o">::</span><span class="n">msg</span><span class="o">::</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span>

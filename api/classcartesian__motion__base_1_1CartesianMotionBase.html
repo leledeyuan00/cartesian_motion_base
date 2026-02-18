@@ -72,13 +72,11 @@
 <li class="toctree-l6"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBaseE"><code class="docutils literal notranslate"><span class="pre">cartesian_motion_base::CartesianMotionBase</span></code></a><ul>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase19CartesianMotionBaseERKNSt6stringENSt6vectorI11RobotConfigEE8uint16_t"><code class="docutils literal notranslate"><span class="pre">CartesianMotionBase()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBaseD0Ev"><code class="docutils literal notranslate"><span class="pre">~CartesianMotionBase()</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv"><code class="docutils literal notranslate"><span class="pre">on_init()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase5startEv"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase6activeEv"><code class="docutils literal notranslate"><span class="pre">active()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10deactivateEv"><code class="docutils literal notranslate"><span class="pre">deactivate()</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase4initEv"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10robot_initEv"><code class="docutils literal notranslate"><span class="pre">robot_init()</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase11custom_initEv"><code class="docutils literal notranslate"><span class="pre">custom_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv"><code class="docutils literal notranslate"><span class="pre">on_init()</span></code></a></li>
+<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"><code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase19intepolation_wrenchEN13geometry_msgs3msg13WrenchStampedEN13geometry_msgs3msg13WrenchStampedEdd"><code class="docutils literal notranslate"><span class="pre">intepolation_wrench()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase15get_robot_namesEv"><code class="docutils literal notranslate"><span class="pre">get_robot_names()</span></code></a></li>
@@ -95,7 +93,6 @@
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase5sleepEd"><code class="docutils literal notranslate"><span class="pre">sleep()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10joint_moveE8JointMapd"><code class="docutils literal notranslate"><span class="pre">joint_move()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase13task_pushbackENSt10shared_ptrIN21cartesian_motion_base10MotionTaskEEE"><code class="docutils literal notranslate"><span class="pre">task_pushback()</span></code></a></li>
-<li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"><code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase12task_executeEv"><code class="docutils literal notranslate"><span class="pre">task_execute()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase17set_task_finishedEv"><code class="docutils literal notranslate"><span class="pre">set_task_finished()</span></code></a></li>
 <li class="toctree-l7"><a class="reference internal" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase18goto_specific_taskE6size_t"><code class="docutils literal notranslate"><span class="pre">goto_specific_task()</span></code></a></li>
@@ -196,11 +193,6 @@
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv">
-<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase7on_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase7on_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::on_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1a1ee1960b7087cf1e35642f8f7616c898"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">on_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase5startEv">
 <span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase5startEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase5startEv"></span><span id="cartesian_motion_base::CartesianMotionBase::start"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1ad3fcc7a441c364dc842b4cc9a9534004"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase5startEv" title="Link to this definition"></a><br /></dt>
 <dd></dd></dl>
@@ -219,19 +211,21 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase4initEv">
-<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase4initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase4initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1a839112c586801c5ffab7b611a2479056"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase4initEv" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv">
+<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase7on_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase7on_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::on_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1abf21938364306ed2012a79715315365d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">on_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase7on_initEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A interface for user to implement their own initialization function. Usually used for ROS related initialization. </p>
+</dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase10robot_initEv">
-<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase10robot_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase10robot_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::robot_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1ae784fb5c1952558f920125c20c5ab396"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">robot_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10robot_initEv" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase11custom_initEv">
-<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase11custom_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase11custom_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::custom_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1a2afbbba1e28ee5ff91705c41f9c59b07"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">custom_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase11custom_initEv" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv">
+<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::tasks_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1a15b066f7ec98dc403b87efa4d730ffb1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tasks_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A interface for user to implement their own task initialization function. Usually used for initializing the FSM tasks. </p>
+<p><dl class="simple">
+<dt><strong>Attention</strong></dt><dd><p>This function must be implemented by the user. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase12intepolationEN13geometry_msgs3msg11PoseStampedEN13geometry_msgs3msg11PoseStampedEdd">
@@ -470,11 +464,6 @@
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv">
-<span id="_CPPv3N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"></span><span id="_CPPv2N21cartesian_motion_base19CartesianMotionBase10tasks_initEv"></span><span id="cartesian_motion_base::CartesianMotionBase::tasks_init"></span><span class="target" id="classcartesian__motion__base_1_1CartesianMotionBase_1a15b066f7ec98dc403b87efa4d730ffb1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tasks_init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N21cartesian_motion_base19CartesianMotionBase10tasks_initEv" title="Link to this definition"></a><br /></dt>
-<dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N21cartesian_motion_base19CartesianMotionBase12task_executeEv">

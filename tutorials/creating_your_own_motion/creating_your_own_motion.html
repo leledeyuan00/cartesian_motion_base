@@ -194,7 +194,7 @@ You can define multiple robots by push_back multiple <code class="docutils liter
 <span class="w">              </span><span class="n">node_name</span><span class="p">,</span><span class="w"> </span><span class="n">robot_configs</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="p">){};</span>
 
 <span class="k">private</span><span class="o">:</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">custom_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">on_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for custom initialization</span>
 <span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">tasks_init</span><span class="p">()</span><span class="w"> </span><span class="k">override</span><span class="p">;</span><span class="w"> </span><span class="c1">// must override for task initialization</span>
 <span class="p">};</span>
 <span class="p">}</span><span class="w"> </span><span class="c1">// namespace my_cartesian_motion</span>
@@ -205,7 +205,7 @@ You can define multiple robots by push_back multiple <code class="docutils liter
 <section id="examine-the-hpp-file">
 <h3>3.2 Examine the hpp file<a class="headerlink" href="#examine-the-hpp-file" title="Link to this heading"></a></h3>
 <p>The CartesianMotionBase class needs to be inherited to create a new motion class with <code class="docutils literal notranslate"><span class="pre">node_name</span></code>, <code class="docutils literal notranslate"><span class="pre">robot_configs</span></code>, and <code class="docutils literal notranslate"><span class="pre">rate</span></code> parameters in the constructor.</p>
-<p>Then, we must override two functions: <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> to implement our motion program.
+<p>Then, we must override two functions: <code class="docutils literal notranslate"><span class="pre">on_init()</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> to implement our motion program.
 These two functions will initialize the extra ros components and the task sequence, respectively.
 They will be called when you call the <code class="docutils literal notranslate"><span class="pre">start()</span></code> method of the CMB class.</p>
 </section>
@@ -221,7 +221,7 @@ They will be called when you call the <code class="docutils literal notranslate"
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">my_cartesian_motion</span>
 <span class="p">{</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianMotion::custom_init</span><span class="p">()</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MyCartesianMotion::on_init</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">// Custom initialization code here</span>
 <span class="w">    </span><span class="c1">// Usually, you can create your own ROS components here,</span>
@@ -278,7 +278,7 @@ They will be called when you call the <code class="docutils literal notranslate"
 </section>
 <section id="examine-the-cpp-file">
 <h3>3.4 Examine the cpp file<a class="headerlink" href="#examine-the-cpp-file" title="Link to this heading"></a></h3>
-<p>In the <code class="docutils literal notranslate"><span class="pre">custom_init()</span></code> function, we can add any customized initialization. In this example, we leave it empty.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">on_init()</span></code> function, we can add any customized initialization. In this example, we leave it empty.</p>
 <p>In the <code class="docutils literal notranslate"><span class="pre">tasks_init()</span></code> function, we define a sequence of tasks for the robot to execute.</p>
 <p>The tasks are defined using the predefined <code class="docutils literal notranslate"><span class="pre">task_pushback()</span></code> method, which takes a <code class="docutils literal notranslate"><span class="pre">TaskPtr</span></code> as input.
 <code class="docutils literal notranslate"><span class="pre">TaskPtr</span></code> is a smart pointer that points to a task.</p>

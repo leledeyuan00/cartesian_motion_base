@@ -50,7 +50,6 @@ Program Listing for File cartesian_motion_base.hpp
      }
      virtual ~CartesianMotionBase() = default;
    
-     void on_init();
      void start();
      void active()
      {
@@ -64,9 +63,8 @@ Program Listing for File cartesian_motion_base.hpp
    
    protected:
      /* functions */
-     void init();
-     bool robot_init();
-     virtual void custom_init() {}
+     virtual void on_init() {}
+     virtual void tasks_init() = 0;
    
      virtual geometry_msgs::msg::PoseStamped intepolation(
        geometry_msgs::msg::PoseStamped init_pose, geometry_msgs::msg::PoseStamped target_pose,
@@ -176,7 +174,6 @@ Program Listing for File cartesian_motion_base.hpp
    
    
      uint8_t task_pushback(std::shared_ptr<cartesian_motion_base::MotionTask> task);
-     virtual void tasks_init() = 0;
      void task_execute();
    
      void set_task_finished()
@@ -237,6 +234,8 @@ Program Listing for File cartesian_motion_base.hpp
    private:
      /* function */
      void control_loop();
+     void init();
+     bool robot_init();
      // ros
      void ros_init();
    

@@ -131,9 +131,9 @@ as well as the configuration file in <code class="docutils literal notranslate">
 <li><p>First, in the configuration file, we define the parameters of the robot for CMB. Including the robot name, the topics and client names for cartesian controllers.</p></li>
 <li><p>Second, in the hpp file, we define a class <code class="docutils literal notranslate"><span class="pre">CartesianMotionTest</span></code> inherited from <code class="docutils literal notranslate"><span class="pre">CartesianMotionBase</span></code>.
 In the constructor, we initialize the CMB with the parameters defined in the configuration file.
-And there are two functions that we must override two functions: <code class="docutils literal notranslate"><span class="pre">custom_init</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init</span></code>.</p></li>
+And there are two functions that we must override two functions: <code class="docutils literal notranslate"><span class="pre">on_init</span></code> and <code class="docutils literal notranslate"><span class="pre">tasks_init</span></code>.</p></li>
 <li><p>Third, in the cpp file, we implement the two functions.
-In <code class="docutils literal notranslate"><span class="pre">custom_init</span></code>, we can add any customized initialization. In this example, we create a simple client and a ROS parameters parsing from a yaml file.
+In <code class="docutils literal notranslate"><span class="pre">on_init</span></code>, we can add any customized initialization. In this example, we create a simple client and a ROS parameters parsing from a yaml file.
 In <code class="docutils literal notranslate"><span class="pre">tasks_init</span></code>, we define a sequence of tasks for the robot to execute. In this example, we define 4 tasks using predefined intepolation method <code class="docutils literal notranslate"><span class="pre">move()</span></code>,
 showing how to jump from each tasks, how to get current robot and system status and showing a simple real-time servo control intepolation task using <code class="docutils literal notranslate"><span class="pre">set_target_pose()</span></code> method.</p></li>
 </ol>
