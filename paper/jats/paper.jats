@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.2 20190208//EN"
+                  "JATS-publishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+<front>
+<journal-meta>
+<journal-id></journal-id>
+<journal-title-group>
+<journal-title>Journal of Open Source Software</journal-title>
+<abbrev-journal-title>JOSS</abbrev-journal-title>
+</journal-title-group>
+<issn publication-format="electronic">2475-9066</issn>
+<publisher>
+<publisher-name>Open Journals</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">0</article-id>
+<article-id pub-id-type="doi">N/A</article-id>
+<title-group>
+<article-title>CMB: A C++ Library for Real-Time Cartesian Control
+Architectures of Robotic Manipulation in ROS 2</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author" corresp="yes">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0001-9644-7584</contrib-id>
+<name>
+<surname>Chen</surname>
+<given-names>Dayuan</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+<xref ref-type="corresp" rid="cor-1"><sup>*</sup></xref>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-5931-0471</contrib-id>
+<name>
+<surname>Hirata</surname>
+<given-names>Yasuhisa</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Department of Robotics, Tohoku University, Sendai, Miyagi,
+980-8579</institution>
+</institution-wrap>
+</aff>
+</contrib-group>
+<author-notes>
+<corresp id="cor-1">* E-mail: <email></email></corresp>
+</author-notes>
+<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2026-02-20">
+<day>20</day>
+<month>2</month>
+<year>2026</year>
+</pub-date>
+<volume>¿VOL?</volume>
+<issue>¿ISSUE?</issue>
+<fpage>¿PAGE?</fpage>
+<permissions>
+<copyright-statement>Authors of papers retain copyright and release the
+work under a Creative Commons Attribution 4.0 International License (CC
+BY 4.0)</copyright-statement>
+<copyright-year>1970</copyright-year>
+<copyright-holder>The article authors</copyright-holder>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/">
+<license-p>Authors of papers retain copyright and release the work under
+a Creative Commons Attribution 4.0 International License (CC BY
+4.0)</license-p>
+</license>
+</permissions>
+<kwd-group kwd-group-type="author">
+<kwd>C++</kwd>
+<kwd>ROS2</kwd>
+<kwd>manipulator</kwd>
+<kwd>robotics</kwd>
+<kwd>real-time architecture</kwd>
+</kwd-group>
+</article-meta>
+</front>
+<body>
+<sec id="summary">
+  <title>Summary</title>
+  <p>Controlling robotic manipulators in the real world often requires
+  translating intuitive Cartesian commands (e.g., moving a tool in 3D
+  space) into complex joint angle trajectories. While achieving motion
+  safety with the environment requires real-time compliance feedback,
+  which is notoriously difficult to achieve on robotics systems,
+  especially industrial robots, that are limited to standard position or
+  velocity control interfaces.</p>
+  <p>A typical robotic manipulation task consists of a sequence of
+  dynamic sub-tasks. For example, a contact-rich “pick-and-place”
+  operation might involve a rapid, rough approach to a target, followed
+  by precise, visually-guided alignment, and finally, a compliant
+  grasping motion. Ensuring uninterrupted, real-time control across
+  these transitioning phases is technically challenging. Therefore,
+  developing a control architecture that provides a real-time,
+  sequential, and flexible task-execution paradigm is crucial for
+  advanced robotics research.</p>
+  <p>Cartesian Motion Base (CMB) is an extensible C++ library for the
+  Robot Operating System 2 (ROS 2) that addresses this challenge. CMB
+  provides a robust Finite State Machine (FSM) architecture that manages
+  sequential manipulation sub-tasks while maintaining real-time
+  response. By seamlessly integrating with existing ROS 2
+  <monospace>cartesian_controllers</monospace>, which generate joint
+  commands from Cartesian targets and force/torque feedback (utilizing
+  wrist-mounted sensors and compliance controllers), CMB allows users to
+  intuitively program single- or multi-arm robot systems. Researchers
+  and engineers can easily inherit from the CMB base class to rapidly
+  design, deploy, and scale their own custom, complex manipulation
+  sequences.</p>
+</sec>
+<sec id="statement-of-need">
+  <title>Statement of need</title>
+  <p>To handle general Cartesian planning, CMB builds upon the robust
+  ROS 2 <monospace>cartesian_controllers</monospace> package
+  (<xref alt="Scherzinger et al., 2017" rid="ref-FDCC" ref-type="bibr">Scherzinger
+  et al., 2017</xref>). This dependency uses an iterative
+  forward-virtual-dynamics kinematics approach—employing
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[H_q J^\top]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>H</mml:mi><mml:mi>q</mml:mi></mml:msub><mml:msup><mml:mi>J</mml:mi><mml:mi>⊤</mml:mi></mml:msup></mml:mrow></mml:math></alternatives></inline-formula>
+  instead of the traditional <inline-formula><alternatives>
+  <tex-math><![CDATA[J^{-1}]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup><mml:mi>J</mml:mi><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup></mml:math></alternatives></inline-formula>—to
+  map Cartesian-space commands to joint space. Here,
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[J]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>J</mml:mi></mml:math></alternatives></inline-formula>
+  represents the real-time updated Jacobian matrix and
+  <inline-formula><alternatives>
+  <tex-math><![CDATA[H]]></tex-math>
+  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>H</mml:mi></mml:math></alternatives></inline-formula>
+  denotes the positive definite joint space inertia matrix. This
+  underlying formulation ensures stable operation even near
+  singularities and joint limits.</p>
+  <p>However, utilizing these low-level controllers directly in complex,
+  multi-stage real-world applications is highly intricate. CMB abstracts
+  this complexity by introducing a dynamically initialized Finite State
+  Machine (FSM) mechanism to realize a unified manipulation control
+  system. To facilitate seamless real-world deployment, CMB
+  significantly extends the baseline
+  <monospace>cartesian_controllers</monospace> with the following
+  practical features:</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>Unified State Machine Architecture: A standardized command and
+      state interface that allows users to rapidly design, extend, and
+      deploy sequential tasks.</p>
+    </list-item>
+    <list-item>
+      <p>Enhanced Service Interfaces: Exposing joint trajectory
+      execution as an easily accessible ROS 2 service.</p>
+    </list-item>
+    <list-item>
+      <p>Real-time Synchronization &amp; Monitoring: Publishing the
+      current wrench (referenced to the base frame) and the current
+      target Cartesian commands to synchronize multi-process nodes.</p>
+    </list-item>
+    <list-item>
+      <p>Hardware Safety Mechanisms: Implementing configurable force
+      emergency thresholds to ensure safe operation during physical
+      human-robot or robot-environment interactions.</p>
+    </list-item>
+    <list-item>
+      <p>Gravity Compensation: Seamless integration of gravity
+      compensation models
+      (<xref alt="Chen et al., 2025" rid="ref-GravityCompensation" ref-type="bibr">Chen
+      et al., 2025</xref>) to decouple the mass of the end-effector from
+      the payload of force/torque readings.</p>
+    </list-item>
+  </list>
+  <p>Ultimately, CMB provides the missing “glue” between mathematical
+  Cartesian control and practical, sequence-driven robotic programming,
+  significantly lowering the barrier to entry for advanced manipulation
+  research.</p>
+</sec>
+<sec id="state-of-the-field">
+  <title>State of the field</title>
+  <p>In the ROS 2 ecosystem, several established frameworks address
+  robotic manipulation and task sequencing, but they typically focus on
+  global motion planning or on executing generated logic, leaving a gap
+  for real-time Cartesian-based compliance tasks.</p>
+  <p>The most prominent framework in manipulator control is MoveIt 2 and
+  its extension, MoveIt Task Constructor (MTC)
+  (<xref alt="Görner et al., 2019" rid="ref-MoveItTaskConstructor" ref-type="bibr">Görner
+  et al., 2019</xref>). While MTC excels at sequencing complex tasks
+  involving collision avoidance and global trajectory generation, it
+  primarily relies on a “plan-then-execute” paradigm. This approach is
+  highly effective for collision-free motion but is often insufficient
+  for contact-rich or servo tasks (e.g., peg-in-hole insertion, surface
+  wiping, visual servoing, or compliant grasping), which require
+  millisecond-level, closed-loop reactions. CMB complements the
+  ecosystem by focusing entirely on the real-time execution and
+  compliance phase rather than global planning.</p>
+  <p>For task execution and logic sequencing, general-purpose frameworks
+  like BehaviorTree.CPP
+  (<xref alt="Ghzouli et al., 2020" rid="ref-BehaviorTreesInAction" ref-type="bibr">Ghzouli
+  et al., 2020</xref>) or state-state machine libraries
+  (<xref alt="González-Santamarta et al., 2023" rid="ref-YASMIN" ref-type="bibr">González-Santamarta
+  et al., 2023</xref>) are widely used in ROS 2. They provide roubust
+  methods for realizing logical task sequences and offer clear
+  visualization of state transitions and execution statuses. However,
+  they are designed for general-purpose systems rather than specifically
+  for the manipulators, researchers have to write significant amounts of
+  boilerplate code to bridge the gap between high-level logic and
+  low-level Cartesian kinematics, wrench signals, and controller states.
+  CMB is specifically tailored for robotic manipulators, directly
+  integrating Cartesian controllers to seamlessly execute user-defined,
+  real-time tasks.</p>
+  <p>To provide a robust kinematic foundation, CMB relies heavily on the
+  <monospace>cartesian_controllers</monospace> package. Rather than
+  merging CMB directly into that repository, CMB is architected as a
+  separate, higher-level task execution package. This maintains a clear
+  separation of concerns: <monospace>cartesian_controllers</monospace>
+  operates at the ros2_control layer for high-frequency mathmatical
+  calculations and hardware communication, whereas CMB operates at the
+  user application node layer. Furthermore, to ensure a synergistic
+  relationship, we have actively contributed several general-purpose
+  features back upstream to the
+  <monospace>cartesian_controllers</monospace> repository, including
+  joint trajectory execution interfaces and gravity compensation models
+  to decouple the end-effector and payload masses.</p>
+</sec>
+<sec id="software-design">
+  <title>Software design</title>
+  <fig id="figU003Aarchitecture">
+    <caption><p>The CMB architecture with ROS2 system</p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="./Architecture.png" />
+  </fig>
+  <p>To maximize code reusability and ensure deterministic real-time
+  execution, CMB is architected around a continuous Finite State Machine
+  (FSM) running within a primary, non-blocking outer loop.</p>
+  <p>When users inherit from the CMB base class, the system
+  automatically abstracts the boilerplate ROS 2 communication with the
+  underlying <monospace>cartesian_controllers</monospace>. As
+  demonstrated in our single- and multi-robot arm configuration
+  interfaces, CMB seamlessly manages Cartesian position commands, wrench
+  feedback, and joint trajectory services for single or multiple
+  manipulators. This allows researchers to focus entirely on
+  implementing their real-time task logic. Because all tasks are
+  evaluated at a fixed, user-defined frequency within the main loop,
+  developers do not need to rely on thread-blocking functions like
+  <monospace>sleep()</monospace> to realize continuous execution. By
+  default, tasks follow a sequential queue; however, users can easily
+  implement dynamic conditional state transitions by querying task IDs
+  and using the <monospace>goto_specific_task(TASK_ID)</monospace>
+  method.</p>
+  <p>As illustrated in Fig.
+  <xref alt="[fig:architecture]" rid="figU003Aarchitecture">[fig:architecture]</xref>,
+  each user-defined task is strictly divided into three phases: Init,
+  Execute, and Finish.</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>Init: Executed exactly once upon entering a new task. During
+      this phase, CMB automatically caches essential environmental
+      states, such as <monospace>start_time</monospace>,
+      <monospace>start_pose</monospace>, and
+      <monospace>start_wrench</monospace>.</p>
+    </list-item>
+    <list-item>
+      <p>Execute: The core real-time loop where the custom manipulation
+      logic is evaluated at every tick. Users can effortlessly retrieve
+      the cached initial states via built-in getters (e.g.,
+      <monospace>get_system_state().start_time</monospace> or
+      <monospace>get_start_pose(NAME)</monospace>).</p>
+    </list-item>
+    <list-item>
+      <p>Finish: Handles cleanup and securely schedules the transition
+      to the next state.</p>
+    </list-item>
+  </list>
+  <sec id="design-of-trade-offs">
+    <title>Design of Trade-offs</title>
+    <p>A critical design trade-off in CMB is the intentional exclusion
+    of built-in global collision avoidance. To maintain a lightweight
+    design and ensure real-time performance at high frequencies, CMB
+    assumes that global, obstacle-free motion planning is handled
+    upstream by the user. However, to compensate for this and ensure
+    hardware safety during contact-rich operations, CMB actively
+    monitors real-time force/torque feedback (when a wrist-mounted
+    sensor is available) and triggers an emergency stop if predefined
+    wrench thresholds are exceeded.</p>
+  </sec>
+  <sec id="example-of-usage">
+    <title>Example of usage</title>
+    <p>To demonstrate the simplicity and expressiveness of the CMB API,
+    the following C++ snippet illustrates how a user can define a custom
+    contact-rich task (e.g, safely approaching a surface until a contact
+    force is detected). Users only need to inherit from
+    <monospace>CartesianMotionBase</monospace> and use
+    <monospace>task_pushback()</monospace> to register their real-time
+    logic.</p>
+    <code language="c++">class PickAndPlaceTask : public cartesian_motion_base::CartesianMotionBase {
+public:
+  // Inherit constructor
+  PickAndPlaceTask(
+    const std::string &amp; node_name,
+    std::vector&lt;RobotConfig&gt; robot_configs,
+    uint16_t rate)
+  : CartesianMotionBase(node_name, robot_configs, rate) {} 
+
+  void tasks_init() override {
+    // Register a new state machine task named &quot;Approach&quot;
+    task_pushback(TaskPtr(&quot;Approach&quot;, 
+      // Init Phase: Runs only once when entering this task
+      [this]() {
+        RCLCPP_INFO(this-&gt;get_logger(), &quot;Starting to approach the target...&quot;);
+      },
+      // Execute Phase: Runs continuously at the defined real-time rate
+      [this]() {
+      auto current_pose = get_current_pose(&quot;ur&quot;);
+      auto current_wrench = get_current_wrench(&quot;ur&quot;);
+      auto target_pose = current_pose;
+
+      // Move the end-effector downwards
+      target_pose.position.z = current_pose.position.z - 0.001; 
+
+      // Set the target pose
+      PoseMap pose_map;
+      pose_map[&quot;ur&quot;] = target_pose;
+      set_target_pose(&quot;ur&quot;, current_pose);
+
+      // Transition to the next task if contact force exceeds 10 N
+      if (current_wrench.force.z &gt; 10.0) {
+        RCLCPP_INFO(this-&gt;get_logger(), &quot;Contact detected. Task finished.&quot;);
+        // Finish Phase will runnig into built-in base class.
+        set_task_finished();
+      }
+    }));
+    
+    // Additional tasks (e.g., &quot;Grasp&quot;, &quot;Lift&quot;) can be pushed here...
+  }
+};
+    </code>
+  </sec>
+</sec>
+<sec id="research-impact-statement">
+  <title>Research impact statement</title>
+  <p>To demonstrate its practical utility and reliability, CMB has been
+  successfully deployed as the core control architecture in several
+  manipulation research projects.</p>
+  <p>First, CMB was utilized to develop a human-guided manipulation
+  framework
+  (<xref alt="Chen et al., 2024" rid="ref-HumanGuided" ref-type="bibr">Chen
+  et al., 2024</xref>). In this application, CMB’s Finite State Machine
+  (FSM) seamlessly managed transitions between an autonomous task
+  (covering a flat board with a t-shirt) and an interactive
+  human-guidance mode. If the environment changed dynamically (e.g., the
+  target board was moved or a new configuration product line was
+  introduced), CMB’s real-time interaction monitoring enabled the human
+  operator to safely intervene. The FSM smoothly transitioned the robot
+  into a compliant, lead-through dragging mode, enabling the operator to
+  physically guide the manipulator to the new target pose before
+  resuming the autonomous sequence.</p>
+  <p>Furthermore, CMB’s architecture is highly interoperable with
+  high-level Python-based planning nodes via customized ROS 2
+  interfaces. This capability was leveraged to deploy a Reinforcement
+  Learning (RL) policy for contact-rich manipulation
+  (<xref alt="Zhang, Chen, He, Elías Petrilli Barceló, et al., 2025" rid="ref-ContactRL" ref-type="bibr">Zhang,
+  Chen, He, Elías Petrilli Barceló, et al., 2025</xref>). The
+  Python-based RL node generated Cartesian target positions and
+  seamlessly transmitted the commands to an incremental impedance
+  controller, which was effectively wrapped as aservice-triggered task
+  within the CMB framework
+  (<xref alt="Zhang, Chen, He, Barceló, et al., 2025" rid="ref-Yukuan-incre" ref-type="bibr">Zhang,
+  Chen, He, Barceló, et al., 2025</xref>). Additionally, CMB’s stable
+  force-feedback capabilities facilitated a human-guided residual
+  learning approach designed to bridge the sim-to-real gap during
+  physical human-robot interaction
+  (<xref alt="Zhang et al., 2024" rid="ref-AdaptiveSim" ref-type="bibr">Zhang
+  et al., 2024</xref>).</p>
+  <p>Finally, CMB served as the real-time execution engine for the
+  immersive teleoperation system. By integrating a Meta Quest 3 VR
+  headset via a ROS 2 interface, researchers used CMB to collect
+  high-quality human demonstration datasets. This stable data-collection
+  pipeline culminated in the successful training and deployment of a
+  force-conditioned imitation learning policy for a highly complex,
+  deformable-object manipulation task (cloth hanging)
+  (<xref alt="Chen et al., n.d." rid="ref-FACT" ref-type="bibr">Chen et
+  al., n.d.</xref>).</p>
+</sec>
+<sec id="ai-usage-disclosure">
+  <title>AI usage disclosure</title>
+  <p>During the development of this project and the preparation of this
+  manuscript, generative AI tools (specifically, Large Language Models)
+  were utilized to assisted with several tasks.</p>
+  <p><bold>Software Development &amp; Documentation:</bold> AI was used
+  as a pair-programming assistant to troubleshoot C++ compilation
+  errors, resolves ROS 2 GTest Cmake configuration issues, debug GitHub
+  Actions CI workflows, and generate formatting for the
+  <monospace>README.md</monospace> documentation.</p>
+  <p><bold>Paper Authoring:</bold> AI was used to refine the English
+  grammar, enhance the flow of the text, and ensure the phrasing met
+  acedamic standards for the JOSS manuscript.</p>
+  <p><bold>Verification:</bold> All AI-generated code snippets and
+  configuration files wre manually reviewed, compiled, and rigorously
+  validated against the project’s test suite (GTest) and CI pipeline.
+  All AI-assisted text in this paper was thoroughly reviewed and edited
+  by the human author to ensure scientific accuracy and correctly refect
+  the original research intent.</p>
+</sec>
+<sec id="acknowledgements">
+  <title>Acknowledgements</title>
+  <p>This work was partially supported by the Innovation and Technology
+  Commission of the HKSAR Government under the InnoHK initiative.</p>
+</sec>
+</body>
+<back>
+<ref-list>
+  <title></title>
+  <ref id="ref-FDCC">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Scherzinger</surname><given-names>S.</given-names></name>
+        <name><surname>Roennau</surname><given-names>A.</given-names></name>
+        <name><surname>Dillmann</surname><given-names>R.</given-names></name>
+      </person-group>
+      <article-title>Forward dynamics compliance control (FDCC): A new approach to cartesian compliance for robotic manipulators</article-title>
+      <source>IEEE/RSJ international conference on intelligent robots and systems (IROS)</source>
+      <year iso-8601-date="2017">2017</year>
+      <pub-id pub-id-type="doi">10.1109/IROS.2017.8206325</pub-id>
+      <fpage>4568</fpage>
+      <lpage>4575</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-Yukuan-incre">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Zhang</surname><given-names>Yukuan</given-names></name>
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>He</surname><given-names>Weizan</given-names></name>
+        <name><surname>Barceló</surname><given-names>Alberto Elías Petrilli</given-names></name>
+        <name><surname>Luces</surname><given-names>Jose Victorio Salazar</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>An incremental hybrid impedance algorithm for stable force-position control of elastic materials</article-title>
+      <source>IEEE Trans. on Automat. Sci. and Eng.</source>
+      <year iso-8601-date="2025">2025</year>
+      <volume></volume>
+      <issue></issue>
+      <pub-id pub-id-type="doi">10.1109/TASE.2025.3629136</pub-id>
+      <fpage>1</fpage>
+      <lpage>1</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-GravityCompensation">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>Zhang</surname><given-names>Yukuan</given-names></name>
+        <name><surname>He</surname><given-names>Weizan</given-names></name>
+        <name><surname>Petrilli Barceló</surname><given-names>Alberto Elías</given-names></name>
+        <name><surname>Salazar Luces</surname><given-names>Jose Victorio</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>Simplified offset and gravity compensation for wrist-mounted force/torque sensor with a garment manipulation application</article-title>
+      <source>2025 IEEE int. Conf. On robot. And biomimetics (ROBIO)</source>
+      <year iso-8601-date="2025">2025</year>
+      <volume></volume>
+      <fpage></fpage>
+      <lpage></lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-MoveItTaskConstructor">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Görner</surname><given-names>Michael</given-names></name>
+        <name><surname>Haschke</surname><given-names>Robert</given-names></name>
+        <name><surname>Ritter</surname><given-names>Helge</given-names></name>
+        <name><surname>Zhang</surname><given-names>Jianwei</given-names></name>
+      </person-group>
+      <article-title>MoveIt! Task constructor for task-level motion planning</article-title>
+      <year iso-8601-date="2019-05">2019</year><month>05</month>
+      <pub-id pub-id-type="doi">10.1109/ICRA.2019.8793898</pub-id>
+      <fpage>190</fpage>
+      <lpage>196</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-BehaviorTreesInAction">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Ghzouli</surname><given-names>Razan</given-names></name>
+        <name><surname>Berger</surname><given-names>Thorsten</given-names></name>
+        <name><surname>Johnsen</surname><given-names>Einar Broch</given-names></name>
+        <name><surname>Dragule</surname><given-names>Swaib</given-names></name>
+        <name><surname>Wąsowski</surname><given-names>Andrzej</given-names></name>
+      </person-group>
+      <article-title>Behavior trees in action: A study of robotics applications</article-title>
+      <source>Proceedings of the 13th ACM SIGPLAN international conference on software language engineering</source>
+      <publisher-name>Association for Computing Machinery</publisher-name>
+      <publisher-loc>New York, NY, USA</publisher-loc>
+      <year iso-8601-date="2020">2020</year>
+      <isbn>9781450381765</isbn>
+      <uri>https://doi.org/10.1145/3426425.3426942</uri>
+      <pub-id pub-id-type="doi">10.1145/3426425.3426942</pub-id>
+      <fpage>196</fpage>
+      <lpage>209</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-YASMIN">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>González-Santamarta</surname><given-names>Miguel Á.</given-names></name>
+        <name><surname>Rodríguez-Lera</surname><given-names>Francisco J.</given-names></name>
+        <name><surname>Matellán-Olivera</surname><given-names>Vicente</given-names></name>
+        <name><surname>Fernández-Llamas</surname><given-names>Camino</given-names></name>
+      </person-group>
+      <article-title>YASMIN: Yet another state MachINe</article-title>
+      <source>ROBOT2022: Fifth iberian robotics conference</source>
+      <person-group person-group-type="editor">
+        <name><surname>Tardioli</surname><given-names>Danilo</given-names></name>
+        <name><surname>Matellán</surname><given-names>Vicente</given-names></name>
+        <name><surname>Heredia</surname><given-names>Guillermo</given-names></name>
+        <name><surname>Silva</surname><given-names>Manuel F.</given-names></name>
+        <name><surname>Marques</surname><given-names>Lino</given-names></name>
+      </person-group>
+      <publisher-name>Springer International Publishing</publisher-name>
+      <publisher-loc>Cham</publisher-loc>
+      <year iso-8601-date="2023">2023</year>
+      <isbn>978-3-031-21062-4</isbn>
+      <fpage>528</fpage>
+      <lpage>539</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-FACT">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>Tang</surname><given-names>Kai</given-names></name>
+        <name><surname>Zhang</surname><given-names>Yukuan</given-names></name>
+        <name><surname>Kosuge</surname><given-names>Kazuhiro</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>Closing the loop: A force-aware hierarchical framework for robust deformable object manipulation</article-title>
+      <source>IEEE/ASME Transactions on Mechatronics</source>
+    </element-citation>
+  </ref>
+  <ref id="ref-HumanGuided">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>Liao</surname><given-names>Zhenyu</given-names></name>
+        <name><surname>Petrilli-Barceló</surname><given-names>Alberto Elías</given-names></name>
+        <name><surname>Luces</surname><given-names>Jose Victorio Salazar</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>A human-guided approach for garment manipulation tasks by using real-time body tracking and impedance control</article-title>
+      <source>2024 international conference on advanced robotics and mechatronics (ICARM)</source>
+      <year iso-8601-date="2024">2024</year>
+      <volume></volume>
+      <pub-id pub-id-type="doi">10.1109/ICARM62033.2024.10715750</pub-id>
+      <fpage>25</fpage>
+      <lpage>30</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-AdaptiveSim">
+    <element-citation publication-type="paper-conference">
+      <person-group person-group-type="author">
+        <name><surname>Zhang</surname><given-names>Yukuan</given-names></name>
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>Barceló</surname><given-names>Alberto Elías Petrilli</given-names></name>
+        <name><surname>Luces</surname><given-names>Jose Victorio Salazar</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>Adaptive simulation-trained cloth manipulation control with human guidance for real-world robotics tasks</article-title>
+      <source>2024 IEEE international conference on robotics and biomimetics (ROBIO)</source>
+      <year iso-8601-date="2024">2024</year>
+      <volume></volume>
+      <pub-id pub-id-type="doi">10.1109/ROBIO64047.2024.10907753</pub-id>
+      <fpage>1164</fpage>
+      <lpage>1171</lpage>
+    </element-citation>
+  </ref>
+  <ref id="ref-ContactRL">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Zhang</surname><given-names>Yukuan</given-names></name>
+        <name><surname>Chen</surname><given-names>Dayuan</given-names></name>
+        <name><surname>He</surname><given-names>Weizan</given-names></name>
+        <name><surname>Elías Petrilli Barceló</surname><given-names>Alberto</given-names></name>
+        <name><surname>Victorio Salazar Luces</surname><given-names>Jose</given-names></name>
+        <name><surname>Hirata</surname><given-names>Yasuhisa</given-names></name>
+      </person-group>
+      <article-title>Multi-critic reinforcement learning for garment handling: Addressing unpredictability in temporal-phase continuous contact tasks</article-title>
+      <source>IEEE Transactions on Automation Science and Engineering</source>
+      <year iso-8601-date="2025">2025</year>
+      <volume>22</volume>
+      <issue></issue>
+      <pub-id pub-id-type="doi">10.1109/TASE.2025.3527003</pub-id>
+      <fpage>10741</fpage>
+      <lpage>10752</lpage>
+    </element-citation>
+  </ref>
+</ref-list>
+</back>
+</article>
