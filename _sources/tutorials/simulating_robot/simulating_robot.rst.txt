@@ -24,7 +24,7 @@ Launch the Docker container with GUI and GPU support:
 
 .. code-block:: bash
 
-   cd ~/cmb_ws/src/cartesian_motion_base/cartesian_motion_sim/
+   cd ~/cmb_ws/src/cartesian_motion_base/.docker
    ./set_display.sh # For display forwarding
    docker compose up -d
 
