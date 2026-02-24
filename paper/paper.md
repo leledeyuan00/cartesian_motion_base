@@ -62,7 +62,7 @@ To provide a robust kinematic foundation, CMB relies heavily on the `cartesian_c
 
 <!-- Architecture -->
 
-![The CMB architecture with ROS2 system](https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b){#fig:architecture width="70%"}
+![The CMB architecture with ROS2 system](./Architecture.png){#fig:architecture width="70%"}
 
 To maximize code reusability and ensure deterministic real-time execution, CMB is architected around a continuous Finite State Machine (FSM) running within a primary, non-blocking outer loop.
 
