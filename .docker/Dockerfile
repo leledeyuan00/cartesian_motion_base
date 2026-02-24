@@ -16,16 +16,18 @@ RUN apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp -y
 RUN mkdir -p /root/cmb_ws/src
 WORKDIR /root/cmb_ws/src
 
-# Build the workspace
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \ 
-    cd /root/cmb_ws/src/ && \
-    git clone https://github.com/leledeyuan00/cartesian_controllers.git -b garment && \
-    git clone https://github.com/leledeyuan00/cartesian_motion_base.git && \
+# Add source code and build workspace
+COPY . /root/cmb_ws/src/cartesian_motion_base
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && \
     cd /root/cmb_ws && \
+    vcs import src < src/cartesian_motion_base/cartesian_motion_base.repos && \
+    sudo apt update && \
+    rosdep update && \
+    rosdep install --from-paths src --ignore-src -r -y --rosdistro humble && \
     colcon build --symlink-install"
 
 # ADD ROS2 Environment Config
-COPY ROS2_config /root/ROS2_config
+COPY .docker/ROS2_config /root/ROS2_config
 RUN touch /root/.bashrc && \
     echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
     echo "source /root/ROS2_config/ROS2_environment.bash" >> /root/.bashrc && \

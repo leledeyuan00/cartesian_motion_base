@@ -4,7 +4,9 @@ services:
   cartesian_motion_sim:
     container_name: cartesian_motion_sim
     image: cartesian_motion_sim:latest
-    build: ./
+    build: 
+      context: ../
+      dockerfile: .docker/Dockerfile
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
 
