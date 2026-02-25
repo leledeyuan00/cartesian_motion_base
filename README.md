@@ -7,17 +7,12 @@
 **Cartesian Motion Base** is a lightweight C++ library for robot Cartesian control in ROS 2. 
 It provides a flexible framework for motion planning, task sequencing, and real-time control.
 
-![Cartesian Motion Base Architecture](https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b){width=80%}
+![Cartesian Motion Base Architecture](https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b)
 
 
 ## :robot: Simulation
 
 Since CMB is designed for a general manipulator control architecture, we used a popular UR5 manipulator as an example. You can easily play and test it in the docker environment.
-
-<video controls autoplay loop muted playsinline style="width: 100% !important; max-width: 480px !important; height: auto; display: block;">
-         <source src="https://github.com/user-attachments/assets/f799f0ce-cd6d-4bd7-a956-051c45087995" type="video/mp4">
-         Your browser does not support the video tag.
-</video>
 
 ### :whale: Quick play with Docker
 
