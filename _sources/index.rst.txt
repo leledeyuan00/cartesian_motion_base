@@ -9,7 +9,7 @@ It provides a flexible framework for motion planning, task sequencing, and real-
 
 .. raw:: html
    
-   <img src="https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b" alt="Cartesian Motion Base Logo" style="display: block; margin-left: auto; margin-right: auto; width: 100%;"/>
+   <img src="https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b" alt="Cartesian Motion Base Architecture" style="display: block; margin-left: auto; margin-right: auto; width: 100%;"/>
    
 
 .. note::
