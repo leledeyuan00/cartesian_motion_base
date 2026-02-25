@@ -1,18 +1,33 @@
 # Cartesian Motion Base Library (CMB)
 
 [![ROS 2 CI (Build and Test)](https://github.com/leledeyuan00/cartesian_motion_base/actions/workflows/ros2_ci.yml/badge.svg)](https://github.com/leledeyuan00/cartesian_motion_base/actions/workflows/ros2_ci.yml)
-## Simulation
 
-### Single Arm Simulation
+## :bulb: What's this library?
+
+**Cartesian Motion Base** is a lightweight C++ library for robot Cartesian control in ROS 2. 
+It provides a flexible framework for motion planning, task sequencing, and real-time control.
+
+![Cartesian Motion Base Architecture](https://github.com/user-attachments/assets/b3149861-9ca2-418f-80c7-6e1c20ea0f6b)
+
+
+## :robot: Simulation
+
+Since CMB is designed for a general manipulator control architecture, we used a popular UR5 manipulator as an example. You can easily play and test it in the docker environment.
+
+### :whale: Quick play with Docker
+
 ```bash
-cd cartesian_motion_sim
+cd .docker
 ./set_display.bash
 docker compose up -d
 docker container exec -it cartesian_motion_sim /bin/bash
-ros2 launch cartesian_motion_sim cartesian_motion_sim.launch.py config_type:=dual_arm
+ros2 launch cartesian_motion_sim cartesian_motion_sim.launch.py
 ```
 
+Then open a new terminal
+
 ```bash
+docker container exec -it cartesian_motion_sim /bin/bash
 ros2 launch cartesian_motion_test cartesian_motion_test.launch.py
 ```
 
@@ -25,16 +40,8 @@ ros2 launch cartesian_motion_sim cartesian_motion_sim.launch.py config_type:=dua
 ros2 launch cartesian_motion_test cartesian_motion_dual_arm_test.launch.launch.py 
 ```
 
-## Citation
-If you use this library in your research, please cite the following Zenodo release:
+## :bookmark_tabs: Documentation
+Please visit our official [Cartesian Motion Base Doc](https://leledeyuan00.github.io/cartesian_motion_base/) for tutorials and examples.
 
-```
-@software{dayuan_2026_18616705,
-  author       = {Dayuan},
-  title        = {leledeyuan00/cartesian\_motion\_base},
-  month        = feb,
-  year         = 2026,
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.18616705},
-  url          = {https://doi.org/10.5281/zenodo.18616705},
-}
+## :octocat: Contributing
+We welcome contributions from the community! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to report bugs, request enhancements, and contribute code.
