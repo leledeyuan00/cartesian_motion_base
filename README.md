@@ -45,3 +45,7 @@ Please visit our official [Cartesian Motion Base Doc](https://leledeyuan00.githu
 
 ## :octocat: Contributing
 We welcome contributions from the community! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to report bugs, request enhancements, and contribute code.
+
+------------------
+**Copyright (c) 2026 Dayuan Chen / [Smart Robots Design Lab, Tohoku University](https://srd.mech.tohoku.ac.jp/en/).**
+![Lab Logo](https://srd.mech.tohoku.ac.jp/wordpress/wp-content/uploads/2023/12/Lab_logo_new-1.png)

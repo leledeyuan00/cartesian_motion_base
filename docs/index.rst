@@ -3,7 +3,7 @@
 Cartesian Motion Base
 =================================================
 
-**Cartesian Motion Base** is a lightweight C++ library for robot Cartesian control in ROS 2. 
+**Cartesian Motion Base (CMB)** is a lightweight C++ library for robot Cartesian control in ROS 2. 
 It provides a flexible framework for motion planning, task sequencing, and real-time control.
 
 
@@ -32,3 +32,8 @@ Table Of Contents
    tutorials/tutorials
    examples/examples
    api/library_root
+
+| **Developed by Dayuan Chen @ Smart Robots Design Lab, Tohoku University**  
+| To learn more about our ongoing research in robotic manipulation, human-robot interaction, and AI, visit our `Lab Website <https://srd.mech.tohoku.ac.jp/en/>`_.
+
+Next let's start with the :doc:`Totirials <tutorials/tutorials>` to get hands-on experience with Cartesian Motion Base!
